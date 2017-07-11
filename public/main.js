@@ -3,8 +3,11 @@ const $submitButton = document.getElementById('url-submit-btn')
 
 $submitButton.addEventListener('click', () => {
   const urlSubmission = {}
-  urlSubmission.url = $urlInput.value
-  sendPostRequest(urlSubmission)
+  if (validateUrl($urlInput.value)) {
+    urlSubmission.url = $urlInput.value
+    urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
+    sendPostRequest(urlSubmission)
+  }
 })
 
 function sendPostRequest(urlSubmission) {
@@ -17,4 +20,13 @@ function sendPostRequest(urlSubmission) {
     body: JSON.stringify(urlSubmission)
   })
     .then(response => console.log(response))
+}
+
+function validateUrl(url) {
+  return url.includes('https://www.youtube.com/')
+}
+
+function getYoutubeId(url) {
+  const youtubeId = url.slice(24, url.length)
+  return youtubeId
 }
