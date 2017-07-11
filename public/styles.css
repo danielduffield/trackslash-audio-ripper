@@ -9,5 +9,13 @@
 h1 {
   font-size: 3em;
   font-weight: 700;
-  margin: 100px;
+  margin: 100px 0 150px;
+}
+
+.subtitle {
+  font-size: 1.5em;
+}
+
+.url-form {
+  margin: 10px 0;
 }
