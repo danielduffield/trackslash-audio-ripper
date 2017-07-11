@@ -8,20 +8,19 @@ app.use(jsonParser)
 app.use(express.static('public'))
 
 app.post('/url-request', (req, res) => {
-  console.log(req.body.youtubeId)
-  if (isValidYoutubeVideo(req.body.youtubeId)) {
-    res.sendStatus(201)
-  }
-  else {
-    res.sendStatus(404)
-  }
+  checkYoutubeId(req.body.youtubeId, response => {
+    if (response.statusCode === 200) res.sendStatus(201)
+    else res.sendStatus(404)
+  })
 })
 
 app.listen(3000, () => console.log('Listening on 3000...'))
 
-function isValidYoutubeVideo(youtubeId) {
+function checkYoutubeId(youtubeId, callback) {
   request.get('https://www.youtube.com/' + youtubeId, (err, response, body) => {
     if (err) return console.log(err)
-    return response.statusCode === 200
   })
+    .on('response', (response) => {
+      callback(response)
+    })
 }
