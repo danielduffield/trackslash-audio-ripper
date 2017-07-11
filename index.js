@@ -10,8 +10,8 @@ app.use(express.static('public'))
 app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
     .then(response => {
-      if (response.statusCode === 200) res.sendStatus(201)
-      else res.sendStatus(404)
+      if (response.statusCode === 200) res.sendStatus(202)
+      else res.sendStatus(400)
     })
 })
 
