@@ -13,6 +13,10 @@ app.post('/url-request', (req, res) => {
       if (response.statusCode === 200) res.sendStatus(202)
       else res.sendStatus(400)
     })
+    .catch(error => {
+      console.log(new Error(error))
+      res.sendStatus(500)
+    })
 })
 
 app.listen(3000, () => console.log('Listening on 3000...'))
