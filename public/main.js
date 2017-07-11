@@ -19,7 +19,7 @@ function sendPostRequest(urlSubmission) {
     },
     body: JSON.stringify(urlSubmission)
   })
-    .then(response => console.log(response))
+  .then(response => console.log(response))
 }
 
 function validateUrl(url) {
