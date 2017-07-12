@@ -19,8 +19,13 @@ function sendPostRequest(urlSubmission) {
     },
     body: JSON.stringify(urlSubmission)
   })
+  .then(response => response.json())
   .then(response => {
     console.log(response)
+    if (response.status === 202) {
+      response.json().then(body => console.log(body))
+      console.log(response)
+    }
     if (response.status === 400) {
       console.log('bad request')
       const $invalid = invalidUrlMessage()

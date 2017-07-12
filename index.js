@@ -3,6 +3,7 @@ const jsonParser = bodyParser.json()
 const request = require('request')
 const express = require('express')
 const app = express()
+const getMetadata = require('./getMetadata.js')
 
 app.use(jsonParser)
 app.use(express.static('public'))
@@ -10,8 +11,17 @@ app.use(express.static('public'))
 app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
     .then(response => {
-      if (response.statusCode === 200) res.sendStatus(202)
-      else res.sendStatus(400)
+      if (response.statusCode === 200) {
+        getMetadata('https://www.youtube.com/' + req.body.youtubeId)
+          .then(data => {
+            console.log(typeof data.description)
+            return res.status(202).json(data.description)
+          })
+          .catch(err => console.log(err))
+      }
+      else {
+        res.status(400).json({error: 'Bad Request'})
+      }
     })
     .catch(error => {
       console.log(new Error(error))
