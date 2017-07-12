@@ -4,6 +4,7 @@ const request = require('request')
 const express = require('express')
 const app = express()
 const getMetadata = require('./getMetadata.js')
+const processMetadata = require('./processMetadata')
 
 app.use(jsonParser)
 app.use(express.static('public'))
@@ -14,8 +15,8 @@ app.post('/url-request', (req, res) => {
       if (response.statusCode === 200) {
         getMetadata('https://www.youtube.com/' + req.body.youtubeId)
           .then(data => {
-            console.log(typeof data.description)
-            return res.status(202).json(data.description)
+            const keyData = processMetadata(data)
+            return res.status(202).json(keyData)
           })
           .catch(err => console.log(err))
       }

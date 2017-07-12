@@ -9,6 +9,7 @@ function processMetadata(data) {
   keyData.timeCodes = extractTimeCodes(timeCodeLines)
   keyData.videoLength = secondsToHours(data.length_seconds)
   keyData.description = data.description
+  return keyData
 }
 
 function extractTimeCodes(parsedDescription) {
