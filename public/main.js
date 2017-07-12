@@ -33,6 +33,14 @@ function getYoutubeId(url) {
   return youtubeId
 }
 
+function invalidUrlMessage() {
+  const $invalidUrl = createElement('div', {class: 'alert alert-danger', role: 'alert'}, 'Enter a valid Youtube URL', [
+    createElement('span', {class: 'glyphicon glyphicon-exclamation-sign', 'aria-hidden': 'true'}, '', []),
+    createElement('span', {class: 'sr-only'}, 'Error:', [])
+  ])
+  return $invalidUrl
+}
+
 function createElement(tagName, attributes, content, $children) {
   const $element = document.createElement(tagName)
   $element.textContent = content
