@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 const $urlInput = document.getElementById('url-submit-form')
 const $submitButton = document.getElementById('url-submit-btn')
 
@@ -21,7 +19,16 @@ function sendPostRequest(urlSubmission) {
     },
     body: JSON.stringify(urlSubmission)
   })
-  .then(response => console.log(response))
+  .then(response => {
+    console.log(response)
+    if (response.status === 400) {
+      console.log('bad request')
+      const $invalid = invalidUrlMessage()
+      const $urlFormGroup = document.getElementById('url-form-col')
+      $urlFormGroup.appendChild($invalid)
+    }
+  })
+  .catch(err => console.log(err))
 }
 
 function validateUrl(url) {
