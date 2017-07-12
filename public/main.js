@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 const $urlInput = document.getElementById('url-submit-form')
 const $submitButton = document.getElementById('url-submit-btn')
 
@@ -29,4 +31,16 @@ function validateUrl(url) {
 function getYoutubeId(url) {
   const youtubeId = url.slice(24, url.length)
   return youtubeId
+}
+
+function createElement(tagName, attributes, content, $children) {
+  const $element = document.createElement(tagName)
+  $element.textContent = content
+  for (const key in attributes) {
+    $element.setAttribute(key, attributes[key])
+  }
+  $children.forEach($child => {
+    $element.appendChild($child)
+  })
+  return $element
 }
