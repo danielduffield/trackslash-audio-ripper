@@ -128,3 +128,17 @@ function createFormTable() {
   ])
   return $formTable
 }
+
+function renderTracklistForm() {
+  let currentTrack = 1
+  document.body.appendChild(createFormTable())
+  const $tracklistForm = document.getElementById('tracklist-form')
+  const $trackFormContainer = document.getElementById('track-form-container')
+  $trackFormContainer.appendChild(createTrackForm(currentTrack))
+  $tracklistForm.addEventListener('submit', event => {
+    event.preventDefault()
+    const trackData = new FormData($tracklistForm)
+    const tracklist = submitTracks(trackData, currentTrack)
+    console.log(tracklist)
+  })
+}
