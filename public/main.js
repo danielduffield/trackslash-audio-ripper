@@ -55,7 +55,7 @@ function createElement(tagName, attributes, content, $children) {
 
 function createTrackForm(currentTrack) {
   const trackFormFields = ['num', 'name', 'start', 'end']
-  const $trackForm = createElement('tr', {}, '', [])
+  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
   for (let i = 0; i < trackFormFields.length; i++) {
     const $tableCell = createElement('td', {}, '', [])
     const $trackFormField = createElement('input', {
@@ -111,7 +111,11 @@ function renderTracklistForm() {
   let currentTrack = 1
   const $tracklistForm = document.getElementById('tracklist-form')
   const $trackFormContainer = document.getElementById('track-form-container')
-  $trackFormContainer.appendChild(createTrackForm(currentTrack))
+  const $oldTrackForm = document.querySelector('.track-form-1')
+  console.log($oldTrackForm)
+  if (!$oldTrackForm) {
+    $trackFormContainer.appendChild(createTrackForm(currentTrack))
+  }
   $tracklistForm.addEventListener('submit', event => {
     event.preventDefault()
     const trackData = new FormData($tracklistForm)
@@ -132,12 +136,10 @@ class HashRouter {
     this.isListening = false
   }
   match(hash) {
-    console.log(hash)
     if (hash === '') {
       hash = '#url-form'
     }
     const hashComponents = hash.split('?')
-    console.log(hashComponents[0])
     const viewId = hashComponents[0].replace('#', '')
     this.$views.forEach($view => {
       if ($view.id === viewId) {
