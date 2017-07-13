@@ -1,5 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const createElement = require('./utils/createElement.js')
+const createFormTable = require('./utils/createFormTable.js')
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -88,30 +89,6 @@ function submitTracks(form, numOfTracks) {
   return tracklist
 }
 
-function createFormTable() {
-  const $formTable =
-  createElement('row', {}, '', [
-    createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
-      createElement('h3', {id: 'youtube-video-title'}, '', []),
-      createElement('form', {id: 'tracklist-form'}, '', [
-        createElement('table', {class: 'table table-bordered'}, '', [
-          createElement('thead', {}, '', [
-            createElement('tr', {}, '', [
-              createElement('th', {}, 'Num', []),
-              createElement('th', {}, 'Name', []),
-              createElement('th', {}, 'Start', []),
-              createElement('th', {}, 'End', [])
-            ])
-          ]),
-          createElement('tbody', {id: 'track-form-container'}, '', [])
-        ]),
-        createElement('input', {id: 'track-form-submit-button', type: 'submit', value: 'Start Slicing'}, '', [])
-      ])
-    ])
-  ])
-  return $formTable
-}
-
 function addTrackForm() {
   const $trackFormContainer = document.getElementById('track-form-container')
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
@@ -159,7 +136,7 @@ $tracklistForm.addEventListener('submit', event => {
   sendTracklistPostRequest(tracklistPost)
 })
 
-},{"./utils/createElement.js":2,"./utils/hashRouter.js":3}],2:[function(require,module,exports){
+},{"./utils/createElement.js":2,"./utils/createFormTable.js":3,"./utils/hashRouter.js":4}],2:[function(require,module,exports){
 function createElement(tagName, attributes, content, $children) {
   const $element = document.createElement(tagName)
   $element.textContent = content
@@ -175,6 +152,35 @@ function createElement(tagName, attributes, content, $children) {
 module.exports = createElement
 
 },{}],3:[function(require,module,exports){
+const createElement = require('./createElement')
+
+function createFormTable() {
+  const $formTable =
+  createElement('row', {}, '', [
+    createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
+      createElement('h3', {id: 'youtube-video-title'}, '', []),
+      createElement('form', {id: 'tracklist-form'}, '', [
+        createElement('table', {class: 'table table-bordered'}, '', [
+          createElement('thead', {}, '', [
+            createElement('tr', {}, '', [
+              createElement('th', {}, 'Num', []),
+              createElement('th', {}, 'Name', []),
+              createElement('th', {}, 'Start', []),
+              createElement('th', {}, 'End', [])
+            ])
+          ]),
+          createElement('tbody', {id: 'track-form-container'}, '', [])
+        ]),
+        createElement('input', {id: 'track-form-submit-button', type: 'submit', value: 'Start Slicing'}, '', [])
+      ])
+    ])
+  ])
+  return $formTable
+}
+
+module.exports = createFormTable
+
+},{"./createElement":2}],4:[function(require,module,exports){
 class HashRouter {
   constructor($views) {
     this.$views = $views
