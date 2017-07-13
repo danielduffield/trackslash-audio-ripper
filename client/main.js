@@ -1,6 +1,7 @@
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
 const createTrackForm = require('./utils/createTrackForm.js')
+const submitTracklist = require('./utils/submitTracklist.js')
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -59,21 +60,6 @@ function invalidUrlMessage() {
   return $invalidUrl
 }
 
-function submitTracks(form, numOfTracks) {
-  const tracklist = []
-  for (let i = 0; i < numOfTracks; i++) {
-    const trackNumber = i + 1
-    const track = {
-      trackNum: form.get('track-num-' + trackNumber),
-      trackName: form.get('track-name-' + trackNumber),
-      trackStart: form.get('track-start-' + trackNumber),
-      trackEnd: form.get('track-end-' + trackNumber)
-    }
-    tracklist.push(track)
-  }
-  return tracklist
-}
-
 function addTrackForm() {
   const $trackFormContainer = document.getElementById('track-form-container')
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
@@ -113,7 +99,7 @@ const $tracklistForm = document.getElementById('tracklist-form')
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
   const trackData = new FormData($tracklistForm)
-  const tracklist = submitTracks(trackData, currentTrack)
+  const tracklist = submitTracklist(trackData, currentTrack)
   console.log(tracklist)
   const tracklistPost = {}
   tracklistPost.tracklist = tracklist
