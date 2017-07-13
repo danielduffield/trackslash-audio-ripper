@@ -63,6 +63,7 @@ function createElement(tagName, attributes, content, $children) {
   return $element
 }
 
+/*
 function createTimeDropdown(timeLength) {
   const $select = createElement('select', {class: 'custom-select time-dropdown'}, '', [])
   for (let i = 0; i < timeLength + 1; i++) {
@@ -71,4 +72,18 @@ function createTimeDropdown(timeLength) {
     $select.appendChild($option)
   }
   return $select
+} */
+
+function createTrackForm(currentTrack) {
+  const trackFormFields = ['num', 'name', 'start', 'end']
+  const $trackForm = createElement('tr', {}, '', [])
+  for (let i = 0; i < trackFormFields.length; i++) {
+    const $tableCell = createElement('td', {}, '', [])
+    const $trackFormField = createElement('input', {}, '', [
+      createElement('input', {id: 'track-' + trackFormFields[i] + '-1', name: 'track-' + trackFormFields[i] + '-1'}, '', [])
+    ])
+    $tableCell.appendChild($trackFormField)
+    $trackForm.appendChild($tableCell)
+  }
+  return $trackForm
 }
