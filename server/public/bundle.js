@@ -1,8 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-const addTrackForm = require('./utils/addTrackForm')
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
 const submitTracklist = require('./utils/submitTracklist.js')
+const transitionToTracklistForm = require('./utils/transitionToTracklistForm.js')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -62,15 +62,6 @@ function invalidUrlMessage() {
   return $invalidUrl
 }
 
-function transitionToTracklistForm(keyData) {
-  const $youtubeVideoTitle = document.getElementById('youtube-video-title')
-  $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
-  const $oldTrackForm = document.querySelector('.track-form-1')
-  if (!$oldTrackForm) {
-    addTrackForm(1)
-  }
-}
-
 const currentTrack = 1
 var albumMetadata = {}
 
@@ -104,7 +95,7 @@ $tracklistForm.addEventListener('submit', event => {
   sendTracklistPostRequest(tracklistPost)
 })
 
-},{"./utils/addTrackForm":2,"./utils/createElement.js":3,"./utils/createFormTable.js":4,"./utils/hashRouter.js":6,"./utils/submitTracklist.js":7}],2:[function(require,module,exports){
+},{"./utils/createElement.js":3,"./utils/createFormTable.js":4,"./utils/hashRouter.js":6,"./utils/submitTracklist.js":7,"./utils/transitionToTracklistForm.js":8}],2:[function(require,module,exports){
 const createTrackForm = require('./createTrackForm.js')
 
 function addTrackForm(currentTrack) {
@@ -228,4 +219,18 @@ function submitTracklist(form, numOfTracks) {
 
 module.exports = submitTracklist
 
-},{}]},{},[1]);
+},{}],8:[function(require,module,exports){
+const addTrackForm = require('./addTrackForm.js')
+
+function transitionToTracklistForm(keyData) {
+  const $youtubeVideoTitle = document.getElementById('youtube-video-title')
+  $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
+  const $oldTrackForm = document.querySelector('.track-form-1')
+  if (!$oldTrackForm) {
+    addTrackForm(1)
+  }
+}
+
+module.exports = transitionToTracklistForm
+
+},{"./addTrackForm.js":2}]},{},[1]);
