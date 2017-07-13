@@ -3,12 +3,13 @@ const path = require('path')
 
 function sliceTrack(track, keyData) {
   const duration = calculateDuration(track)
+  const fileName = parseTrackName(track)
   console.log('Duration: ', duration)
   console.log('Track start: ', track.trackStart)
   ffmpeg(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + keyData.videoId + '-album.mp3'))
     .setStartTime(track.trackStart)
     .setDuration(duration)
-    .output(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + track.trackName + '.mp3'))
+    .output(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + fileName + '.mp3'))
     .on('end', function (err, data) {
       if (!err) {
         console.log('conversion Done')
@@ -39,6 +40,11 @@ function parseTime(time) {
   parsedTime.minutes = parseInt(time[3] + time[4], 10)
   parsedTime.seconds = parseInt(time[6] + time[7], 10)
   return parsedTime
+}
+
+function parseTrackName(track) {
+  const parsedName = track.trackName.split(' ').join('-')
+  return parsedName
 }
 
 module.exports = sliceTrack
