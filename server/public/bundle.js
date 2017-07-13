@@ -1,4 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+const createElement = require('./utils/createElement.js')
+
 function sendUrlPostRequest(urlSubmission) {
   fetch('/url-request', {
     method: 'POST',
@@ -53,18 +55,6 @@ function invalidUrlMessage() {
     createElement('span', {class: 'sr-only'}, 'Error:', [])
   ])
   return $invalidUrl
-}
-
-function createElement(tagName, attributes, content, $children) {
-  const $element = document.createElement(tagName)
-  $element.textContent = content
-  for (const key in attributes) {
-    $element.setAttribute(key, attributes[key])
-  }
-  $children.forEach($child => {
-    $element.appendChild($child)
-  })
-  return $element
 }
 
 function createTrackForm(currentTrack) {
@@ -196,5 +186,20 @@ $tracklistForm.addEventListener('submit', event => {
   tracklistPost.metaData = albumMetadata
   sendTracklistPostRequest(tracklistPost)
 })
+
+},{"./utils/createElement.js":2}],2:[function(require,module,exports){
+function createElement(tagName, attributes, content, $children) {
+  const $element = document.createElement(tagName)
+  $element.textContent = content
+  for (const key in attributes) {
+    $element.setAttribute(key, attributes[key])
+  }
+  $children.forEach($child => {
+    $element.appendChild($child)
+  })
+  return $element
+}
+
+module.exports = createElement
 
 },{}]},{},[1]);

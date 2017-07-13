@@ -1,3 +1,5 @@
+const createElement = require('./utils/createElement.js')
+
 function sendUrlPostRequest(urlSubmission) {
   fetch('/url-request', {
     method: 'POST',
@@ -52,18 +54,6 @@ function invalidUrlMessage() {
     createElement('span', {class: 'sr-only'}, 'Error:', [])
   ])
   return $invalidUrl
-}
-
-function createElement(tagName, attributes, content, $children) {
-  const $element = document.createElement(tagName)
-  $element.textContent = content
-  for (const key in attributes) {
-    $element.setAttribute(key, attributes[key])
-  }
-  $children.forEach($child => {
-    $element.appendChild($child)
-  })
-  return $element
 }
 
 function createTrackForm(currentTrack) {
