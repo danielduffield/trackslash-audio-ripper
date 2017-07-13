@@ -1,5 +1,5 @@
-const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
+const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
 const submitTracklist = require('./utils/submitTracklist.js')
 const transitionToTracklistForm = require('./utils/transitionToTracklistForm.js')
 
@@ -51,14 +51,6 @@ function validateUrl(url) {
 function getYoutubeId(url) {
   const youtubeId = url.slice(24, url.length)
   return youtubeId
-}
-
-function invalidUrlMessage() {
-  const $invalidUrl = createElement('div', {class: 'alert alert-danger', role: 'alert'}, 'Enter a valid Youtube URL', [
-    createElement('span', {class: 'glyphicon glyphicon-exclamation-sign', 'aria-hidden': 'true'}, '', []),
-    createElement('span', {class: 'sr-only'}, 'Error:', [])
-  ])
-  return $invalidUrl
 }
 
 const currentTrack = 1
