@@ -6,6 +6,7 @@ const app = express()
 const getMetadata = require('./getMetadata.js')
 const processMetadata = require('./processMetadata.js')
 const downloadAlbum = require('./downloadAlbum.js')
+const sliceTrack = require('./sliceTrack.js')
 
 app.use(jsonParser)
 app.use(express.static('public'))
@@ -36,6 +37,9 @@ app.post('/url-request', (req, res) => {
 
 app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
+  const tracklist = req.body.tracklist
+  const metaData = req.body.metaData
+  sliceTrack(tracklist[0], metaData)
   res.sendStatus(201)
 })
 

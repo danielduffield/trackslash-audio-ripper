@@ -20,18 +20,19 @@ function sendUrlPostRequest(urlSubmission) {
     window.location.hash = '#create-tracklist' + '?id=' + keyData.videoId
     transitionToTracklistForm(keyData)
     console.log(keyData)
+    albumMetadata = keyData
   })
   .catch(err => console.log(err))
 }
 
-function sendTracklistPostRequest(tracklist) {
+function sendTracklistPostRequest(tracklistWithData) {
   fetch('/tracklist-request', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify(tracklist)
+    body: JSON.stringify(tracklistWithData)
   })
   .then(response => console.log(response))
 }
@@ -163,6 +164,7 @@ class HashRouter {
 }
 
 const currentTrack = 1
+var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
 const $urlInput = document.getElementById('url-submit-form')
@@ -188,5 +190,8 @@ $tracklistForm.addEventListener('submit', event => {
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracks(trackData, currentTrack)
   console.log(tracklist)
-  sendTracklistPostRequest(tracklist)
+  const tracklistPost = {}
+  tracklistPost.tracklist = tracklist
+  tracklistPost.metaData = albumMetadata
+  sendTracklistPostRequest(tracklistPost)
 })
