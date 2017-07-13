@@ -8,7 +8,7 @@
     "lint:js": "eslint ./**/*.js",
     "test": "npm run lint",
     "precommit": "npm test",
-    "watch": "nodemon index.js"
+    "watch": "nodemon server/index.js"
   },
   "devDependencies": {
     "eslint": "3.19.0",
