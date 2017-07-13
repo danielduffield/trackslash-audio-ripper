@@ -34,6 +34,11 @@ app.post('/url-request', (req, res) => {
     })
 })
 
+app.post('/tracklist-request', (req, res) => {
+  console.log(req.body)
+  res.sendStatus(201)
+})
+
 app.listen(3000, () => console.log('Listening on 3000...'))
 
 function checkYoutubeId(youtubeId) {

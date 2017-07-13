@@ -1,4 +1,4 @@
-function sendPostRequest(urlSubmission) {
+function sendUrlPostRequest(urlSubmission) {
   fetch('/url-request', {
     method: 'POST',
     headers: {
@@ -22,6 +22,18 @@ function sendPostRequest(urlSubmission) {
     console.log(keyData)
   })
   .catch(err => console.log(err))
+}
+
+function sendTracklistPostRequest(tracklist) {
+  fetch('/tracklist-request', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify(tracklist)
+  })
+  .then(response => console.log(response))
 }
 
 function validateUrl(url) {
@@ -166,7 +178,7 @@ $submitButton.addEventListener('click', () => {
   if (validateUrl($urlInput.value)) {
     urlSubmission.url = $urlInput.value
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
-    sendPostRequest(urlSubmission)
+    sendUrlPostRequest(urlSubmission)
   }
 })
 
@@ -176,4 +188,5 @@ $tracklistForm.addEventListener('submit', event => {
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracks(trackData, currentTrack)
   console.log(tracklist)
+  sendTracklistPostRequest(tracklist)
 })
