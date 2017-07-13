@@ -1,5 +1,6 @@
 const createFormTable = require('./utils/createFormTable.js')
 const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
+const sendTracklistPostRequest = require('./sendTracklistPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
 const transitionToTracklistForm = require('./utils/transitionToTracklistForm.js')
 
@@ -30,18 +31,6 @@ function sendUrlPostRequest(urlSubmission) {
     albumMetadata = keyData
   })
   .catch(err => console.log(err))
-}
-
-function sendTracklistPostRequest(tracklistWithData) {
-  fetch('/tracklist-request', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(tracklistWithData)
-  })
-  .then(response => console.log(response))
 }
 
 function validateUrl(url) {
