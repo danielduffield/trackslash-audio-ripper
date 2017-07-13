@@ -1,5 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const createElement = require('./utils/createElement.js')
+const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
   fetch('/url-request', {
@@ -125,35 +126,6 @@ function transitionToTracklistForm(keyData) {
   }
 }
 
-class HashRouter {
-  constructor($views) {
-    this.$views = $views
-    this.isListening = false
-  }
-  match(hash) {
-    if (hash === '') {
-      hash = '#url-form'
-    }
-    const hashComponents = hash.split('?')
-    const viewId = hashComponents[0].replace('#', '')
-    this.$views.forEach($view => {
-      if ($view.id === viewId) {
-        $view.classList.remove('hidden')
-      }
-      else {
-        $view.classList.add('hidden')
-      }
-    })
-  }
-  listen() {
-    if (this.isListening) return
-    window.addEventListener('hashchange', () => {
-      this.match(window.location.hash)
-    })
-    this.isListening = true
-  }
-}
-
 const currentTrack = 1
 var albumMetadata = {}
 
@@ -187,7 +159,7 @@ $tracklistForm.addEventListener('submit', event => {
   sendTracklistPostRequest(tracklistPost)
 })
 
-},{"./utils/createElement.js":2}],2:[function(require,module,exports){
+},{"./utils/createElement.js":2,"./utils/hashRouter.js":3}],2:[function(require,module,exports){
 function createElement(tagName, attributes, content, $children) {
   const $element = document.createElement(tagName)
   $element.textContent = content
@@ -201,5 +173,37 @@ function createElement(tagName, attributes, content, $children) {
 }
 
 module.exports = createElement
+
+},{}],3:[function(require,module,exports){
+class HashRouter {
+  constructor($views) {
+    this.$views = $views
+    this.isListening = false
+  }
+  match(hash) {
+    if (hash === '') {
+      hash = '#url-form'
+    }
+    const hashComponents = hash.split('?')
+    const viewId = hashComponents[0].replace('#', '')
+    this.$views.forEach($view => {
+      if ($view.id === viewId) {
+        $view.classList.remove('hidden')
+      }
+      else {
+        $view.classList.add('hidden')
+      }
+    })
+  }
+  listen() {
+    if (this.isListening) return
+    window.addEventListener('hashchange', () => {
+      this.match(window.location.hash)
+    })
+    this.isListening = true
+  }
+}
+
+module.exports = HashRouter
 
 },{}]},{},[1]);
