@@ -98,7 +98,7 @@ function createFormTable() {
   const $formTable =
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2'}, '', [
-      createElement('form', {id: 'tracklist-form'}, '', [
+      createElement('form', {id: 'tracklist-form', class: 'view'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
           createElement('thead', {}, '', [
             createElement('tr', {}, '', [
@@ -136,7 +136,7 @@ function transitionToTracklistForm(keyData) {
     id: 'youtube-video-title'
   }, keyData.videoTitle + ' [' + keyData.videoLengthString + ']', [])
   document.body.appendChild($youtubeVideoTitle)
-  const $urlFormContainer = document.getElementById('url-form-container')
+  const $urlFormContainer = document.getElementById('url-form')
   $urlFormContainer.classList.add('hidden')
   renderTracklistForm()
 }
