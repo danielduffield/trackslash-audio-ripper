@@ -30,7 +30,10 @@ function sendPostRequest(urlSubmission) {
     }
     if (response.status === 202) return response.json()
   })
-  .then(response => console.log(response))
+  .then(keyData => {
+    transitionToTracklistForm(keyData)
+    console.log(keyData)
+  })
   .catch(err => console.log(err))
 }
 
@@ -79,12 +82,10 @@ function createTrackForm(currentTrack) {
   const $trackForm = createElement('tr', {}, '', [])
   for (let i = 0; i < trackFormFields.length; i++) {
     const $tableCell = createElement('td', {}, '', [])
-    const $trackFormField = createElement('input', {}, '', [
-      createElement('input', {
-        id: 'track-' + trackFormFields[i] + '-' + currentTrack,
-        name: 'track-' + trackFormFields[i] + '-' + currentTrack
-      }, '', [])
-    ])
+    const $trackFormField = createElement('input', {
+      id: 'track-' + trackFormFields[i] + '-' + currentTrack,
+      name: 'track-' + trackFormFields[i] + '-' + currentTrack
+    }, '', [])
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
   }
@@ -141,4 +142,10 @@ function renderTracklistForm() {
     const tracklist = submitTracks(trackData, currentTrack)
     console.log(tracklist)
   })
+}
+
+function transitionToTracklistForm(keyData) {
+  const $urlFormContainer = document.getElementById('url-form-container')
+  $urlFormContainer.classList.add('hidden')
+  renderTracklistForm()
 }
