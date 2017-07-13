@@ -1,5 +1,6 @@
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
+const createTrackForm = require('./utils/createTrackForm.js')
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -56,21 +57,6 @@ function invalidUrlMessage() {
     createElement('span', {class: 'sr-only'}, 'Error:', [])
   ])
   return $invalidUrl
-}
-
-function createTrackForm(currentTrack) {
-  const trackFormFields = ['num', 'name', 'start', 'end']
-  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
-  for (let i = 0; i < trackFormFields.length; i++) {
-    const $tableCell = createElement('td', {}, '', [])
-    const $trackFormField = createElement('input', {
-      id: 'track-' + trackFormFields[i] + '-' + currentTrack,
-      name: 'track-' + trackFormFields[i] + '-' + currentTrack
-    }, '', [])
-    $tableCell.appendChild($trackFormField)
-    $trackForm.appendChild($tableCell)
-  }
-  return $trackForm
 }
 
 function submitTracks(form, numOfTracks) {

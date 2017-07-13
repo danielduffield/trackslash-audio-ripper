@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
+const createTrackForm = require('./utils/createTrackForm.js')
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -57,21 +58,6 @@ function invalidUrlMessage() {
     createElement('span', {class: 'sr-only'}, 'Error:', [])
   ])
   return $invalidUrl
-}
-
-function createTrackForm(currentTrack) {
-  const trackFormFields = ['num', 'name', 'start', 'end']
-  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
-  for (let i = 0; i < trackFormFields.length; i++) {
-    const $tableCell = createElement('td', {}, '', [])
-    const $trackFormField = createElement('input', {
-      id: 'track-' + trackFormFields[i] + '-' + currentTrack,
-      name: 'track-' + trackFormFields[i] + '-' + currentTrack
-    }, '', [])
-    $tableCell.appendChild($trackFormField)
-    $trackForm.appendChild($tableCell)
-  }
-  return $trackForm
 }
 
 function submitTracks(form, numOfTracks) {
@@ -136,7 +122,7 @@ $tracklistForm.addEventListener('submit', event => {
   sendTracklistPostRequest(tracklistPost)
 })
 
-},{"./utils/createElement.js":2,"./utils/createFormTable.js":3,"./utils/hashRouter.js":4}],2:[function(require,module,exports){
+},{"./utils/createElement.js":2,"./utils/createFormTable.js":3,"./utils/createTrackForm.js":4,"./utils/hashRouter.js":5}],2:[function(require,module,exports){
 function createElement(tagName, attributes, content, $children) {
   const $element = document.createElement(tagName)
   $element.textContent = content
@@ -181,6 +167,26 @@ function createFormTable() {
 module.exports = createFormTable
 
 },{"./createElement":2}],4:[function(require,module,exports){
+const createElement = require('./createElement')
+
+function createTrackForm(currentTrack) {
+  const trackFormFields = ['num', 'name', 'start', 'end']
+  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
+  for (let i = 0; i < trackFormFields.length; i++) {
+    const $tableCell = createElement('td', {}, '', [])
+    const $trackFormField = createElement('input', {
+      id: 'track-' + trackFormFields[i] + '-' + currentTrack,
+      name: 'track-' + trackFormFields[i] + '-' + currentTrack
+    }, '', [])
+    $tableCell.appendChild($trackFormField)
+    $trackForm.appendChild($tableCell)
+  }
+  return $trackForm
+}
+
+module.exports = createTrackForm
+
+},{"./createElement":2}],5:[function(require,module,exports){
 class HashRouter {
   constructor($views) {
     this.$views = $views
