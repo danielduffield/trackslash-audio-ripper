@@ -2,9 +2,12 @@ const ffmpeg = require('fluent-ffmpeg')
 const path = require('path')
 
 function sliceTrack(track, keyData) {
+  const duration = calculateDuration(track)
+  console.log('Duration: ', duration)
+  console.log('Track start: ', track.trackStart)
   ffmpeg(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + keyData.videoId + '-album.mp3'))
-    .setStartTime(track.startTime)
-    .setDuration(calculateDuration(track))
+    .setStartTime(track.trackStart)
+    .setDuration(duration)
     .output(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + track.trackName + '.mp3'))
     .on('end', function (err, data) {
       if (!err) {
