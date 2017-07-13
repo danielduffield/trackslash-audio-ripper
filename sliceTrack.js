@@ -2,10 +2,10 @@ const ffmpeg = require('fluent-ffmpeg')
 const path = require('path')
 
 function sliceTrack(track, keyData) {
-  ffmpeg(path.join(__dirname, '/' + track.trackName + '.mp3'))
+  ffmpeg(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + keyData.videoId + '-album.mp3'))
     .setStartTime(track.startTime)
     .setDuration(calculateDuration(track))
-    .output(path.join(__dirname, track.trackName + '.mp3'))
+    .output(path.join(__dirname, '/downloaded/' + keyData.videoId + '/' + track.trackName + '.mp3'))
     .on('end', function (err, data) {
       if (!err) {
         console.log('conversion Done')
