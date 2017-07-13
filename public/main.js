@@ -100,7 +100,7 @@ function createFormTable() {
           ]),
           createElement('tbody', {id: 'track-form-container'}, '', [])
         ]),
-        createElement('input', {id: 'track-form-submit-button', type: 'submit', value: 'Submit Tracks'}, '', [])
+        createElement('input', {id: 'track-form-submit-button', type: 'submit', value: 'Start Slicing'}, '', [])
       ])
     ])
   ])
