@@ -1,15 +1,3 @@
-const $urlInput = document.getElementById('url-submit-form')
-const $submitButton = document.getElementById('url-submit-btn')
-
-$submitButton.addEventListener('click', () => {
-  const urlSubmission = {}
-  if (validateUrl($urlInput.value)) {
-    urlSubmission.url = $urlInput.value
-    urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
-    sendPostRequest(urlSubmission)
-  }
-})
-
 function sendPostRequest(urlSubmission) {
   fetch('/url-request', {
     method: 'POST',
@@ -29,6 +17,7 @@ function sendPostRequest(urlSubmission) {
     if (response.status === 202) return response.json()
   })
   .then(keyData => {
+    window.location.hash = '#create-tracklist' + '?id=' + keyData.videoId
     transitionToTracklistForm(keyData)
     console.log(keyData)
   })
@@ -97,8 +86,9 @@ function submitTracks(form, numOfTracks) {
 function createFormTable() {
   const $formTable =
   createElement('row', {}, '', [
-    createElement('div', {class: 'col-md-8 col-md-offset-2'}, '', [
-      createElement('form', {id: 'tracklist-form', class: 'view'}, '', [
+    createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
+      createElement('h3', {id: 'youtube-video-title'}, '', []),
+      createElement('form', {id: 'tracklist-form'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
           createElement('thead', {}, '', [
             createElement('tr', {}, '', [
@@ -119,7 +109,6 @@ function createFormTable() {
 
 function renderTracklistForm() {
   let currentTrack = 1
-  document.body.appendChild(createFormTable())
   const $tracklistForm = document.getElementById('tracklist-form')
   const $trackFormContainer = document.getElementById('track-form-container')
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
@@ -132,11 +121,55 @@ function renderTracklistForm() {
 }
 
 function transitionToTracklistForm(keyData) {
-  const $youtubeVideoTitle = createElement('h3', {
-    id: 'youtube-video-title'
-  }, keyData.videoTitle + ' [' + keyData.videoLengthString + ']', [])
-  document.body.appendChild($youtubeVideoTitle)
-  const $urlFormContainer = document.getElementById('url-form')
-  $urlFormContainer.classList.add('hidden')
+  const $youtubeVideoTitle = document.getElementById('youtube-video-title')
+  $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
   renderTracklistForm()
 }
+
+class HashRouter {
+  constructor($views) {
+    this.$views = $views
+    this.isListening = false
+  }
+  match(hash) {
+    console.log(hash)
+    if (hash === '') {
+      hash = '#url-form'
+    }
+    const hashComponents = hash.split('?')
+    console.log(hashComponents[0])
+    const viewId = hashComponents[0].replace('#', '')
+    this.$views.forEach($view => {
+      if ($view.id === viewId) {
+        $view.classList.remove('hidden')
+      }
+      else {
+        $view.classList.add('hidden')
+      }
+    })
+  }
+  listen() {
+    if (this.isListening) return
+    window.addEventListener('hashchange', () => {
+      this.match(window.location.hash)
+    })
+    this.isListening = true
+  }
+}
+
+document.body.appendChild(createFormTable())
+const $urlInput = document.getElementById('url-submit-form')
+const $submitButton = document.getElementById('url-submit-btn')
+
+const $views = document.querySelectorAll('.view')
+const router = new HashRouter($views)
+router.listen()
+
+$submitButton.addEventListener('click', () => {
+  const urlSubmission = {}
+  if (validateUrl($urlInput.value)) {
+    urlSubmission.url = $urlInput.value
+    urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
+    sendPostRequest(urlSubmission)
+  }
+})
