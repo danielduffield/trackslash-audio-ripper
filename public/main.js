@@ -107,27 +107,18 @@ function createFormTable() {
   return $formTable
 }
 
-function renderTracklistForm() {
-  let currentTrack = 1
-  const $tracklistForm = document.getElementById('tracklist-form')
+function addTrackForm() {
   const $trackFormContainer = document.getElementById('track-form-container')
-  const $oldTrackForm = document.querySelector('.track-form-1')
-  console.log($oldTrackForm)
-  if (!$oldTrackForm) {
-    $trackFormContainer.appendChild(createTrackForm(currentTrack))
-  }
-  $tracklistForm.addEventListener('submit', event => {
-    event.preventDefault()
-    const trackData = new FormData($tracklistForm)
-    const tracklist = submitTracks(trackData, currentTrack)
-    console.log(tracklist)
-  })
+  $trackFormContainer.appendChild(createTrackForm(currentTrack))
 }
 
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = document.getElementById('youtube-video-title')
   $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
-  renderTracklistForm()
+  const $oldTrackForm = document.querySelector('.track-form-1')
+  if (!$oldTrackForm) {
+    addTrackForm()
+  }
 }
 
 class HashRouter {
@@ -159,14 +150,17 @@ class HashRouter {
   }
 }
 
+const currentTrack = 1
+
 document.body.appendChild(createFormTable())
 const $urlInput = document.getElementById('url-submit-form')
-const $submitButton = document.getElementById('url-submit-btn')
 
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
 router.listen()
+router.match(window.location.hash)
 
+const $submitButton = document.getElementById('url-submit-btn')
 $submitButton.addEventListener('click', () => {
   const urlSubmission = {}
   if (validateUrl($urlInput.value)) {
@@ -174,4 +168,12 @@ $submitButton.addEventListener('click', () => {
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     sendPostRequest(urlSubmission)
   }
+})
+
+const $tracklistForm = document.getElementById('tracklist-form')
+$tracklistForm.addEventListener('submit', event => {
+  event.preventDefault()
+  const trackData = new FormData($tracklistForm)
+  const tracklist = submitTracks(trackData, currentTrack)
+  console.log(tracklist)
 })
