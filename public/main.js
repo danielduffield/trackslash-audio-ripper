@@ -80,10 +80,46 @@ function createTrackForm(currentTrack) {
   for (let i = 0; i < trackFormFields.length; i++) {
     const $tableCell = createElement('td', {}, '', [])
     const $trackFormField = createElement('input', {}, '', [
-      createElement('input', {id: 'track-' + trackFormFields[i] + '-1', name: 'track-' + trackFormFields[i] + '-1'}, '', [])
+      createElement('input', {
+        id: 'track-' + trackFormFields[i] + '-' + currentTrack,
+        name: 'track-' + trackFormFields[i] + '-' + currentTrack
+      }, '', [])
     ])
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
   }
   return $trackForm
+}
+
+function submitTracks(form, numOfTracks) {
+  const tracklist = []
+  for (let i = 0; i < numOfTracks; i++) {
+    const trackNumber = i + 1
+    const track = {
+      trackNum: form.get('track-num-' + trackNumber),
+      trackName: form.get('track-name-' + trackNumber),
+      trackStart: form.get('track-start-' + trackNumber),
+      trackEnd: form.get('track-end-' + trackNumber)
+    }
+    tracklist.push(track)
+  }
+  return tracklist
+}
+
+function createFormTable() {
+  const $formTable = createElement('form', {id: 'tracklist-form'}, '', [
+    createElement('table', {class: 'table table-bordered'}, '', [
+      createElement('thead', {}, '', [
+        createElement('tr', {}, '', [
+          createElement('th', {}, 'Num', []),
+          createElement('th', {}, 'Name', []),
+          createElement('th', {}, 'Start', []),
+          createElement('th', {}, 'End', [])
+        ])
+      ]),
+      createElement('tbody', {id: 'track-form-container'}, '', [])
+    ]),
+    createElement('input', {id: 'track-form-submit-button', type: 'submit', value: 'Submit Tracks'}, '', [])
+  ])
+  return $formTable
 }
