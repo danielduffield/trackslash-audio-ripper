@@ -4,7 +4,8 @@ const request = require('request')
 const express = require('express')
 const app = express()
 const getMetadata = require('./getMetadata.js')
-const processMetadata = require('./processMetadata')
+const processMetadata = require('./processMetadata.js')
+const downloadAlbum = require('./downloadAlbum.js')
 
 app.use(jsonParser)
 app.use(express.static('public'))
@@ -13,10 +14,13 @@ app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
     .then(response => {
       if (response.statusCode === 200) {
-        getMetadata('https://www.youtube.com/' + req.body.youtubeId)
+        const requestedUrl = 'https://www.youtube.com/' + req.body.youtubeId
+        getMetadata(requestedUrl)
           .then(data => {
             const keyData = processMetadata(data)
-            return res.status(202).json(keyData)
+            res.status(202).json(keyData)
+            downloadAlbum(requestedUrl, keyData)
+            return true
           })
           .catch(err => console.log(err))
       }
