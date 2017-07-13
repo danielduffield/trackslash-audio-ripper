@@ -9,7 +9,7 @@ const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTrack = require('./utils/sliceTrack.js')
 
 app.use(jsonParser)
-app.use(express.static('public'))
+app.use(express.static('server/public'))
 
 app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
