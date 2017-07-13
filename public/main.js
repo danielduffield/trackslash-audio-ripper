@@ -134,7 +134,7 @@ function renderTracklistForm() {
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = createElement('h3', {
     id: 'youtube-video-title'
-  }, keyData.videoTitle + ' [' + keyData.videoLength.hours + ':' + keyData.videoLength.minutes + ':' + keyData.videoLength.seconds + ']', [])
+  }, keyData.videoTitle + ' [' + keyData.videoLengthString + ']', [])
   document.body.appendChild($youtubeVideoTitle)
   const $urlFormContainer = document.getElementById('url-form-container')
   $urlFormContainer.classList.add('hidden')
