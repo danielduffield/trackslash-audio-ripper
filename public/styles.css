@@ -19,3 +19,7 @@ h1 {
 .url-form {
   margin: 10px 0;
 }
+
+.hidden {
+  display: none;
+}
