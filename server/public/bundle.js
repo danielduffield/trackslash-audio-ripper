@@ -1,8 +1,9 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+const addTrackForm = require('./utils/addTrackForm')
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
-const createTrackForm = require('./utils/createTrackForm.js')
 const submitTracklist = require('./utils/submitTracklist.js')
+
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -61,17 +62,12 @@ function invalidUrlMessage() {
   return $invalidUrl
 }
 
-function addTrackForm() {
-  const $trackFormContainer = document.getElementById('track-form-container')
-  $trackFormContainer.appendChild(createTrackForm(currentTrack))
-}
-
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = document.getElementById('youtube-video-title')
   $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
   const $oldTrackForm = document.querySelector('.track-form-1')
   if (!$oldTrackForm) {
-    addTrackForm()
+    addTrackForm(1)
   }
 }
 
@@ -108,7 +104,17 @@ $tracklistForm.addEventListener('submit', event => {
   sendTracklistPostRequest(tracklistPost)
 })
 
-},{"./utils/createElement.js":2,"./utils/createFormTable.js":3,"./utils/createTrackForm.js":4,"./utils/hashRouter.js":5,"./utils/submitTracklist.js":6}],2:[function(require,module,exports){
+},{"./utils/addTrackForm":2,"./utils/createElement.js":3,"./utils/createFormTable.js":4,"./utils/hashRouter.js":6,"./utils/submitTracklist.js":7}],2:[function(require,module,exports){
+const createTrackForm = require('./createTrackForm.js')
+
+function addTrackForm(currentTrack) {
+  const $trackFormContainer = document.getElementById('track-form-container')
+  $trackFormContainer.appendChild(createTrackForm(currentTrack))
+}
+
+module.exports = addTrackForm
+
+},{"./createTrackForm.js":5}],3:[function(require,module,exports){
 function createElement(tagName, attributes, content, $children) {
   const $element = document.createElement(tagName)
   $element.textContent = content
@@ -123,7 +129,7 @@ function createElement(tagName, attributes, content, $children) {
 
 module.exports = createElement
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 const createElement = require('./createElement')
 
 function createFormTable() {
@@ -152,7 +158,7 @@ function createFormTable() {
 
 module.exports = createFormTable
 
-},{"./createElement":2}],4:[function(require,module,exports){
+},{"./createElement":3}],5:[function(require,module,exports){
 const createElement = require('./createElement')
 
 function createTrackForm(currentTrack) {
@@ -172,7 +178,7 @@ function createTrackForm(currentTrack) {
 
 module.exports = createTrackForm
 
-},{"./createElement":2}],5:[function(require,module,exports){
+},{"./createElement":3}],6:[function(require,module,exports){
 class HashRouter {
   constructor($views) {
     this.$views = $views
@@ -204,7 +210,7 @@ class HashRouter {
 
 module.exports = HashRouter
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 function submitTracklist(form, numOfTracks) {
   const tracklist = []
   for (let i = 0; i < numOfTracks; i++) {

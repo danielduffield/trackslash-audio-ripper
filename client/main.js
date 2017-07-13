@@ -1,7 +1,8 @@
+const addTrackForm = require('./utils/addTrackForm')
 const createElement = require('./utils/createElement.js')
 const createFormTable = require('./utils/createFormTable.js')
-const createTrackForm = require('./utils/createTrackForm.js')
 const submitTracklist = require('./utils/submitTracklist.js')
+
 const HashRouter = require('./utils/hashRouter.js')
 
 function sendUrlPostRequest(urlSubmission) {
@@ -60,17 +61,12 @@ function invalidUrlMessage() {
   return $invalidUrl
 }
 
-function addTrackForm() {
-  const $trackFormContainer = document.getElementById('track-form-container')
-  $trackFormContainer.appendChild(createTrackForm(currentTrack))
-}
-
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = document.getElementById('youtube-video-title')
   $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
   const $oldTrackForm = document.querySelector('.track-form-1')
   if (!$oldTrackForm) {
-    addTrackForm()
+    addTrackForm(1)
   }
 }
 
