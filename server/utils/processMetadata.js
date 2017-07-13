@@ -38,8 +38,6 @@ function secondsToTimeString(seconds) {
   return timeString
 }
 
-module.exports = processMetadata
-
 function findTimeCodes(description) {
   const newlineSplit = description.split('\n')
   const startIndex = newlineSplit.findIndex(row => {
@@ -67,3 +65,5 @@ function extractTimeCodes(rowsWithCodes) {
   })
   return timeCodes
 }
+
+module.exports = processMetadata
