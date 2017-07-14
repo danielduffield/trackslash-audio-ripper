@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "bundle": "browserify client/main.js -o server/public/bundle.js",
-    "bundle-watch": "watchify client/main.js -v -o server/public/bundle.js",
+    "bundle:watch": "watchify client/main.js -v -o server/public/bundle.js",
     "lint": "run-p lint:*",
     "lint:html": "htmlhint ./**/*.html",
     "lint:css": "stylelint ./**/*.css",
