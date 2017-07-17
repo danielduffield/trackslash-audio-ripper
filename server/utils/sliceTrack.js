@@ -6,10 +6,10 @@ function sliceTrack(track, keyData) {
   const fileName = parseTrackName(track)
   console.log('Duration: ', duration)
   console.log('Track start: ', track.trackStart)
-  ffmpeg(path.join(__dirname, '/../../downloaded/' + keyData.videoId + '/' + keyData.videoId + '-album.mp3'))
+  ffmpeg(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/' + keyData.videoId + '-album.mp3'))
     .setStartTime(track.trackStart)
     .setDuration(duration)
-    .output(path.join(__dirname, '/../../downloaded/' + keyData.videoId + '/' + fileName + '.mp3'))
+    .output(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/' + fileName + '.mp3'))
     .on('end', function (err, data) {
       if (!err) {
         console.log('conversion Done')

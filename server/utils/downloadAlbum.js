@@ -3,7 +3,7 @@ const fs = require('fs-extra')
 const path = require('path')
 
 function downloadAlbum(url, keyData) {
-  const albumFolder = path.join(__dirname, '/../../downloaded/' + keyData.videoId)
+  const albumFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId)
   fs.ensureDir(albumFolder)
     .then(() => {
       ytdl(url, 'audioonly')
