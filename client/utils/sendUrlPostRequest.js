@@ -1,5 +1,4 @@
 const invalidUrlMessage = require('./invalidUrlMessage.js')
-const transitionToTracklistForm = require('./transitionToTracklistForm.js')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -26,6 +25,14 @@ function sendUrlPostRequest(urlSubmission) {
     return keyData
   })
   .catch(err => console.log(err))
+}
+
+const resetTracklist = require('./resetTracklist.js')
+
+function transitionToTracklistForm(keyData) {
+  const $youtubeVideoTitle = document.getElementById('youtube-video-title')
+  $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
+  resetTracklist()
 }
 
 module.exports = sendUrlPostRequest
