@@ -2,6 +2,7 @@ const createFormTable = require('./utils/createFormTable.js')
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
 const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
+const addTrackForm = require('./utils/addTrackForm.js')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -14,7 +15,7 @@ function getYoutubeId(url) {
   return youtubeId
 }
 
-const currentTrack = 1
+let currentTrack = 2
 var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
@@ -33,8 +34,17 @@ $submitButton.addEventListener('click', () => {
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     sendUrlPostRequest(urlSubmission).then(keyData => {
       albumMetadata = keyData
+      currentTrack = 1
+      addTrackForm(currentTrack)
+      currentTrack++
     })
   }
+})
+
+const $addTrackButton = document.getElementById('track-form-add-button')
+$addTrackButton.addEventListener('click', () => {
+  addTrackForm(currentTrack)
+  currentTrack++
 })
 
 const $tracklistForm = document.getElementById('tracklist-form')
