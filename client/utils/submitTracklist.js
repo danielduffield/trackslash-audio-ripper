@@ -1,7 +1,7 @@
 function submitTracklist(form, numOfTracks) {
   const tracklist = []
-  for (let i = 0; i < numOfTracks; i++) {
-    const trackNumber = i + 1
+  for (let i = 1; i < numOfTracks; i++) {
+    const trackNumber = i
     const track = {
       trackNum: form.get('track-num-' + trackNumber),
       trackName: form.get('track-name-' + trackNumber),
