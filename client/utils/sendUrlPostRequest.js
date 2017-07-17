@@ -1,4 +1,5 @@
 const invalidUrlMessage = require('./invalidUrlMessage.js')
+const resetTracklist = require('./resetTracklist.js')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -26,8 +27,6 @@ function sendUrlPostRequest(urlSubmission) {
   })
   .catch(err => console.log(err))
 }
-
-const resetTracklist = require('./resetTracklist.js')
 
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = document.getElementById('youtube-video-title')
