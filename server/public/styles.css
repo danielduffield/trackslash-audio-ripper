@@ -19,3 +19,11 @@ h1 {
 .url-form {
   margin: 10px 0;
 }
+
+.hidden {
+  display: none;
+}
+
+#youtube-video-title {
+  margin: 0 0 20px;
+}
