@@ -34,7 +34,9 @@ $submitButton.addEventListener('click', () => {
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     sendUrlPostRequest(urlSubmission).then(keyData => {
       albumMetadata = keyData
-      currentTrack = 2
+      currentTrack = 1
+      addTrackForm(currentTrack)
+      currentTrack++
     })
   }
 })
