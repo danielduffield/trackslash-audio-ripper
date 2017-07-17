@@ -15,7 +15,7 @@ function getYoutubeId(url) {
   return youtubeId
 }
 
-let currentTrack = 2
+let currentTrack = 1
 var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
