@@ -39,7 +39,9 @@ app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
   const tracklist = req.body.tracklist
   const metaData = req.body.metaData
-  sliceTrack(tracklist[0], metaData)
+  tracklist.forEach(track => {
+    sliceTrack(track, metaData)
+  })
   res.sendStatus(201)
 })
 
