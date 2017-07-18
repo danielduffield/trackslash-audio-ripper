@@ -9,7 +9,8 @@ function buildTracklistFinal(tracklist) {
     trackFields.forEach((field, index) => {
       const $tableCell = createElement('td', {}, track[trackProperties[index]], [])
       const $trackFinalField = createElement('span', {
-        id: 'track-final-' + trackFields[index] + '-' + trackIndex
+        id: 'track-final-' + trackFields[index] + '-' + trackIndex,
+        class: 'track-final-field'
       }, '', [])
       $tableCell.appendChild($trackFinalField)
       $trackFinal.appendChild($tableCell)
