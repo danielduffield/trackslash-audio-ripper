@@ -10,6 +10,7 @@ const sliceTrack = require('./utils/sliceTrack.js')
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
+app.use('/download', express.static('server/downloaded'))
 
 app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
