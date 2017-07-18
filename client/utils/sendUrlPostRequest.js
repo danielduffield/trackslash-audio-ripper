@@ -42,6 +42,14 @@ function resetTracklist() {
     resetIndex++
     $trackForm = document.querySelector('.track-form-' + resetIndex)
   }
+  const $trackFinalContainer = document.getElementById('track-final-container')
+  resetIndex = 1
+  let $trackFinal = document.querySelector('.track-final-' + resetIndex)
+  while ($trackFinal) {
+    $trackFinalContainer.removeChild($trackFinal)
+    resetIndex++
+    $trackFinal = document.querySelector('.track-final-' + resetIndex)
+  }
 }
 
 module.exports = sendUrlPostRequest
