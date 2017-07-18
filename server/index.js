@@ -6,7 +6,8 @@ const app = express()
 const getMetadata = require('./utils/getMetadata.js')
 const processMetadata = require('./utils/processMetadata.js')
 const downloadAlbum = require('./utils/downloadAlbum.js')
-const sliceTrack = require('./utils/sliceTrack.js')
+const sliceTracklist = require('./utils/sliceTracklist.js')
+const compressTracklist = require('./utils/compressTracklist')
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
@@ -40,10 +41,16 @@ app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
   const tracklist = req.body.tracklist
   const metaData = req.body.metaData
-  tracklist.forEach(track => {
-    sliceTrack(track, metaData)
-  })
-  res.sendStatus(201)
+  Promise.all(sliceTracklist(tracklist, metaData))
+    .then(() => {
+      return compressTracklist(metaData.videoId)
+    })
+    .then(path => {
+      res.send(path).status(201)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 app.listen(3000, () => console.log('Listening on 3000...'))

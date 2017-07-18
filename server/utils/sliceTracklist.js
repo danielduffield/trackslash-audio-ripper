@@ -1,24 +1,36 @@
 const ffmpeg = require('fluent-ffmpeg')
 const path = require('path')
 
+const trackPromises = []
+
 function sliceTrack(track, keyData) {
   const duration = calculateDuration(track)
   const fileName = parseTrackName(track)
   console.log('Duration: ', duration)
   console.log('Track start: ', track.trackStart)
-  ffmpeg(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/album/' + keyData.videoId + '-album.mp3'))
-    .setStartTime(track.trackStart)
-    .setDuration(duration)
-    .output(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks/' + fileName + '.mp3'))
-    .on('end', function (err, data) {
-      if (!err) {
-        console.log('conversion Done')
-      }
-    })
-    .on('error', function (err) {
-      console.log(new Error(err))
+  return new Promise((resolve, reject) => {
+    ffmpeg(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/album/' + keyData.videoId + '-album.mp3'))
+      .setStartTime(track.trackStart)
+      .setDuration(duration)
+      .output(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks/' + fileName + '.mp3'))
+      .on('end', function (err, data) {
+        if (!err) {
+          console.log('conversion Done')
+          resolve()
+        }
+      })
+      .on('error', function (err) {
+        console.log(new Error(err))
+        reject(err)
+      }).run()
+  })
+}
 
-    }).run()
+function sliceTracklist(tracklist, keyData) {
+  tracklist.forEach(track => {
+    trackPromises.push(sliceTrack(track, keyData))
+  })
+  return trackPromises
 }
 
 function calculateDuration(track) {
@@ -47,4 +59,4 @@ function parseTrackName(track) {
   return parsedName
 }
 
-module.exports = sliceTrack
+module.exports = sliceTracklist
