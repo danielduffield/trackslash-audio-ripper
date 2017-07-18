@@ -46,7 +46,7 @@ app.post('/tracklist-request', (req, res) => {
       return compressTracklist(metaData.videoId)
     })
     .then(path => {
-      res.send(path).status(201)
+      res.status(201).json(path)
     })
     .catch((err) => {
       console.log(err)

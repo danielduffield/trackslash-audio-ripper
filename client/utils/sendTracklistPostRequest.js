@@ -9,7 +9,11 @@ function sendTracklistPostRequest(tracklistWithData) {
   })
   .then(response => {
     console.log(response)
-    return response
+    return response.json()
+  })
+  .then(json => {
+    console.log(json)
+    return json
   })
 }
 
