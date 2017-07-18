@@ -4,6 +4,7 @@ function buildTracklistFinal(tracklist) {
   let trackIndex = 1
   const trackFields = ['num', 'name', 'start', 'end']
   const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
+  const $trackFinalContainer = document.getElementById('track-form-container')
   tracklist.forEach(track => {
     const $trackFinal = createElement('tr', {class: 'track-final-' + trackIndex}, '', [])
     trackFields.forEach((field, index) => {
@@ -15,6 +16,7 @@ function buildTracklistFinal(tracklist) {
       $tableCell.appendChild($trackFinalField)
       $trackFinal.appendChild($tableCell)
     })
+    $trackFinalContainer.appendChild($trackFinal)
     trackIndex++
   })
 }
