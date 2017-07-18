@@ -4,7 +4,7 @@ function buildTracklistFinal(tracklist) {
   let trackIndex = 1
   const trackFields = ['num', 'name', 'start', 'end']
   const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
-  const $trackFinalContainer = document.getElementById('track-form-container')
+  const $trackFinalContainer = document.getElementById('track-final-container')
   tracklist.forEach(track => {
     const $trackFinal = createElement('tr', {class: 'track-final-' + trackIndex}, '', [])
     trackFields.forEach((field, index) => {
