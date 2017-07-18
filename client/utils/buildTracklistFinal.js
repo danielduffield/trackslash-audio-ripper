@@ -1,7 +1,7 @@
 const createElement = require('./createElement')
 
 function buildTracklistFinal(tracklist) {
-  const trackIndex = 1
+  let trackIndex = 1
   const trackFields = ['num', 'name', 'start', 'end']
   const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
   tracklist.forEach(track => {
@@ -15,6 +15,7 @@ function buildTracklistFinal(tracklist) {
       $tableCell.appendChild($trackFinalField)
       $trackFinal.appendChild($tableCell)
     })
+    trackIndex++
   })
 }
 
