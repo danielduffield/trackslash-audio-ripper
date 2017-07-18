@@ -3,7 +3,7 @@ const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
 const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
 const addTrackForm = require('./utils/addTrackForm.js')
-const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
+const getTracklistLinks = require('./utils/getTracklistLinks.js')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -58,7 +58,7 @@ $tracklistForm.addEventListener('submit', event => {
   tracklistPost.tracklist = tracklist
   tracklistPost.metaData = albumMetadata
   sendTracklistPostRequest(tracklistPost).then(response => {
-    const $tracklist = renderTracklistLinks(tracklist, albumMetadata.videoId)
+    const $tracklist = getTracklistLinks(tracklist, albumMetadata.videoId)
     console.log($tracklist)
   })
 })
