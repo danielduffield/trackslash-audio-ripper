@@ -69,3 +69,8 @@ $tracklistForm.addEventListener('submit', event => {
     window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
   })
 })
+
+const $startOverBtn = document.getElementById('start-over-button')
+$startOverBtn.addEventListener('click', () => {
+  window.location.hash = ''
+})
