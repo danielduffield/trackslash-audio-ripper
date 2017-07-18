@@ -1,4 +1,5 @@
 const createFormTable = require('./utils/createFormTable.js')
+const createTracklistTable = require('./utils/createTracklistTable.js')
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
 const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
@@ -21,6 +22,7 @@ let currentTrack = 1
 var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
+document.body.appendChild(createTracklistTable())
 const $urlInput = document.getElementById('url-submit-form')
 
 const $views = document.querySelectorAll('.view')
