@@ -8,13 +8,15 @@ function parseTrackName(track) {
 function createTrackLink(track, index, videoId) {
   const trackPath = '/download/' + videoId
   const fileName = parseTrackName(track)
+  const $linkTD = createElement('td', {}, '', [])
   const $trackLink = createElement('a', {
     class: 'track-link',
     id: 'track-link-' + (index + 1),
     href: trackPath + '/' + fileName + '.mp3',
     download: ''
   }, '+', [])
-  return $trackLink
+  $linkTD.appendChild($trackLink)
+  return $linkTD
 }
 
 function getTracklistLinks(tracklist, videoId) {
