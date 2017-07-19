@@ -5,7 +5,7 @@ const path = require('path')
 function compressTracklist(youtubeId) {
   console.log('Beginning compression')
   return new Promise((resolve, reject) => {
-    const output = fs.createWriteStream(path.join(__dirname, '../downloaded/' + youtubeId + '/tracklist.zip'))
+    const output = fs.createWriteStream(path.join(__dirname, '../downloaded/' + youtubeId + '/' + youtubeId + '-tracklist.zip'))
     const archive = archiver('zip', {
       zlib: {level: 9}
     })
