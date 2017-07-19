@@ -31,12 +31,3 @@ function createFormTable() {
 }
 
 module.exports = createFormTable
-
-/*
-      <div id="tracklist-control-container">
-        <button id="load-tracklist-button" class="tracklist-control-button">Load Tracklist</button>
-        <button id="submit-tracklist-button" class="tracklist-control-button">Submit Tracklist</button>
-        <button id="reset-tracklist-button" class="tracklist-control-button">Reset Tracklist</button>
-      </div>
-
-*/
