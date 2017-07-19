@@ -15,15 +15,18 @@ function createTrackLink(track, index, videoId) {
     href: trackPath + '/' + fileName + '.mp3',
     download: ''
   }, '+', [])
+
   $linkTD.appendChild($trackLink)
   return $linkTD
 }
 
 function getTracklistLinks(tracklist, videoId) {
   const $tracklistLinks = []
+
   tracklist.forEach((track, index) => {
     $tracklistLinks.push(createTrackLink(track, index, videoId))
   })
+
   return $tracklistLinks
 }
 

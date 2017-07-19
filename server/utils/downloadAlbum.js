@@ -5,6 +5,7 @@ const path = require('path')
 function downloadAlbum(url, keyData) {
   const albumFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId + '/album')
   const tracksFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks')
+
   fs.ensureDir(albumFolder)
     .then(() => {
       fs.ensureDir(tracksFolder)

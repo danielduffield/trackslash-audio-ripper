@@ -3,6 +3,7 @@ const moment = require('moment')
 function processMetadata(data) {
   const keyData = {}
   const timeCodeRows = findTimeCodes(data.description)
+
   keyData.videoTitle = data.title
   keyData.videoId = data.video_id
   keyData.videoImage = 'https://img.youtube.com/vi/' + data.video_id + '/maxresdefault.jpg'
@@ -16,24 +17,29 @@ function processMetadata(data) {
 function secondsToTimeObject(seconds) {
   const tempTime = moment.duration(seconds * 1000)
   const time = {}
+
   time.hours = tempTime.hours()
   time.minutes = tempTime.minutes()
   time.seconds = tempTime.seconds()
+
   return time
 }
 
 function secondsToTimeString(seconds) {
   const tempTime = moment.duration(seconds * 1000)
   const time = {}
+
   time.hours = tempTime.hours()
   time.minutes = tempTime.minutes()
   time.seconds = tempTime.seconds()
+
   if (time.minutes < 10) {
     time.minutes = '0' + time.minutes.toString()
   }
   if (time.seconds < 10) {
     time.seconds = '0' + time.seconds.toString()
   }
+
   const timeString = time.hours + ':' + time.minutes + ':' + time.seconds
   return timeString
 }
@@ -55,6 +61,7 @@ function findTimeCodes(description) {
 
 function extractTimeCodes(rowsWithCodes) {
   const timeCodes = []
+
   rowsWithCodes.forEach(row => {
     const spaceSplit = row.split(' ')
     spaceSplit.forEach(string => {
@@ -63,6 +70,7 @@ function extractTimeCodes(rowsWithCodes) {
       }
     })
   })
+
   return timeCodes
 }
 

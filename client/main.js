@@ -24,10 +24,11 @@ var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
-const $urlInput = document.getElementById('url-submit-form')
 
+const $urlInput = document.getElementById('url-submit-form')
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
+
 router.listen()
 router.match(window.location.hash)
 
@@ -55,12 +56,15 @@ $addTrackButton.addEventListener('click', () => {
 const $tracklistForm = document.getElementById('tracklist-form')
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
+
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracklist(trackData, currentTrack)
   console.log(tracklist)
   const tracklistPost = {}
+
   tracklistPost.tracklist = tracklist
   tracklistPost.metaData = albumMetadata
+
   sendTracklistPostRequest(tracklistPost).then(zipPath => {
     const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
     buildTracklistFinal(tracklist)
