@@ -7,6 +7,8 @@ const addTrackForm = require('./utils/addTrackForm.js')
 const getTracklistLinks = require('./utils/getTracklistLinks.js')
 const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
 const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
+const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
+const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -89,4 +91,11 @@ $resetTracklistBtn.addEventListener('click', () => {
   currentTrack = 1
   addTrackForm(currentTrack)
   currentTrack++
+})
+
+const $loadTracklistBtn = document.getElementById('load-timecodes-button')
+$loadTracklistBtn.addEventListener('click', () => {
+  const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
+  console.log(autoTracklist)
+  autofillTracklistForms(autoTracklist)
 })
