@@ -63,7 +63,6 @@ $tracklistForm.addEventListener('submit', event => {
   tracklistPost.metaData = albumMetadata
   sendTracklistPostRequest(tracklistPost).then(zipPath => {
     const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
-    console.log($tracklistLinks)
     buildTracklistFinal(tracklist)
     renderTracklistLinks($tracklistLinks)
     const $downloadAllForm = document.getElementById('download-all-form')
