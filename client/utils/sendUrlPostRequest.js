@@ -35,21 +35,10 @@ function transitionToTracklistForm(keyData) {
 
 function resetTracklist() {
   const $trackFormContainer = document.getElementById('track-form-container')
-  let resetIndex = 1
-  let $trackForm = document.querySelector('.track-form-' + resetIndex)
-  while ($trackForm) {
-    $trackFormContainer.removeChild($trackForm)
-    resetIndex++
-    $trackForm = document.querySelector('.track-form-' + resetIndex)
-  }
+  $trackFormContainer.innerHTML = ''
+
   const $trackFinalContainer = document.getElementById('track-final-container')
-  resetIndex = 1
-  let $trackFinal = document.querySelector('.track-final-' + resetIndex)
-  while ($trackFinal) {
-    $trackFinalContainer.removeChild($trackFinal)
-    resetIndex++
-    $trackFinal = document.querySelector('.track-final-' + resetIndex)
-  }
+  $trackFinalContainer.innerHTML = ''
 }
 
 module.exports = sendUrlPostRequest
