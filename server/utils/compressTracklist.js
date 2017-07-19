@@ -13,7 +13,7 @@ function compressTracklist(youtubeId) {
     output.on('close', () => {
       console.log(archive.pointer() + ' total bytes')
       console.log('archiver has been finalized and the output file descriptor has closed.')
-      resolve('/download/' + youtubeId + '/tracklist.zip')
+      resolve('/download/' + youtubeId + '/' + youtubeId + '-tracklist.zip')
     })
 
     archive.on('warning', function (err) {
