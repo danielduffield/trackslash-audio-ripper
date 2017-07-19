@@ -12,7 +12,7 @@ function createTrackLink(track, index, videoId) {
   const $trackLink = createElement('a', {
     class: 'track-link',
     id: 'track-link-' + (index + 1),
-    href: trackPath + '/' + fileName + '.mp3',
+    href: trackPath + '/tracks/' + fileName + '.mp3',
     download: ''
   }, '+', [])
 
