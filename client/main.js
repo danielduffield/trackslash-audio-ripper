@@ -61,11 +61,15 @@ $tracklistForm.addEventListener('submit', event => {
   const tracklistPost = {}
   tracklistPost.tracklist = tracklist
   tracklistPost.metaData = albumMetadata
-  sendTracklistPostRequest(tracklistPost).then(response => {
+  sendTracklistPostRequest(tracklistPost).then(zipPath => {
     const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
     console.log($tracklistLinks)
     buildTracklistFinal(tracklist)
     renderTracklistLinks($tracklistLinks)
+    const $downloadAllForm = document.getElementById('download-all-form')
+    $downloadAllForm.setAttribute('action', zipPath)
+    const $finalAlbumTitle = document.getElementById('final-album-title')
+    $finalAlbumTitle.textContent = albumMetadata.videoTitle
     window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
   })
 })
