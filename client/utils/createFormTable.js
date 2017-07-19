@@ -5,6 +5,11 @@ function createFormTable() {
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
       createElement('h3', {id: 'youtube-video-title'}, '', []),
+      createElement('div', {id: 'tracklist-control-container'}, '', [
+        createElement('button', {id: 'load-tracklist-button', class: 'tracklist-control-button'}, 'Load Tracklist', []),
+        createElement('button', {id: 'submit-tracklist-button', class: 'tracklist-control-button'}, 'Submit Tracklist', []),
+        createElement('button', {id: 'reset-tracklist-button', class: 'tracklist-control-button'}, 'Reset Tracklist', [])
+      ]),
       createElement('form', {id: 'tracklist-form'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
           createElement('thead', {}, '', [
@@ -26,3 +31,12 @@ function createFormTable() {
 }
 
 module.exports = createFormTable
+
+/*
+      <div id="tracklist-control-container">
+        <button id="load-tracklist-button" class="tracklist-control-button">Load Tracklist</button>
+        <button id="submit-tracklist-button" class="tracklist-control-button">Submit Tracklist</button>
+        <button id="reset-tracklist-button" class="tracklist-control-button">Reset Tracklist</button>
+      </div>
+
+*/
