@@ -8,7 +8,7 @@ function createFormTable() {
       createElement('form', {id: 'tracklist-form'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
           createElement('thead', {}, '', [
-            createElement('tr', {}, '', [
+            createElement('tr', {class: 'thead-row'}, '', [
               createElement('th', {}, 'Num', []),
               createElement('th', {}, 'Name', []),
               createElement('th', {}, 'Start', []),

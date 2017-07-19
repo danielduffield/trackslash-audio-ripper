@@ -7,8 +7,10 @@ class HashRouter {
     if (hash === '') {
       hash = '#url-form'
     }
+
     const hashComponents = hash.split('?')
     const viewId = hashComponents[0].replace('#', '')
+
     this.$views.forEach($view => {
       if ($view.id === viewId) {
         $view.classList.remove('hidden')
@@ -20,9 +22,11 @@ class HashRouter {
   }
   listen() {
     if (this.isListening) return
+
     window.addEventListener('hashchange', () => {
       this.match(window.location.hash)
     })
+
     this.isListening = true
   }
 }

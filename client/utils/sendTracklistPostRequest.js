@@ -1,5 +1,5 @@
 function sendTracklistPostRequest(tracklistWithData) {
-  fetch('/tracklist-request', {
+  return fetch('/tracklist-request', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -7,7 +7,12 @@ function sendTracklistPostRequest(tracklistWithData) {
     },
     body: JSON.stringify(tracklistWithData)
   })
-  .then(response => console.log(response))
+  .then(response => {
+    return response.json()
+  })
+  .then(json => {
+    return json
+  })
 }
 
 module.exports = sendTracklistPostRequest
