@@ -40,11 +40,14 @@ function calculateDuration(track) {
   const parsedDuration = {}
 
   parsedDuration.hours = parsedEnd.hours - parsedStart.hours
+
   parsedDuration.minutes = parsedEnd.minutes - parsedStart.minutes
 
-  if (parsedDuration.minutes < 0) parsedDuration.minutes += 60
   parsedDuration.seconds = parsedEnd.seconds - parsedStart.seconds
-  if (parsedDuration.seconds < 0) parsedDuration.seconds += 60
+  if (parsedDuration.seconds < 0) {
+    parsedDuration.seconds += 60
+    parsedDuration.minutes--
+  }
 
   const duration = (parsedDuration.hours * 3600) + (parsedDuration.minutes * 60) + parsedDuration.seconds
   return duration
