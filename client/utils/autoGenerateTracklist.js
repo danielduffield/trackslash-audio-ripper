@@ -36,7 +36,8 @@ function autoGenerateTracklist(description, videoDuration) {
 
     tracklist.push(autoTrack)
   })
-  const completeTracklist = setAutoEndTimes(tracklist, videoDuration)
+  const conformedDuration = conformTimecode(videoDuration)
+  const completeTracklist = setAutoEndTimes(tracklist, conformedDuration)
   return completeTracklist
 }
 
