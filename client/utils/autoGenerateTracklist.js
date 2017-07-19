@@ -11,6 +11,14 @@ function setAutoEndTimes(tracklist, videoLength) {
   return tracklist
 }
 
+function removeTrackNumFromName(trackName) {
+  const split = trackName.split(' ')
+  if (/\d[.]/.test(split[0])) {
+    split.shift()
+  }
+  return split.join(' ')
+}
+
 function autoGenerateTracklist(description, videoDuration) {
   console.log('description: ', description)
   const descriptionRows = description.split('\n')
@@ -27,7 +35,8 @@ function autoGenerateTracklist(description, videoDuration) {
     const nameFragments = rowFragments
       .filter(rowFragment => !/\d:\d\d/.test(rowFragment) && rowFragment !== '-')
     const rowName = nameFragments.join(' ')
-    autoTrack.trackName = rowName
+    const finalName = removeTrackNumFromName(rowName)
+    autoTrack.trackName = finalName
 
     const rowTimecodes = rowFragments.filter(rowFragment => /\d:\d\d/.test(rowFragment))
     const conformed = conformTimecode(rowTimecodes[0])
