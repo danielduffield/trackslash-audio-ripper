@@ -44,3 +44,9 @@ h1 {
   font-size: 2em;
   line-height: 60%;
 }
+
+#download-all-form {
+  display: inline;
+  height: 30px;
+  width: 100px;
+}
