@@ -21,7 +21,7 @@ function compressTracklist(youtubeId) {
         console.log('WARNING ERROR: ', err)
       }
       else {
-        throw err
+        reject(err)
       }
     })
 
