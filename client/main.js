@@ -81,3 +81,12 @@ const $startOverBtn = document.getElementById('start-over-button')
 $startOverBtn.addEventListener('click', () => {
   window.location.hash = ''
 })
+
+const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
+$resetTracklistBtn.addEventListener('click', () => {
+  const $trackFormContainer = document.getElementById('track-form-container')
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  currentTrack++
+})
