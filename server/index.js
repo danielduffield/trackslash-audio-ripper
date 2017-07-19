@@ -9,6 +9,8 @@ const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
 
+const queue = {}
+
 app.use(jsonParser)
 app.use(express.static('server/public'))
 app.use('/download', express.static('server/downloaded'))
@@ -22,7 +24,7 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            downloadAlbum(requestedUrl, keyData)
+            queue[keyData.videoId] = downloadAlbum(requestedUrl, keyData)
             return true
           })
           .catch(err => console.log(err))
@@ -41,16 +43,19 @@ app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
   const tracklist = req.body.tracklist
   const metaData = req.body.metaData
-  Promise.all(sliceTracklist(tracklist, metaData))
-    .then(() => {
-      return compressTracklist(metaData.videoId)
-    })
-    .then(path => {
-      res.status(201).json(path)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  console.log(queue)
+  queue[metaData.videoId].then(() => {
+    return Promise.all(sliceTracklist(tracklist, metaData))
+  })
+  .then(() => {
+    return compressTracklist(metaData.videoId)
+  })
+  .then(path => {
+    res.status(201).json(path)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
 })
 
 app.listen(3000, () => console.log('Listening on 3000...'))
