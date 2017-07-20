@@ -112,3 +112,8 @@ $submitTracklistBtn.addEventListener('click', () => {
   $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
   window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
 })
+
+const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
+$timecodeCancelBtn.addEventListener('click', () => {
+  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
+})

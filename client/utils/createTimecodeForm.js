@@ -9,8 +9,8 @@ function createTimecodeForm(videoTitle) {
         createElement('h5', {id: 'timecode-subtitle', class: 'subtitle'}, 'Copy and Paste Timecodes', []),
         createElement('textarea', {id: 'timecode-input-box', name: 'timecodes-textarea', cols: '70', rows: '10'}, '', []),
         createElement('br', {}, '', []),
-        createElement('button', {id: 'timecode-submit-btn', class: 'form-button'}, 'Submit', []),
-        createElement('button', {id: 'timecode-cancel-btn', class: 'form-button'}, 'Cancel', [])
+        createElement('button', {id: 'timecode-submit-button', class: 'form-button'}, 'Submit', []),
+        createElement('button', {id: 'timecode-cancel-button', class: 'form-button'}, 'Cancel', [])
       ])
     ])
   ])
