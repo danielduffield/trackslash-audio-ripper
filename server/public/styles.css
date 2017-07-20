@@ -9,7 +9,7 @@
 h1 {
   font-size: 3em;
   font-weight: 700;
-  margin: 100px 0 150px;
+  margin: 100px 0 30px;
 }
 
 .subtitle {
@@ -20,12 +20,16 @@ h1 {
   margin: 10px 0;
 }
 
+#url-subtitle {
+  margin: 150px 0 10px;
+}
+
 .hidden {
   display: none;
 }
 
 #youtube-video-title {
-  margin: 0 0 20px;
+  margin: 20px 0;
 }
 
 .form-button {
