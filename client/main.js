@@ -106,20 +106,21 @@ $loadTracklistBtn.addEventListener('click', () => {
   autofillTracklistForms(autoTracklist)
 })
 
-const $submitTracklistBtn = document.getElementById('submit-timecodes-button')
-$submitTracklistBtn.addEventListener('click', () => {
+const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
+const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
+const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
+const $timecodeInputBox = document.getElementById('timecode-input-box')
+
+$submitTimecodesButton.addEventListener('click', () => {
+  $timecodeInputBox.value = ''
   const $timecodeTitle = document.getElementById('timecode-video-title')
   $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
   window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
 })
 
-const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
 $timecodeCancelBtn.addEventListener('click', () => {
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
 })
-
-const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
-const $timecodeInputBox = document.getElementById('timecode-input-box')
 
 $timecodeSubmitBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
