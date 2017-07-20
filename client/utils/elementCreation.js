@@ -14,6 +14,7 @@ function createFormTable() {
   const $formTable =
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
+      createElement('div', {id: 'video-image-tracklist-form', class: 'video-image'}, '', []),
       createElement('h3', {id: 'youtube-video-title'}, '', []),
       createElement('div', {id: 'tracklist-control-container'}, '', [
         createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button'}, 'Load Timecodes', []),
@@ -45,6 +46,7 @@ function createTracklistTable() {
   const $formTable =
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'tracklist-download'}, '', [
+      createElement('div', {id: 'video-image-tracklist-final', class: 'video-image'}, '', []),
       createElement('h3', {id: 'final-album-title'}, '', []),
       createElement('table', {class: 'table table-bordered'}, '', [
         createElement('thead', {}, '', [
@@ -71,6 +73,7 @@ function createTimecodeForm(videoTitle) {
   const $timecodeForm =
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'submit-timecodes'}, '', [
+      createElement('div', {id: 'video-image-timecode-form', class: 'video-image'}, '', []),
       createElement('h3', {id: 'timecode-video-title'}, videoTitle, []),
       createElement('div', {class: 'timecode-submit-input'}, '', [
         createElement('h5', {id: 'timecode-subtitle', class: 'subtitle'}, 'Copy and Paste Timecodes', []),
