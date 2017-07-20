@@ -95,15 +95,22 @@ $resetTracklistBtn.addEventListener('click', () => {
   currentTrack++
 })
 
-const $loadTracklistBtn = document.getElementById('load-timecodes-button')
-$loadTracklistBtn.addEventListener('click', () => {
+const $loadTimecodesBtn = document.getElementById('load-timecodes-button')
+$loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
-  const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
-  console.log(autoTracklist)
-  currentTrack = autoTracklist.length + 1
-  autofillTracklistForms(autoTracklist)
+  console.log(albumMetadata.timeCodes, albumMetadata.timeCodes.length)
+  if (albumMetadata.timeCodes.length > 1) {
+    const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
+    console.log(autoTracklist)
+    currentTrack = autoTracklist.length + 1
+    autofillTracklistForms(autoTracklist)
+  }
+  else {
+    console.log('No timecodes in description')
+  }
+
 })
 
 const $submitTimecodesButton = document.getElementById('submit-timecodes-button')

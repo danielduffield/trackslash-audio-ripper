@@ -47,12 +47,12 @@ function secondsToTimeString(seconds) {
 function findTimeCodes(description) {
   const newlineSplit = description.split('\n')
   const startIndex = newlineSplit.findIndex(row => {
-    return (row.includes(':') && !row.includes('Tracks') && !row.includes('tracks'))
+    return (row.includes(':') && !row.includes('://') && !row.includes('Tracks') && !row.includes('tracks'))
   })
   const reversed = newlineSplit.slice()
   reversed.reverse()
   const lastLine = reversed.findIndex(row => {
-    return (row.includes(':') && !row.includes('Tracks') && !row.includes('tracks'))
+    return (row.includes(':') && !row.includes('://') && !row.includes('Tracks') && !row.includes('tracks'))
   })
   const endIndex = (newlineSplit.length - 1) - lastLine
   const timeStampedRows = newlineSplit.splice(startIndex, (endIndex - startIndex))
