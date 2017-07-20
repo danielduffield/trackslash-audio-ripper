@@ -9,6 +9,7 @@ const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
 const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
+const createTimecodeForm = require('./utils/createTimecodeForm.js')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -26,6 +27,7 @@ var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
+document.body.appendChild(createTimecodeForm())
 
 const $urlInput = document.getElementById('url-submit-form')
 const $views = document.querySelectorAll('.view')
@@ -102,4 +104,11 @@ $loadTracklistBtn.addEventListener('click', () => {
   const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
   console.log(autoTracklist)
   autofillTracklistForms(autoTracklist)
+})
+
+const $submitTracklistBtn = document.getElementById('submit-timecodes-button')
+$submitTracklistBtn.addEventListener('click', () => {
+  const $timecodeTitle = document.getElementById('timecode-video-title')
+  $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
+  window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
 })
