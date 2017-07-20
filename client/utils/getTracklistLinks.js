@@ -1,4 +1,4 @@
-const createElement = require('./createElement.js')
+const createElement = require('./elementCreation').createElement
 
 function parseTrackName(track) {
   const parsedName = track.trackName.split(' ').join('-')

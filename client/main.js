@@ -1,5 +1,3 @@
-const createFormTable = require('./utils/createFormTable.js')
-const createTracklistTable = require('./utils/createTracklistTable.js')
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
 const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
@@ -9,7 +7,8 @@ const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
 const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
-const createTimecodeForm = require('./utils/createTimecodeForm.js')
+
+const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
 const HashRouter = require('./utils/hashRouter.js')
 

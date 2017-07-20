@@ -1,4 +1,4 @@
-const createElement = require('./createElement')
+const createElement = require('./elementCreation').createElement
 
 function buildTracklistFinal(tracklist) {
   let trackIndex = 1
