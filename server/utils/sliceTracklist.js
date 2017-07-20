@@ -54,12 +54,12 @@ function calculateDuration(track) {
 }
 
 function parseTime(time) {
+  const timeUnits = ['hours', 'minutes', 'seconds']
   const parsedTime = {}
-
-  parsedTime.hours = parseInt(time[0] + time[1], 10)
-  parsedTime.minutes = parseInt(time[3] + time[4], 10)
-  parsedTime.seconds = parseInt(time[6] + time[7], 10)
-
+  const split = time.split(':')
+  split.forEach((division, index) => {
+    parsedTime[timeUnits[index]] = parseInt(division, 10)
+  })
   return parsedTime
 }
 

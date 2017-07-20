@@ -1,4 +1,4 @@
-const createElement = require('./createElement.js')
+const createElement = require('./elementCreation').createElement
 
 function invalidUrlMessage() {
   const $invalidUrl = createElement('div', {class: 'alert alert-danger', role: 'alert'}, 'Enter a valid Youtube URL', [

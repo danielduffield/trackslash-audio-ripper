@@ -1,5 +1,3 @@
-const createFormTable = require('./utils/createFormTable.js')
-const createTracklistTable = require('./utils/createTracklistTable.js')
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
 const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
@@ -7,6 +5,10 @@ const addTrackForm = require('./utils/addTrackForm.js')
 const getTracklistLinks = require('./utils/getTracklistLinks.js')
 const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
 const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
+const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
+const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
+
+const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -24,10 +26,13 @@ var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
+document.body.appendChild(createTimecodeForm())
 
 const $urlInput = document.getElementById('url-submit-form')
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
+
+const $trackFormContainer = document.getElementById('track-form-container')
 
 router.listen()
 router.match(window.location.hash)
@@ -80,4 +85,49 @@ $tracklistForm.addEventListener('submit', event => {
 const $startOverBtn = document.getElementById('start-over-button')
 $startOverBtn.addEventListener('click', () => {
   window.location.hash = ''
+})
+
+const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
+$resetTracklistBtn.addEventListener('click', () => {
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  currentTrack++
+})
+
+const $loadTimecodesBtn = document.getElementById('load-timecodes-button')
+$loadTimecodesBtn.addEventListener('click', () => {
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  if (albumMetadata.timeCodes.length > 1) {
+    const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
+    currentTrack = autoTracklist.length + 1
+    autofillTracklistForms(autoTracklist)
+  }
+})
+
+const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
+const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
+const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
+const $timecodeInputBox = document.getElementById('timecode-input-box')
+
+$submitTimecodesButton.addEventListener('click', () => {
+  $timecodeInputBox.value = ''
+  const $timecodeTitle = document.getElementById('timecode-video-title')
+  $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
+  window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
+})
+
+$timecodeCancelBtn.addEventListener('click', () => {
+  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
+})
+
+$timecodeSubmitBtn.addEventListener('click', () => {
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
+  const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, albumMetadata.videoLengthString)
+  autofillTracklistForms(pastedTracklist)
 })

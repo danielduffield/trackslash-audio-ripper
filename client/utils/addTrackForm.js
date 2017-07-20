@@ -1,4 +1,4 @@
-const createElement = require('./createElement')
+const createElement = require('./elementCreation').createElement
 
 function addTrackForm(currentTrack) {
   const $trackFormContainer = document.getElementById('track-form-container')
