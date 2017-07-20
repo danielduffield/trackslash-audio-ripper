@@ -102,6 +102,7 @@ $loadTracklistBtn.addEventListener('click', () => {
   addTrackForm(currentTrack)
   const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
   console.log(autoTracklist)
+  currentTrack = autoTracklist.length + 1
   autofillTracklistForms(autoTracklist)
 })
 
