@@ -8,6 +8,7 @@ const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
+const createAlbumImage = require('./utils/createAlbumImage.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -46,6 +47,11 @@ $submitButton.addEventListener('click', () => {
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     sendUrlPostRequest(urlSubmission).then(keyData => {
       albumMetadata = keyData
+
+      createAlbumImage(albumMetadata.videoImage, 'video-image-tracklist-form')
+      createAlbumImage(albumMetadata.videoImage, 'video-image-timecode-form')
+      createAlbumImage(albumMetadata.videoImage, 'video-image-tracklist-final')
+
       currentTrack = 1
       addTrackForm(currentTrack)
       currentTrack++
