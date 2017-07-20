@@ -7,6 +7,7 @@ const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
 const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
+const deleteTrack = require('./utils/deleteTrack.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -130,4 +131,14 @@ $timecodeSubmitBtn.addEventListener('click', () => {
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
   const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, albumMetadata.videoLengthString)
   autofillTracklistForms(pastedTracklist)
+})
+
+$tracklistForm.addEventListener('click', event => {
+  if (!event.target.id.includes('track-delete-')) return false
+  if (event.target.id[13] && /\d/.test(event.target.id[13])) {
+    const trackNumber = parseInt(event.target.id[13], 10)
+    const numberOfTracks = currentTrack - 1
+    deleteTrack(trackNumber, numberOfTracks)
+    currentTrack--
+  }
 })
