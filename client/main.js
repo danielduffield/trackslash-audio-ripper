@@ -31,6 +31,8 @@ const $urlInput = document.getElementById('url-submit-form')
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
 
+const $trackFormContainer = document.getElementById('track-form-container')
+
 router.listen()
 router.match(window.location.hash)
 
@@ -86,7 +88,6 @@ $startOverBtn.addEventListener('click', () => {
 
 const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
 $resetTracklistBtn.addEventListener('click', () => {
-  const $trackFormContainer = document.getElementById('track-form-container')
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
@@ -95,6 +96,9 @@ $resetTracklistBtn.addEventListener('click', () => {
 
 const $loadTracklistBtn = document.getElementById('load-timecodes-button')
 $loadTracklistBtn.addEventListener('click', () => {
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
   const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
   console.log(autoTracklist)
   autofillTracklistForms(autoTracklist)
