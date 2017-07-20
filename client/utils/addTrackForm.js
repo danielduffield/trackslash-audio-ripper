@@ -3,6 +3,7 @@ const createElement = require('./elementCreation').createElement
 function addTrackForm(currentTrack) {
   const $trackFormContainer = document.getElementById('track-form-container')
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
+  appendDeleteButton(currentTrack)
 }
 
 function createTrackForm(currentTrack) {
@@ -19,8 +20,16 @@ function createTrackForm(currentTrack) {
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
   }
-
   return $trackForm
+}
+
+function appendDeleteButton(currentTrack) {
+  const $trackForm = document.querySelector('.track-form-' + currentTrack)
+  const $deleteButton = createElement('td', {}, '', [
+    createElement('button', {id: 'track-delete-' + currentTrack, type: 'button'}, 'X', [])
+  ])
+
+  $trackForm.appendChild($deleteButton)
 }
 
 module.exports = addTrackForm
