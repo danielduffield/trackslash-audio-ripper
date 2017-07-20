@@ -117,3 +117,15 @@ const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
 $timecodeCancelBtn.addEventListener('click', () => {
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
 })
+
+const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
+const $timecodeInputBox = document.getElementById('timecode-input-box')
+
+$timecodeSubmitBtn.addEventListener('click', () => {
+  $trackFormContainer.innerHTML = ''
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
+  const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, albumMetadata.videoLengthString)
+  autofillTracklistForms(pastedTracklist)
+})
