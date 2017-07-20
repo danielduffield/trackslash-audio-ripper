@@ -135,8 +135,9 @@ $timecodeSubmitBtn.addEventListener('click', () => {
 
 $tracklistForm.addEventListener('click', event => {
   if (!event.target.id.includes('track-delete-')) return false
-  if (event.target.id[13] && /\d/.test(event.target.id[13])) {
-    const trackNumber = parseInt(event.target.id[13], 10)
+  const firstTrackDigitIndex = 13
+  const trackNumber = parseInt(event.target.id.substring(firstTrackDigitIndex, event.target.id.length), 10)
+  if (trackNumber && /\d/.test(trackNumber)) {
     const numberOfTracks = currentTrack - 1
     deleteTrack(trackNumber, numberOfTracks)
     currentTrack--
