@@ -6,7 +6,7 @@ function deleteTrack(trackNumber, totalTracks) {
   const formFields = ['num', 'name', 'start', 'end', 'delete']
   for (let i = trackNumber + 1; i <= totalTracks; i++) {
     const $relabelForm = document.querySelector('.track-form-' + i)
-    $relabelForm.setAttribute('class', 'track-form-' + i)
+    $relabelForm.setAttribute('class', 'track-form-' + (i - 1))
 
     formFields.forEach((field, fieldIndex) => {
       const $form = document.getElementById('track-' + field + '-' + i)
