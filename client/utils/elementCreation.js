@@ -27,7 +27,8 @@ function createFormTable() {
               createElement('th', {}, 'Num', []),
               createElement('th', {}, 'Name', []),
               createElement('th', {}, 'Start', []),
-              createElement('th', {}, 'End', [])
+              createElement('th', {}, 'End', []),
+              createElement('th', {}, 'Delete', [])
             ])
           ]),
           createElement('tbody', {id: 'track-form-container'}, '', [])
