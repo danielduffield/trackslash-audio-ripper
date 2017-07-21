@@ -20,7 +20,7 @@ function createFormTable() {
         createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button'}, 'Load Timecodes', []),
         createElement('button', {id: 'submit-timecodes-button', class: 'tracklist-control-button'}, 'Submit Timecodes', []),
         createElement('button', {id: 'reset-tracklist-button', class: 'tracklist-control-button'}, 'Reset Tracklist', []),
-        createElement('div', {id: 'tracklist-error-message-container'}, '', [])
+        createElement('div', {id: 'tracklist-error-message-container', class: 'error-message'}, '', [])
       ]),
       createElement('form', {id: 'tracklist-form'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
@@ -78,7 +78,7 @@ function createTimecodeForm(videoTitle) {
       createElement('h3', {id: 'timecode-video-title'}, videoTitle, []),
       createElement('div', {class: 'timecode-submit-input'}, '', [
         createElement('h5', {id: 'timecode-subtitle', class: 'subtitle'}, 'Copy and Paste Timecodes', []),
-        createElement('div', {id: 'timecode-error-message-container'}, '', []),
+        createElement('div', {id: 'timecode-error-message-container', class: 'error-message'}, '', []),
         createElement('textarea', {id: 'timecode-input-box', name: 'timecodes-textarea', cols: '70', rows: '10'}, '', []),
         createElement('br', {}, '', []),
         createElement('button', {id: 'timecode-submit-button', class: 'form-button'}, 'Submit', []),
