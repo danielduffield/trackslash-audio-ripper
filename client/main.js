@@ -9,6 +9,7 @@ const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const createAlbumImage = require('./utils/createAlbumImage.js')
+const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -41,6 +42,11 @@ router.match(window.location.hash)
 
 const $submitButton = document.getElementById('url-submit-btn')
 $submitButton.addEventListener('click', () => {
+  const $invalidUrlMessage = document.querySelector('.alert-danger')
+  const $urlFormGroup = document.getElementById('url-form-col')
+  if ($invalidUrlMessage) {
+    $urlFormGroup.removeChild($invalidUrlMessage)
+  }
   const urlSubmission = {}
   if (validateUrl($urlInput.value)) {
     urlSubmission.url = $urlInput.value
@@ -57,10 +63,16 @@ $submitButton.addEventListener('click', () => {
       currentTrack++
     })
   }
+  else {
+    const $invalid = invalidUrlMessage()
+    const $urlFormGroup = document.getElementById('url-form-col')
+    $urlFormGroup.appendChild($invalid)
+  }
 })
 
 const $addTrackButton = document.getElementById('track-form-add-button')
 $addTrackButton.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   addTrackForm(currentTrack)
   currentTrack++
 })
@@ -68,6 +80,8 @@ $addTrackButton.addEventListener('click', () => {
 const $tracklistForm = document.getElementById('tracklist-form')
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
+
+  $tracklistError.textContent = ''
 
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracklist(trackData, currentTrack)
@@ -96,6 +110,7 @@ $startOverBtn.addEventListener('click', () => {
 
 const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
 $resetTracklistBtn.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
@@ -107,12 +122,19 @@ $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
+  currentTrack++
   if (albumMetadata.timeCodes.length > 1) {
     const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
     currentTrack = autoTracklist.length + 1
     autofillTracklistForms(autoTracklist)
   }
+  else {
+    $tracklistError.textContent = '* No timecodes found in video description. Use "Submit Timecodes."'
+  }
 })
+
+const $tracklistError = document.getElementById('tracklist-error-message-container')
+const $timecodeError = document.getElementById('timecode-error-message-container')
 
 const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
 const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
@@ -120,6 +142,7 @@ const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
 const $timecodeInputBox = document.getElementById('timecode-input-box')
 
 $submitTimecodesButton.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   $timecodeInputBox.value = ''
   const $timecodeTitle = document.getElementById('timecode-video-title')
   $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
@@ -127,6 +150,7 @@ $submitTimecodesButton.addEventListener('click', () => {
 })
 
 $timecodeCancelBtn.addEventListener('click', () => {
+  $timecodeError.textContent = ''
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
 })
 
@@ -135,7 +159,11 @@ $timecodeSubmitBtn.addEventListener('click', () => {
   const timecodedRows = descriptionRows.filter(row => {
     return /\d:\d\d/.test(row)
   })
-  if (timecodedRows.length < 2) return false
+  if (timecodedRows.length < 2) {
+    $timecodeError.textContent = '* Timecodes not found.'
+    return false
+  }
+  $timecodeError.textContent = ''
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)

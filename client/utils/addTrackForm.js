@@ -16,7 +16,15 @@ function createTrackForm(currentTrack) {
       id: 'track-' + trackFormFields[i] + '-' + currentTrack,
       name: 'track-' + trackFormFields[i] + '-' + currentTrack
     }, '', [])
-
+    if (trackFormFields[i] === 'num') {
+      $trackFormField.setAttribute('maxlength', '2')
+    }
+    if (trackFormFields[i] === 'start' || trackFormFields[i] === 'end') {
+      $trackFormField.setAttribute('maxlength', '8')
+      $trackFormField.setAttribute('type', 'text')
+      $trackFormField.setAttribute('pattern', '[0-9]{2}:[0-9]{2}:[0-9]{2}')
+      $trackFormField.setAttribute('title', 'HH:MM:SS')
+    }
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
   }
