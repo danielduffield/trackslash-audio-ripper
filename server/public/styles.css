@@ -118,3 +118,16 @@ button {
   background-color: lightgrey;
   color: black;
 }
+
+.video-image {
+  margin: 0 auto;
+  height: 300px;
+  width: 524px;
+  bottom: 12px;
+  background-color: lightgrey;
+}
+
+img {
+  position: relative;
+  top: 6px;
+}
