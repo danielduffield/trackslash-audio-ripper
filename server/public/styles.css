@@ -98,6 +98,10 @@ table {
   background-color: white;
 }
 
+th {
+  background-color: darkgrey;
+}
+
 th,
 td {
   color: black;
