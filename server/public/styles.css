@@ -108,7 +108,8 @@ td {
   color: black;
 }
 
-button {
+button,
+textarea {
   color: black;
 }
 
