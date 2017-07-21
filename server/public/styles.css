@@ -104,9 +104,17 @@ th {
 
 th,
 td {
+  text-align: center;
   color: black;
 }
 
 button {
+  color: black;
+}
+
+.delete-button {
+  width: 25px;
+  border-radius: 5px;
+  background-color: lightgrey;
   color: black;
 }
