@@ -111,6 +111,7 @@ $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
+  currentTrack++
   if (albumMetadata.timeCodes.length > 1) {
     const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
     currentTrack = autoTracklist.length + 1
