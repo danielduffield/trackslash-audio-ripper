@@ -139,6 +139,7 @@ $submitTimecodesButton.addEventListener('click', () => {
 })
 
 $timecodeCancelBtn.addEventListener('click', () => {
+  $timecodeError.textContent = ''
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
 })
 
@@ -151,6 +152,7 @@ $timecodeSubmitBtn.addEventListener('click', () => {
     $timecodeError.textContent = '* Timecodes not found.'
     return false
   }
+  $timecodeError.textContent = ''
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
