@@ -132,3 +132,7 @@ img {
   position: relative;
   top: 6px;
 }
+
+.error-message {
+  font-size: 1.25em;
+}
