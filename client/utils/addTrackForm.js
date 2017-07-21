@@ -26,7 +26,7 @@ function createTrackForm(currentTrack) {
 function appendDeleteButton(currentTrack) {
   const $trackForm = document.querySelector('.track-form-' + currentTrack)
   const $deleteButton = createElement('td', {}, '', [
-    createElement('button', {id: 'track-delete-' + currentTrack, type: 'button'}, 'X', [])
+    createElement('button', {id: 'track-delete-' + currentTrack, class: 'delete-button', type: 'button'}, 'X', [])
   ])
 
   $trackForm.appendChild($deleteButton)
