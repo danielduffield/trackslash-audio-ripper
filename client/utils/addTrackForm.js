@@ -16,7 +16,12 @@ function createTrackForm(currentTrack) {
       id: 'track-' + trackFormFields[i] + '-' + currentTrack,
       name: 'track-' + trackFormFields[i] + '-' + currentTrack
     }, '', [])
-
+    if (trackFormFields[i] === 'num') {
+      $trackFormField.setAttribute('maxlength', '2')
+    }
+    if (trackFormFields[i] === 'start' || trackFormFields[i] === 'end') {
+      $trackFormField.setAttribute('maxlength', '8')
+    }
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
   }
