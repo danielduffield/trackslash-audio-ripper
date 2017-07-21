@@ -6,7 +6,7 @@ function processMetadata(data) {
 
   keyData.videoTitle = data.title
   keyData.videoId = data.video_id
-  keyData.videoImage = 'https://img.youtube.com/vi/' + data.video_id + '/maxresdefault.jpg'
+  keyData.videoImage = 'https://img.youtube.com/vi/' + data.video_id + '/hqdefault.jpg'
   keyData.timeCodes = extractTimeCodes(timeCodeRows)
   keyData.videoLength = secondsToTimeObject(data.length_seconds)
   keyData.videoLengthString = secondsToTimeString(data.length_seconds)
