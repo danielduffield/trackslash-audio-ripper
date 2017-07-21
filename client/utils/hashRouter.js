@@ -5,6 +5,8 @@ class HashRouter {
   }
   match(hash) {
     if (hash === '') {
+      const $submitForm = document.getElementById('url-submit-form')
+      $submitForm.value = ''
       hash = '#url-form'
     }
 
