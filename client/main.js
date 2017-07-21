@@ -131,6 +131,11 @@ $timecodeCancelBtn.addEventListener('click', () => {
 })
 
 $timecodeSubmitBtn.addEventListener('click', () => {
+  const descriptionRows = $timecodeInputBox.value.split('\n')
+  const timecodedRows = descriptionRows.filter(row => {
+    return /\d:\d\d/.test(row)
+  })
+  if (timecodedRows.length < 2) return false
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)

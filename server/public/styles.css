@@ -4,12 +4,38 @@
   padding: 0;
   text-align: center;
   font-family: 'Raleway', sans-serif;
+  color: white;
+}
+
+#background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/vinyl3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#darkening-layer {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 4.5em;
   font-weight: 700;
-  margin: 100px 0 30px;
+  margin: 50px 0 0;
+  letter-spacing: 0.1em;
+}
+
+#main-subtitle {
+  margin: 0 0 20px;
+  font-size: 1.75em;
+  font-weight: 700;
+  word-spacing: 1.25em;
+  letter-spacing: 0.25em;
 }
 
 .subtitle {
@@ -38,6 +64,7 @@ h1 {
   width: 100px;
   border-radius: 5px;
   background-color: lightgrey;
+  color: black;
 }
 
 .track-final-field {
@@ -61,4 +88,47 @@ h1 {
   width: 150px;
   border-radius: 5px;
   background-color: lightgrey;
+}
+
+.track-final-field {
+  color: black;
+}
+
+table {
+  background-color: white;
+}
+
+th {
+  background-color: darkgrey;
+}
+
+th,
+td {
+  text-align: center;
+  color: black;
+}
+
+button,
+textarea {
+  color: black;
+}
+
+.delete-button {
+  width: 25px;
+  border-radius: 5px;
+  background-color: lightgrey;
+  color: black;
+}
+
+.video-image {
+  margin: 30px auto 0;
+  height: 300px;
+  width: 524px;
+  bottom: 12px;
+  background-color: lightgrey;
+}
+
+img {
+  position: relative;
+  top: 6px;
 }
