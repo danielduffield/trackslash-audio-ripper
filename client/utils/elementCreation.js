@@ -19,7 +19,8 @@ function createFormTable() {
       createElement('div', {id: 'tracklist-control-container'}, '', [
         createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button'}, 'Load Timecodes', []),
         createElement('button', {id: 'submit-timecodes-button', class: 'tracklist-control-button'}, 'Submit Timecodes', []),
-        createElement('button', {id: 'reset-tracklist-button', class: 'tracklist-control-button'}, 'Reset Tracklist', [])
+        createElement('button', {id: 'reset-tracklist-button', class: 'tracklist-control-button'}, 'Reset Tracklist', []),
+        createElement('div', {id: 'tracklist-error-message-container'}, '', [])
       ]),
       createElement('form', {id: 'tracklist-form'}, '', [
         createElement('table', {class: 'table table-bordered'}, '', [
