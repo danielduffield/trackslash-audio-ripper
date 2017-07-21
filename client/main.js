@@ -112,8 +112,12 @@ $loadTimecodesBtn.addEventListener('click', () => {
     currentTrack = autoTracklist.length + 1
     autofillTracklistForms(autoTracklist)
   }
+  else {
+    $tracklistError.textContent = '* No timecodes found in video description. Use "Submit Timecodes."'
+  }
 })
 
+const $tracklistError = document.getElementById('tracklist-error-message-container')
 const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
 const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
 const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
