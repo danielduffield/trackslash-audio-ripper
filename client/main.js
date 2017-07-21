@@ -123,6 +123,8 @@ $loadTimecodesBtn.addEventListener('click', () => {
 })
 
 const $tracklistError = document.getElementById('tracklist-error-message-container')
+const $timecodeError = document.getElementById('timecode-error-message-container')
+
 const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
 const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
 const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
@@ -145,7 +147,10 @@ $timecodeSubmitBtn.addEventListener('click', () => {
   const timecodedRows = descriptionRows.filter(row => {
     return /\d:\d\d/.test(row)
   })
-  if (timecodedRows.length < 2) return false
+  if (timecodedRows.length < 2) {
+    $timecodeError.textContent = '* Timecodes not found.'
+    return false
+  }
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
