@@ -65,7 +65,7 @@ function extractTimeCodes(rowsWithCodes) {
   rowsWithCodes.forEach(row => {
     const spaceSplit = row.split(' ')
     spaceSplit.forEach(string => {
-      if (string.includes(':')) {
+      if (string.includes(':') && /\d:\d\d/.test(row)) {
         timeCodes.push(string)
       }
     })
