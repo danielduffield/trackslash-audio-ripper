@@ -21,6 +21,8 @@ function createTrackForm(currentTrack) {
     }
     if (trackFormFields[i] === 'start' || trackFormFields[i] === 'end') {
       $trackFormField.setAttribute('maxlength', '8')
+      $trackFormField.setAttribute('pattern', 'dd:dd:dd')
+      $trackFormField.setAttribute('title', '00:00:00')
     }
     $tableCell.appendChild($trackFormField)
     $trackForm.appendChild($tableCell)
