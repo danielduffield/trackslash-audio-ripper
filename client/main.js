@@ -9,6 +9,7 @@ const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const createAlbumImage = require('./utils/createAlbumImage.js')
+const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -41,6 +42,11 @@ router.match(window.location.hash)
 
 const $submitButton = document.getElementById('url-submit-btn')
 $submitButton.addEventListener('click', () => {
+  const $invalidUrlMessage = document.querySelector('.alert-danger')
+  const $urlFormGroup = document.getElementById('url-form-col')
+  if ($invalidUrlMessage) {
+    $urlFormGroup.removeChild($invalidUrlMessage)
+  }
   const urlSubmission = {}
   if (validateUrl($urlInput.value)) {
     urlSubmission.url = $urlInput.value
@@ -56,6 +62,11 @@ $submitButton.addEventListener('click', () => {
       addTrackForm(currentTrack)
       currentTrack++
     })
+  }
+  else {
+    const $invalid = invalidUrlMessage()
+    const $urlFormGroup = document.getElementById('url-form-col')
+    $urlFormGroup.appendChild($invalid)
   }
 })
 
