@@ -61,6 +61,7 @@ $submitButton.addEventListener('click', () => {
 
 const $addTrackButton = document.getElementById('track-form-add-button')
 $addTrackButton.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   addTrackForm(currentTrack)
   currentTrack++
 })
@@ -68,6 +69,8 @@ $addTrackButton.addEventListener('click', () => {
 const $tracklistForm = document.getElementById('tracklist-form')
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
+
+  $tracklistError.textContent = ''
 
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracklist(trackData, currentTrack)
@@ -96,6 +99,7 @@ $startOverBtn.addEventListener('click', () => {
 
 const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
 $resetTracklistBtn.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
@@ -124,6 +128,7 @@ const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
 const $timecodeInputBox = document.getElementById('timecode-input-box')
 
 $submitTimecodesButton.addEventListener('click', () => {
+  $tracklistError.textContent = ''
   $timecodeInputBox.value = ''
   const $timecodeTitle = document.getElementById('timecode-video-title')
   $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
