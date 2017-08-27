@@ -1,5 +1,5 @@
-# audio-slicer
-A website for music fans who want to download pre-sliced audio from Youtube.
+# trackslash-audio-ripper
+A web app for music fans who want to slice audio from a Youtube video into tracks for download.
 
 ![TrackSlash Demo](/demo/trackslash-demo.gif?raw=true "TrackSlash Demonstration")
 
