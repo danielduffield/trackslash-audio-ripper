@@ -32,6 +32,7 @@
     "archiver": "^2.0.0",
     "body-parser": "^1.17.2",
     "browserify": "^14.4.0",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^3.0.1",
