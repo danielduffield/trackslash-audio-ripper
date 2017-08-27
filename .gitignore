@@ -3,3 +3,4 @@ node_modules
 .stylelintrc
 .eslintrc
 .env
+server/downloaded
