@@ -38,6 +38,7 @@
     "fs-extra": "^3.0.1",
     "moment": "^2.18.1",
     "request": "^2.81.0",
+    "socket.io": "^2.0.3",
     "watchify": "^3.9.0",
     "ytdl-core": "^0.14.4"
   }
