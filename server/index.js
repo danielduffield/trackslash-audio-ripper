@@ -11,6 +11,9 @@ const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
 
+const server = require('http').Server(app)
+const io = require('socket.io').listen(server)
+
 const queue = {}
 
 app.use(jsonParser)
@@ -60,7 +63,7 @@ app.post('/tracklist-request', (req, res) => {
   })
 })
 
-app.listen(process.env.PORT, () => console.log('Listening on PORT...'))
+server.listen(process.env.PORT, () => console.log('Listening on PORT...'))
 
 function checkYoutubeId(youtubeId) {
   return new Promise((resolve, reject) => {
@@ -69,4 +72,10 @@ function checkYoutubeId(youtubeId) {
       return resolve(response)
     })
   })
+}
+
+io.sockets.on('connection', newConnection)
+
+function newConnection(socket) {
+  console.log('User ' + socket.id + ' connected')
 }
