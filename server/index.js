@@ -8,7 +8,7 @@ const processMetadata = require('./utils/processMetadata.js')
 const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
-const { express, app, server, io } = require('./utils/server-app')
+const { express, app, server } = require('./utils/server-app')
 
 const queue = {}
 
@@ -68,10 +68,4 @@ function checkYoutubeId(youtubeId) {
       return resolve(response)
     })
   })
-}
-
-io.sockets.on('connection', newConnection)
-
-function newConnection(socket) {
-  console.log('User ' + socket.id + ' connected')
 }

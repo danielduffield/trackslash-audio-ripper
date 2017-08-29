@@ -3,4 +3,11 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io').listen(server)
 
-module.exports = { app, server, io, express }
+io.sockets.on('connection', newConnection)
+
+function newConnection(socket) {
+  console.log('User ' + socket.id + ' connected')
+  socket.emit('connectionId', socket.id)
+}
+
+module.exports = { app, server, express }
