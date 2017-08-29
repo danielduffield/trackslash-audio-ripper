@@ -3,16 +3,12 @@ require('dotenv').config()
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const request = require('request')
-const express = require('express')
-const app = express()
 const getMetadata = require('./utils/getMetadata.js')
 const processMetadata = require('./utils/processMetadata.js')
 const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
-
-const server = require('http').Server(app)
-const io = require('socket.io').listen(server)
+const { express, app, server, io } = require('./utils/server-app')
 
 const queue = {}
 
