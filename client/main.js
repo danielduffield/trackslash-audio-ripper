@@ -92,6 +92,7 @@ $tracklistForm.addEventListener('submit', event => {
 
   tracklistPost.tracklist = tracklist
   tracklistPost.metaData = albumMetadata
+  tracklistPost.socketId = socketId
 
   sendTracklistPostRequest(tracklistPost).then(zipPath => {
     const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
@@ -203,3 +204,5 @@ socket.on('downloadProgress', progress => {
     }, 3000)
   }
 })
+
+socket.on('sliceProgress', sliced => console.log('SLICED ', sliced))
