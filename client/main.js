@@ -52,6 +52,7 @@ $submitButton.addEventListener('click', () => {
   if (validateUrl($urlInput.value)) {
     urlSubmission.url = $urlInput.value
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
+    urlSubmission.socketId = socketId
     sendUrlPostRequest(urlSubmission).then(keyData => {
       albumMetadata = keyData
 
@@ -189,4 +190,8 @@ let socketId = null
 socket.on('connectionId', connectionId => {
   socketId = connectionId
   console.log(socketId)
+})
+
+socket.on('downloadProgress', progress => {
+  console.log(progress)
 })
