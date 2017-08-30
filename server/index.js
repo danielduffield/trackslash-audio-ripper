@@ -25,7 +25,7 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            queue[keyData.videoId] = downloadAlbum(requestedUrl, keyData)
+            queue[keyData.videoId] = downloadAlbum(requestedUrl, keyData, req.body.socketId)
             return true
           })
           .catch(err => console.log(err))
