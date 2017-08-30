@@ -10,6 +10,7 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const createAlbumImage = require('./utils/createAlbumImage.js')
 const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
+const socket = require('./utils/socketConnection')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -181,4 +182,11 @@ $tracklistForm.addEventListener('click', event => {
     deleteTrack(trackNumber, numberOfTracks)
     currentTrack--
   }
+})
+
+let socketId = null
+
+socket.on('connectionId', connectionId => {
+  socketId = connectionId
+  console.log(socketId)
 })
