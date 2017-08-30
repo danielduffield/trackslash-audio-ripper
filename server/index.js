@@ -44,9 +44,10 @@ app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
   const tracklist = req.body.tracklist
   const metaData = req.body.metaData
+  const socketId = req.body.socketId
   console.log(queue)
   queue[metaData.videoId].then(() => {
-    return Promise.all(sliceTracklist(tracklist, metaData))
+    return Promise.all(sliceTracklist(tracklist, metaData, socketId))
   })
   .then(() => {
     return compressTracklist(metaData.videoId)
