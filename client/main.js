@@ -192,6 +192,14 @@ socket.on('connectionId', connectionId => {
   console.log(socketId)
 })
 
+const $downloadProgress = document.getElementById('album-download-progress')
+
 socket.on('downloadProgress', progress => {
   console.log(progress)
+  $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
+  if (progress === 100) {
+    setTimeout(() => {
+      $downloadProgress.textContent = 'Album Download Complete'
+    }, 3000)
+  }
 })
