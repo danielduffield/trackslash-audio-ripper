@@ -10,10 +10,15 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const createAlbumImage = require('./utils/createAlbumImage.js')
 const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
+const socket = require('./utils/socketConnection')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
 const HashRouter = require('./utils/hashRouter.js')
+
+let tracklistLength = 0
+
+let slicingInitialized = false
 
 function validateUrl(url) {
   return url.includes('https://www.youtube.com/')
@@ -51,6 +56,7 @@ $submitButton.addEventListener('click', () => {
   if (validateUrl($urlInput.value)) {
     urlSubmission.url = $urlInput.value
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
+    urlSubmission.socketId = socketId
     sendUrlPostRequest(urlSubmission).then(keyData => {
       albumMetadata = keyData
 
@@ -87,9 +93,21 @@ $tracklistForm.addEventListener('submit', event => {
   const tracklist = submitTracklist(trackData, currentTrack)
   console.log(tracklist)
   const tracklistPost = {}
-
+  tracklistLength = tracklist.length
   tracklistPost.tracklist = tracklist
   tracklistPost.metaData = albumMetadata
+  tracklistPost.socketId = socketId
+
+  slicingInitialized = true
+  if ($downloadProgress.textContent !== 'Album Download Complete') {
+    $sliceProgress.textContent = 'Slicing will begin after album download.'
+  }
+  else {
+    $sliceProgress.textContent = 'Track slice initializing...'
+    setTimeout(() => {
+      $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
+    }, 2000)
+  }
 
   sendTracklistPostRequest(tracklistPost).then(zipPath => {
     const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
@@ -181,4 +199,32 @@ $tracklistForm.addEventListener('click', event => {
     deleteTrack(trackNumber, numberOfTracks)
     currentTrack--
   }
+})
+
+let socketId = null
+
+socket.on('connectionId', connectionId => {
+  socketId = connectionId
+})
+
+const $downloadProgress = document.getElementById('album-download-progress')
+const $sliceProgress = document.getElementById('track-slice-progress')
+
+socket.on('downloadProgress', progress => {
+  $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
+  if (progress === 100) {
+    setTimeout(() => {
+      $downloadProgress.textContent = 'Album Download Complete'
+      if (slicingInitialized) {
+        $sliceProgress.textContent = 'Track slice initializing...'
+        setTimeout(() => {
+          $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
+        }, 2000)
+      }
+    }, 3000)
+  }
+})
+
+socket.on('sliceProgress', sliced => {
+  $sliceProgress.textContent = 'Tracks Sliced: ' + sliced
 })

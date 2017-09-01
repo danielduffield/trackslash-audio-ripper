@@ -3,13 +3,12 @@ require('dotenv').config()
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const request = require('request')
-const express = require('express')
-const app = express()
 const getMetadata = require('./utils/getMetadata.js')
 const processMetadata = require('./utils/processMetadata.js')
 const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
+const { express, app, server, io } = require('./utils/serverApp')
 
 const queue = {}
 
@@ -26,7 +25,7 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            queue[keyData.videoId] = downloadAlbum(requestedUrl, keyData)
+            queue[keyData.videoId] = downloadAlbum(requestedUrl, keyData, req.body.socketId)
             return true
           })
           .catch(err => console.log(err))
@@ -45,9 +44,10 @@ app.post('/tracklist-request', (req, res) => {
   console.log(req.body)
   const tracklist = req.body.tracklist
   const metaData = req.body.metaData
+  const socketId = req.body.socketId
   console.log(queue)
   queue[metaData.videoId].then(() => {
-    return Promise.all(sliceTracklist(tracklist, metaData))
+    return Promise.all(sliceTracklist(tracklist, metaData, socketId))
   })
   .then(() => {
     return compressTracklist(metaData.videoId)
@@ -60,7 +60,7 @@ app.post('/tracklist-request', (req, res) => {
   })
 })
 
-app.listen(process.env.PORT, () => console.log('Listening on PORT...'))
+server.listen(process.env.PORT, () => console.log('Listening on PORT...'))
 
 function checkYoutubeId(youtubeId) {
   return new Promise((resolve, reject) => {
@@ -69,4 +69,11 @@ function checkYoutubeId(youtubeId) {
       return resolve(response)
     })
   })
+}
+
+io.sockets.on('connection', newConnection)
+
+function newConnection(socket) {
+  console.log('User ' + socket.id + ' connected')
+  socket.emit('connectionId', socket.id)
 }

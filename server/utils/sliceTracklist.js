@@ -1,9 +1,12 @@
 const ffmpeg = require('fluent-ffmpeg')
 const path = require('path')
+const { io } = require('./serverApp')
 
 const trackPromises = []
+let numOfTracks = 0
+let numSliced = 0
 
-function sliceTrack(track, keyData) {
+function sliceTrack(track, keyData, socketId) {
   const duration = calculateDuration(track)
   const fileName = parseTrackName(track)
   console.log('Duration: ', duration)
@@ -17,6 +20,8 @@ function sliceTrack(track, keyData) {
       .on('end', function (err, data) {
         if (!err) {
           console.log('conversion Done')
+          numSliced++
+          io.to(socketId).emit('sliceProgress', numSliced + '/' + numOfTracks)
           resolve()
         }
       })
@@ -27,9 +32,10 @@ function sliceTrack(track, keyData) {
   })
 }
 
-function sliceTracklist(tracklist, keyData) {
+function sliceTracklist(tracklist, keyData, socketId) {
+  numOfTracks = tracklist.length
   tracklist.forEach(track => {
-    trackPromises.push(sliceTrack(track, keyData))
+    trackPromises.push(sliceTrack(track, keyData, socketId))
   })
   return trackPromises
 }

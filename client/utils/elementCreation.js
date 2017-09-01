@@ -16,6 +16,7 @@ function createFormTable() {
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'create-tracklist'}, '', [
       createElement('div', {id: 'video-image-tracklist-form', class: 'video-image hidden'}, '', []),
       createElement('h3', {id: 'youtube-video-title'}, '', []),
+      createElement('p', {id: 'album-download-progress'}, '', []),
       createElement('div', {id: 'tracklist-control-container'}, '', [
         createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button'}, 'Load Timecodes', []),
         createElement('button', {id: 'submit-timecodes-button', class: 'tracklist-control-button'}, 'Submit Timecodes', []),
@@ -35,6 +36,7 @@ function createFormTable() {
           ]),
           createElement('tbody', {id: 'track-form-container'}, '', [])
         ]),
+        createElement('p', {id: 'track-slice-progress'}, '', []),
         createElement('input', {id: 'track-form-add-button', class: 'form-button', type: 'button', value: 'Add Track'}, '', []),
         createElement('input', {id: 'track-form-submit-button', class: 'form-button', type: 'submit', value: 'Start Slicing'}, '', [])
       ])
