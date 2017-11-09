@@ -187,6 +187,7 @@ $timecodeSubmitBtn.addEventListener('click', () => {
   addTrackForm(currentTrack)
   window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
   const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, albumMetadata.videoLengthString)
+  currentTrack += pastedTracklist.length
   autofillTracklistForms(pastedTracklist)
 })
 
