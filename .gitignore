@@ -4,3 +4,4 @@ node_modules
 .eslintrc
 .env
 server/downloaded
+server/public/bundle.js
