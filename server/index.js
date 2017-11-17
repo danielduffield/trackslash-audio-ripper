@@ -13,12 +13,17 @@ const { express, app, server, io } = require('./utils/serverApp')
 const removeExpired = require('./utils/removeExpired.js')
 const populateQueue = require('./utils/populateQueue.js')
 const findExpired = require('./utils/findExpired.js')
+const updateQueue = require('./utils/updateQueue.js')
 
 let queue = {}
-populateQueue(removeExpired(findExpired(path.join(__dirname, './downloaded')))).then(populated => {
+findExpired(path.join(__dirname, './downloaded')).then(results => {
+  removeExpired(results.expired)
+  const populated = populateQueue(results.active)
   console.log('Populated Queue: ', populated)
   queue = populated
 })
+
+setInterval(() => updateQueue(queue), 5000)
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
