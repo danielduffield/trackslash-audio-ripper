@@ -23,7 +23,9 @@ findExpired(path.join(__dirname, './downloaded')).then(results => {
   queue = populateQueue(results.active)
 })
 
-setInterval(() => updateQueue(queue), 5 * minutes)
+setInterval(() => {
+  queue = updateQueue(queue)
+}, 5 * minutes)
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
