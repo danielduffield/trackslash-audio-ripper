@@ -3,7 +3,13 @@ const path = require('path')
 
 function removeExpired() {
   const filePath = path.join(__dirname, '../downloaded')
-  getBirthtimes(filePath).then(data => console.log(data))
+  getBirthtimes(filePath).then(data => {
+    console.log(data)
+    const minutes = 1000 * 60
+    data.forEach(fileTime => {
+      console.log((Date.now() - fileTime.birthtimeMs) / minutes)
+    })
+  })
 }
 
 function getBirthtimes(dir) {
