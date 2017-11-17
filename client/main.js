@@ -37,6 +37,7 @@ document.body.appendChild(createTracklistTable())
 document.body.appendChild(createTimecodeForm())
 
 const $urlInput = document.getElementById('url-submit-form')
+$urlInput.focus()
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
 
