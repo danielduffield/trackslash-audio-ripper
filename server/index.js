@@ -67,7 +67,7 @@ app.post('/tracklist-request', (req, res) => {
     return Promise.all(sliceTracklist(tracklist, metaData, socketId))
   })
   .then(() => {
-    return compressTracklist(metaData.videoId)
+    return compressTracklist(metaData.videoId, socketId)
   })
   .then(path => {
     res.status(201).json(path)
