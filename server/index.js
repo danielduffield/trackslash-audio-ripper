@@ -41,7 +41,10 @@ app.post('/url-request', (req, res) => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
             const timeLimit = 20 * minutes
-            if (queue[keyData.videoId]) queue[keyData.videoId].expiration = Date.now() + timeLimit
+            if (queue[keyData.videoId]) {
+              queue[keyData.videoId].expiration = Date.now() + timeLimit
+              io.to(req.body.socketId).emit('downloadProgress', 100)
+            }
             else queue[keyData.videoId] = { dl: downloadAlbum(requestedUrl, keyData, req.body.socketId), expiration: Date.now() + timeLimit }
             return true
           })
