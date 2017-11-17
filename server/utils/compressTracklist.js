@@ -5,7 +5,7 @@ const path = require('path')
 function compressTracklist(youtubeId, socketId) {
   console.log('Beginning compression')
   return new Promise((resolve, reject) => {
-    const output = fs.createWriteStream(path.join(__dirname, '../downloaded/' + youtubeId + '/' + youtubeId + '-tracklist.zip'))
+    const output = fs.createWriteStream(path.join(__dirname, '../downloaded/' + youtubeId + '/zip/' + socketId + '/' + youtubeId + '-tracklist.zip'))
     const archive = archiver('zip', {
       zlib: {level: 9}
     })
@@ -13,7 +13,7 @@ function compressTracklist(youtubeId, socketId) {
     output.on('close', () => {
       console.log(archive.pointer() + ' total bytes')
       console.log('archiver has been finalized and the output file descriptor has closed.')
-      resolve('/download/' + youtubeId + '/' + youtubeId + '-tracklist.zip')
+      resolve('/download/' + youtubeId + '/zip/' + socketId + '/' + youtubeId + '-tracklist.zip')
     })
 
     archive.on('warning', function (err) {
