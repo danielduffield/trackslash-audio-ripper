@@ -15,7 +15,7 @@ const populateQueue = require('./utils/populateQueue.js')
 const findExpired = require('./utils/findExpired.js')
 
 let queue = {}
-populateQueue(removeExpired(findExpired(path.join(__dirname, '../downloaded')))).then(populated => {
+populateQueue(removeExpired(findExpired(path.join(__dirname, './downloaded')))).then(populated => {
   console.log('Populated Queue: ', populated)
   queue = populated
 })
