@@ -1,9 +1,9 @@
 const fs = require('fs-extra')
 const path = require('path')
 
-const timeLimit = 10
 const filePath = path.join(__dirname, '../downloaded')
 const minutes = 1000 * 60
+const timeLimit = 20 * minutes
 
 function removeExpired() {
   const expired = findExpired(getFileStats(filePath))
@@ -20,7 +20,7 @@ function removeExpired() {
 
 function findExpired(fileStats) {
   return fileStats.then(dataArr => {
-    return dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) / minutes > timeLimit)
+    return dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit)
   })
 }
 
