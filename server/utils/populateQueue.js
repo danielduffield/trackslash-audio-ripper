@@ -6,7 +6,7 @@ function populateQueue(active) {
     const queue = {}
     dirInfo.forEach(dir => {
       const entry = {}
-      entry.expiration = timeLimit + dir.stats.birthtimeMs
+      entry.expiration = Date.now() + timeLimit
       entry.dl = Promise.resolve(true)
       queue[dir.fileName] = entry
     })
