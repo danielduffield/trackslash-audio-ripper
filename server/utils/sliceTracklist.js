@@ -16,7 +16,7 @@ function sliceTrack(track, keyData, socketId) {
     ffmpeg(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/album/' + keyData.videoId + '-album.mp3'))
       .setStartTime(track.trackStart)
       .setDuration(duration)
-      .output(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks/' + fileName + '.mp3'))
+      .output(path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks/' + socketId + '/' + fileName + '.mp3'))
       .on('end', function (err, data) {
         if (!err) {
           console.log('conversion Done')
