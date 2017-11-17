@@ -10,9 +10,10 @@ const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
 const { express, app, server, io } = require('./utils/serverApp')
 const removeExpired = require('./utils/removeExpired.js')
+const populateQueue = require('./utils/populateQueue.js')
 
 const queue = {}
-removeExpired()
+populateQueue(removeExpired())
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
