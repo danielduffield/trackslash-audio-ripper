@@ -14,6 +14,7 @@ const removeExpired = require('./utils/removeExpired.js')
 const populateQueue = require('./utils/populateQueue.js')
 const findExpired = require('./utils/findExpired.js')
 const updateQueue = require('./utils/updateQueue.js')
+const ensureDirs = require('./utils/ensureDirs.js')
 
 const minutes = 60 * 1000
 
@@ -41,11 +42,13 @@ app.post('/url-request', (req, res) => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
             const timeLimit = 20 * minutes
-            if (queue[keyData.videoId]) {
-              queue[keyData.videoId].expiration = Date.now() + timeLimit
-              io.to(req.body.socketId).emit('downloadProgress', 100)
-            }
-            else queue[keyData.videoId] = { dl: downloadAlbum(requestedUrl, keyData, req.body.socketId), expiration: Date.now() + timeLimit }
+            ensureDirs(keyData, req.body.socketId).then(() => {
+              if (queue[keyData.videoId]) {
+                queue[keyData.videoId].expiration = Date.now() + timeLimit
+                io.to(req.body.socketId).emit('downloadProgress', 100)
+              }
+              else queue[keyData.videoId] = { dl: downloadAlbum(requestedUrl, keyData, req.body.socketId), expiration: Date.now() + timeLimit }
+            })
             return true
           })
           .catch(err => console.log(err))
