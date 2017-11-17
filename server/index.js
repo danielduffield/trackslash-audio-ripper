@@ -3,6 +3,7 @@ require('dotenv').config()
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const request = require('request')
+const path = require('path')
 const getMetadata = require('./utils/getMetadata.js')
 const processMetadata = require('./utils/processMetadata.js')
 const downloadAlbum = require('./utils/downloadAlbum.js')
@@ -11,12 +12,21 @@ const compressTracklist = require('./utils/compressTracklist')
 const { express, app, server, io } = require('./utils/serverApp')
 const removeExpired = require('./utils/removeExpired.js')
 const populateQueue = require('./utils/populateQueue.js')
+const findExpired = require('./utils/findExpired.js')
 
 let queue = {}
-populateQueue(removeExpired()).then(populated => {
+populateQueue(removeExpired(findExpired(path.join(__dirname, '../downloaded')))).then(populated => {
   console.log('Populated Queue: ', populated)
   queue = populated
 })
+
+const minutes = 60 * 1000
+
+function someFunc() {
+  console.log('bap')
+}
+
+setTimeout(someFunc, 5 * minutes)
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
