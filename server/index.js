@@ -15,15 +15,15 @@ const populateQueue = require('./utils/populateQueue.js')
 const findExpired = require('./utils/findExpired.js')
 const updateQueue = require('./utils/updateQueue.js')
 
+const minutes = 60 * 1000
+
 let queue = {}
 findExpired(path.join(__dirname, './downloaded')).then(results => {
   removeExpired(results.expired)
-  const populated = populateQueue(results.active)
-  console.log('Populated Queue: ', populated)
-  queue = populated
+  queue = populateQueue(results.active)
 })
 
-setInterval(() => updateQueue(queue), 5000)
+setInterval(() => updateQueue(queue), 5 * minutes)
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
@@ -38,7 +38,6 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            const minutes = 60 * 1000
             const timeLimit = 20 * minutes
             if (queue[keyData.videoId]) queue[keyData.videoId].expiration = Date.now() + timeLimit
             else queue[keyData.videoId] = { dl: downloadAlbum(requestedUrl, keyData, req.body.socketId), expiration: Date.now() + timeLimit }
