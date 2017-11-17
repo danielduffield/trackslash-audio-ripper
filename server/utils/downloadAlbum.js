@@ -5,7 +5,7 @@ const { io } = require('./serverApp')
 
 function downloadAlbum(url, keyData, socketId) {
   const albumFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId + '/album')
-  const tracksFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks')
+  const tracksFolder = path.join(__dirname, '/../downloaded/' + keyData.videoId + '/tracks/' + socketId)
 
   return new Promise((resolve, reject) => {
     fs.ensureDir(albumFolder)
