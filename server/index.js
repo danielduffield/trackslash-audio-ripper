@@ -31,7 +31,12 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            queue[keyData.videoId].dl = downloadAlbum(requestedUrl, keyData, req.body.socketId)
+            const minutes = 60 * 1000
+            const timeLimit = 20 * minutes
+            queue[keyData.videoId].expiration = timeLimit
+            if (!queue[keyData.videoId].dl) {
+              queue[keyData.videoId].dl = downloadAlbum(requestedUrl, keyData, req.body.socketId)
+            }
             return true
           })
           .catch(err => console.log(err))
