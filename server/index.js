@@ -12,7 +12,8 @@ const { express, app, server, io } = require('./utils/serverApp')
 const removeExpired = require('./utils/removeExpired.js')
 const populateQueue = require('./utils/populateQueue.js')
 
-const queue = populateQueue(removeExpired())
+const queue = []
+populateQueue(removeExpired()).then(insert => queue.push(...insert))
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
@@ -27,7 +28,7 @@ app.post('/url-request', (req, res) => {
           .then(data => {
             const keyData = processMetadata(data)
             res.status(202).json(keyData)
-            queue[keyData.videoId.dl] = downloadAlbum(requestedUrl, keyData, req.body.socketId)
+            queue[keyData.videoId].dl = downloadAlbum(requestedUrl, keyData, req.body.socketId)
             return true
           })
           .catch(err => console.log(err))
@@ -48,7 +49,7 @@ app.post('/tracklist-request', (req, res) => {
   const metaData = req.body.metaData
   const socketId = req.body.socketId
   console.log(queue)
-  queue[metaData.videoId.dl].then(() => {
+  queue[metaData.videoId].dl.then(() => {
     return Promise.all(sliceTracklist(tracklist, metaData, socketId))
   })
   .then(() => {
