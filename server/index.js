@@ -20,14 +20,6 @@ populateQueue(removeExpired(findExpired(path.join(__dirname, './downloaded')))).
   queue = populated
 })
 
-const minutes = 60 * 1000
-
-function someFunc() {
-  console.log('bap')
-}
-
-setTimeout(someFunc, 5 * minutes)
-
 app.use(jsonParser)
 app.use(express.static('server/public'))
 app.use('/download', express.static('server/downloaded'))
