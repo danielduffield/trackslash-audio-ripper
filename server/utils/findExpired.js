@@ -5,9 +5,10 @@ const minutes = 1000 * 60
 const timeLimit = 20 * minutes
 
 function findExpired(filePath) {
-  return getFileStats(filePath).then(dataArr => {
+  return getFileStats(filePath)
+  .then(dataArr => {
     return {
-      expired: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit),
+      expired: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit).map(expData => expData.fileName),
       active: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) < timeLimit)
     }
   })
