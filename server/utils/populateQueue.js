@@ -3,11 +3,14 @@ const timeLimit = 20 * minutes
 
 function populateQueue(active) {
   return active.then(dirInfo => {
-    return dirInfo.map(dir => {
-      dir.expiration = dir.stats.birthtimeMs + timeLimit - Date.now()
-      dir.dl = new Promise((resolve, reject) => resolve(true))
-      return dir
+    const queue = {}
+    dirInfo.forEach(dir => {
+      const entry = {}
+      entry.expiration = dir.stats.birthtimeMs + timeLimit - Date.now()
+      entry.dl = new Promise((resolve, reject) => resolve(true))
+      queue[dir.fileName] = entry
     })
+    return queue
   })
 }
 
