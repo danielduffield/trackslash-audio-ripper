@@ -2,7 +2,7 @@ const fs = require('fs')
 const archiver = require('archiver')
 const path = require('path')
 
-function compressTracklist(youtubeId) {
+function compressTracklist(youtubeId, socketId) {
   console.log('Beginning compression')
   return new Promise((resolve, reject) => {
     const output = fs.createWriteStream(path.join(__dirname, '../downloaded/' + youtubeId + '/' + youtubeId + '-tracklist.zip'))
@@ -31,7 +31,7 @@ function compressTracklist(youtubeId) {
     })
 
     archive.pipe(output)
-    archive.directory(path.join(__dirname, '/../downloaded/' + youtubeId + '/tracks'), 'tracks')
+    archive.directory(path.join(__dirname, '/../downloaded/' + youtubeId + '/tracks/' + socketId), 'tracks')
     archive.finalize()
   })
 }
