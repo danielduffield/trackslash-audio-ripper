@@ -6,7 +6,7 @@ const filePath = path.join(__dirname, '../downloaded')
 const minutes = 1000 * 60
 
 function removeExpired() {
-  const expired = findExpired(getBirthtimes(filePath))
+  const expired = findExpired(getFileStats(filePath))
   let filesDeleted = 0
   expired.then(dirInfo => {
     Promise.all(dirInfo.map(dir => {
@@ -24,7 +24,7 @@ function findExpired(fileStats) {
   })
 }
 
-function getBirthtimes(dir) {
+function getFileStats(dir) {
   return fs.readdir(dir).then((files) => {
     return Promise.all(files.map(fileName => {
       const filePath = path.join(__dirname, '../downloaded/', fileName)
