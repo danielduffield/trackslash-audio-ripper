@@ -3,10 +3,9 @@ const path = require('path')
 
 const minutes = 1000 * 60
 const timeLimit = 20 * minutes
-const filePath = path.join(__dirname, '../downloaded')
 
-function findExpired(fileStats) {
-  return fileStats.then(dataArr => {
+function findExpired(filePath) {
+  return getFileStats(filePath).then(dataArr => {
     return {
       expired: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit),
       active: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) < timeLimit)
@@ -25,4 +24,4 @@ function getFileStats(dir) {
   })
 }
 
-module.exports = () => findExpired(getFileStats(filePath))
+module.exports = findExpired
