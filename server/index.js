@@ -12,8 +12,11 @@ const { express, app, server, io } = require('./utils/serverApp')
 const removeExpired = require('./utils/removeExpired.js')
 const populateQueue = require('./utils/populateQueue.js')
 
-const queue = []
-populateQueue(removeExpired()).then(insert => queue.push(...insert))
+let queue = {}
+populateQueue(removeExpired()).then(populated => {
+  console.log('Populated Queue: ', populated)
+  queue = populated
+})
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
