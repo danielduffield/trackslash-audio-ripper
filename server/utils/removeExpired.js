@@ -6,21 +6,27 @@ const minutes = 1000 * 60
 const timeLimit = 20 * minutes
 
 function removeExpired() {
-  const expired = findExpired(getFileStats(filePath))
+  const results = findExpired(getFileStats(filePath))
   let filesDeleted = 0
-  expired.then(dirInfo => {
-    Promise.all(dirInfo.map(dir => {
+  return results.then(dirInfo => {
+    Promise.all(dirInfo.expired.map(dir => {
       const expiredFilePath = path.join(__dirname, '../downloaded/', dir.fileName)
       console.log('DELETING FILE: ', expiredFilePath)
       filesDeleted++
-      return fs.remove(expiredFilePath)
-    })).then(() => console.log(filesDeleted + ' Expired directories deleted.'))
+      fs.remove(expiredFilePath)
+    })).then(() => {
+      console.log(filesDeleted + ' expired directories deleted.')
+      return dirInfo.active
+    })
   })
 }
 
 function findExpired(fileStats) {
   return fileStats.then(dataArr => {
-    return dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit)
+    return {
+      expired: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) > timeLimit),
+      active: dataArr.filter(fileData => (Date.now() - fileData.stats.birthtimeMs) < timeLimit)
+    }
   })
 }
 
