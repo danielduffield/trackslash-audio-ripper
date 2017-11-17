@@ -1,19 +1,15 @@
 const fs = require('fs-extra')
 const path = require('path')
 
-function removeExpired(directories) {
+function removeExpired(entries) {
   let filesDeleted = 0
-  return directories.then(dirInfo => {
-    return Promise.all(dirInfo.expired.map(dir => {
-      const expiredFilePath = path.join(__dirname, '../downloaded/', dir.fileName)
-      console.log('DELETING FILE: ', expiredFilePath)
-      filesDeleted++
-      fs.remove(expiredFilePath)
-    })).then(() => {
-      console.log(filesDeleted + ' expired directories deleted.')
-      return dirInfo.active
-    })
-  })
+  return Promise.all(entries.map(dirName => {
+    const expiredFilePath = path.join(__dirname, '../downloaded/', dirName)
+    filesDeleted++
+    fs.remove(expiredFilePath)
+  })).then(() => {
+    console.log(filesDeleted + ' expired directories deleted.')
+  }).catch(err => console.log(err))
 }
 
 module.exports = removeExpired
