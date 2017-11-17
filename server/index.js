@@ -33,10 +33,8 @@ app.post('/url-request', (req, res) => {
             res.status(202).json(keyData)
             const minutes = 60 * 1000
             const timeLimit = 20 * minutes
-            queue[keyData.videoId].expiration = timeLimit
-            if (!queue[keyData.videoId].dl) {
-              queue[keyData.videoId].dl = downloadAlbum(requestedUrl, keyData, req.body.socketId)
-            }
+            if (queue[keyData.videoId]) queue[keyData.videoId].expiration = timeLimit
+            else queue[keyData.videoId] = { dl: downloadAlbum(requestedUrl, keyData, req.body.socketId), expiration: timeLimit }
             return true
           })
           .catch(err => console.log(err))
