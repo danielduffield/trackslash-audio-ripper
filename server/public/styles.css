@@ -92,6 +92,11 @@ h1 {
   text-decoration: none;
 }
 
+.title-link:focus {
+  color: white;
+  text-decoration: none;
+}
+
 .tracklist-control-button {
   margin: 0 20px 20px;
   height: 30px;
