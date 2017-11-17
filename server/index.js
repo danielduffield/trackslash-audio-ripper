@@ -9,10 +9,10 @@ const downloadAlbum = require('./utils/downloadAlbum.js')
 const sliceTracklist = require('./utils/sliceTracklist.js')
 const compressTracklist = require('./utils/compressTracklist')
 const { express, app, server, io } = require('./utils/serverApp')
-const scanDownloaded = require('./utils/scan-downloaded.js')
+const removeExpired = require('./utils/removeExpired.js')
 
 const queue = {}
-scanDownloaded()
+removeExpired()
 
 app.use(jsonParser)
 app.use(express.static('server/public'))
