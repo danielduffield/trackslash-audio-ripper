@@ -111,7 +111,7 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(zipPath => {
-    const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId)
+    const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
     buildTracklistFinal(tracklist)
     renderTracklistLinks($tracklistLinks)
     const $downloadAllForm = document.getElementById('download-all-form')
