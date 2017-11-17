@@ -9,7 +9,7 @@ function removeExpired() {
   const results = findExpired(getFileStats(filePath))
   let filesDeleted = 0
   return results.then(dirInfo => {
-    Promise.all(dirInfo.expired.map(dir => {
+    return Promise.all(dirInfo.expired.map(dir => {
       const expiredFilePath = path.join(__dirname, '../downloaded/', dir.fileName)
       console.log('DELETING FILE: ', expiredFilePath)
       filesDeleted++
