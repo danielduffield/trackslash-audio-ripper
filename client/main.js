@@ -1,5 +1,4 @@
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
-const sendUrlPostRequest = require('./utils/sendUrlPostRequest.js')
 const submitTracklist = require('./utils/submitTracklist.js')
 const addTrackForm = require('./utils/addTrackForm.js')
 const getTracklistLinks = require('./utils/getTracklistLinks.js')
@@ -8,9 +7,8 @@ const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
-const createAlbumImage = require('./utils/createAlbumImage.js')
-const invalidUrlMessage = require('./utils/invalidUrlMessage.js')
 const socket = require('./utils/socketConnection')
+const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -20,16 +18,7 @@ let tracklistLength = 0
 
 let slicingInitialized = false
 
-function validateUrl(url) {
-  return url.includes('https://www.youtube.com/')
-}
-
-function getYoutubeId(url) {
-  const youtubeId = url.slice(24, url.length)
-  return youtubeId
-}
-
-let currentTrack = 1
+let currentTrack = 2
 var albumMetadata = {}
 
 document.body.appendChild(createFormTable())
@@ -48,33 +37,9 @@ router.match(window.location.hash)
 
 const $submitButton = document.getElementById('url-submit-btn')
 $submitButton.addEventListener('click', () => {
-  const $invalidUrlMessage = document.querySelector('.alert-danger')
-  const $urlFormGroup = document.getElementById('url-form-col')
-  if ($invalidUrlMessage) {
-    $urlFormGroup.removeChild($invalidUrlMessage)
-  }
-  const urlSubmission = {}
-  if (validateUrl($urlInput.value)) {
-    urlSubmission.url = $urlInput.value
-    urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
-    urlSubmission.socketId = socketId
-    sendUrlPostRequest(urlSubmission).then(keyData => {
-      albumMetadata = keyData
-
-      createAlbumImage(albumMetadata.videoImage, 'video-image-tracklist-form')
-      createAlbumImage(albumMetadata.videoImage, 'video-image-timecode-form')
-      createAlbumImage(albumMetadata.videoImage, 'video-image-tracklist-final')
-
-      currentTrack = 1
-      addTrackForm(currentTrack)
-      currentTrack++
-    })
-  }
-  else {
-    const $invalid = invalidUrlMessage()
-    const $urlFormGroup = document.getElementById('url-form-col')
-    $urlFormGroup.appendChild($invalid)
-  }
+  handleUrlSubmit($urlInput, socketId).then(keyData => {
+    albumMetadata = keyData
+  })
 })
 
 const $addTrackButton = document.getElementById('track-form-add-button')
