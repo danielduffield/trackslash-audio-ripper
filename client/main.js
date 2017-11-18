@@ -25,7 +25,7 @@ document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
 document.body.appendChild(createTimecodeForm())
 
-const $urlInput = document.getElementById('url-submit-form')
+const $urlInput = document.getElementById('url-submit-input')
 $urlInput.focus()
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
@@ -35,10 +35,11 @@ const $trackFormContainer = document.getElementById('track-form-container')
 router.listen()
 router.match(window.location.hash)
 
-const $submitButton = document.getElementById('url-submit-btn')
-$submitButton.addEventListener('click', () => {
+const $urlSubmitForm = document.getElementById('url-submit-form')
+$urlSubmitForm.addEventListener('submit', event => {
+  event.preventDefault()
   handleUrlSubmit($urlInput, socketId).then(keyData => {
-    albumMetadata = keyData
+    if (keyData) albumMetadata = keyData
   })
 })
 
