@@ -3,6 +3,7 @@ require('dotenv').config()
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
 const request = require('request')
+const fs = require('fs-extra')
 const path = require('path')
 const getMetadata = require('./utils/getMetadata.js')
 const processMetadata = require('./utils/processMetadata.js')
@@ -31,6 +32,13 @@ setInterval(() => {
 app.use(jsonParser)
 app.use(express.static('server/public'))
 app.use('/download', express.static('server/downloaded'))
+
+app.get('/meta-image.png', (req, res) => {
+  fs.readFile('server/public/images/trackslash-meta-image.png').then(imageData => {
+    res.contentType('image/png')
+    res.send(imageData)
+  })
+})
 
 app.post('/url-request', (req, res) => {
   checkYoutubeId(req.body.youtubeId)
