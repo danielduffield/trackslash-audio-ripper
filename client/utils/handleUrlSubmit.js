@@ -28,6 +28,7 @@ function handleUrlSubmit($input, socketId) {
     const $invalid = invalidUrlMessage()
     const $urlFormGroup = document.getElementById('url-form-col')
     $urlFormGroup.appendChild($invalid)
+    return Promise.resolve(null)
   }
 }
 
