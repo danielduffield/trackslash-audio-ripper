@@ -10,8 +10,6 @@ function sendUrlPostRequest(urlSubmission) {
     body: JSON.stringify(urlSubmission)
   })
   .then(response => {
-    console.log(response)
-
     if (response.status === 400) {
       const $invalid = invalidUrlMessage()
       const $urlFormGroup = document.getElementById('url-form-col')
@@ -24,11 +22,8 @@ function sendUrlPostRequest(urlSubmission) {
     window.location.hash = '#create-tracklist' + '?id=' + keyData.videoId
 
     transitionToTracklistForm(keyData)
-
-    console.log(keyData)
     return keyData
   })
-  .catch(err => console.log(err))
 }
 
 function transitionToTracklistForm(keyData) {

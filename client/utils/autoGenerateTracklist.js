@@ -20,7 +20,6 @@ function removeTrackNumFromName(trackName) {
 }
 
 function autoGenerateTracklist(description, videoDuration) {
-  console.log('description: ', description)
   const descriptionRows = description.split('\n')
   const timecodedRows = descriptionRows.filter(row => {
     return /\d:\d\d/.test(row)

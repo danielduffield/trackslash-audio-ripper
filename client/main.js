@@ -58,7 +58,6 @@ $tracklistForm.addEventListener('submit', event => {
 
   const trackData = new FormData($tracklistForm)
   const tracklist = submitTracklist(trackData, currentTrack)
-  console.log(tracklist)
   const tracklistPost = {}
   tracklistLength = tracklist.length
   tracklistPost.tracklist = tracklist
