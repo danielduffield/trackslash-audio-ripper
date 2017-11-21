@@ -78,23 +78,6 @@ app.post('/tracklist-request', (req, res) => {
   const socketId = req.body.socketId
   handleTracklistSubmit(socketId, metaData, tracklist)
   res.sendStatus(202)
-
-  /*
-
-  queue[metaData.videoId].dl.then(() => {
-    return Promise.all(sliceTracklist(tracklist, metaData, socketId))
-  })
-  .then(() => {
-    return compressTracklist(metaData.videoId, socketId)
-  })
-  .then(path => {
-    res.status(201).json(path)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
-
-  */
 })
 
 server.listen(process.env.PORT, () => console.log('Listening on PORT...'))
@@ -118,13 +101,11 @@ function newConnection(socket) {
 function handleTracklistSubmit(socketId, metaData, tracklist) {
   queue[metaData.videoId].dl.then(() => {
     return Promise.all(sliceTracklist(tracklist, metaData, socketId))
-  })
-  .then(() => {
+  }).then(() => {
     compressTracklist(metaData.videoId, socketId).then(zipPath => {
       io.to(socketId).emit('zipPath', zipPath)
     })
-  })
-  .catch((err) => {
+  }).catch((err) => {
     console.log(err)
   })
 }
