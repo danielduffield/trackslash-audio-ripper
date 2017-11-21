@@ -7,12 +7,6 @@ function sendTracklistPostRequest(tracklistWithData) {
     },
     body: JSON.stringify(tracklistWithData)
   })
-  .then(response => {
-    return response.json()
-  })
-  .then(json => {
-    return json
-  })
 }
 
 module.exports = sendTracklistPostRequest
