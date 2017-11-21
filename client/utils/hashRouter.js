@@ -4,9 +4,9 @@ class HashRouter {
     this.isListening = false
   }
   match(hash) {
-    if (hash === '') {
-      const $submitForm = document.getElementById('url-submit-form')
-      $submitForm.value = ''
+    if (hash === '' || hash === '#') {
+      const $urlSubmitInput = document.getElementById('url-submit-input')
+      $urlSubmitInput.value = ''
       hash = '#url-form'
     }
 
