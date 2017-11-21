@@ -75,15 +75,21 @@ $tracklistForm.addEventListener('submit', event => {
     }, 2000)
   }
 
-  sendTracklistPostRequest(tracklistPost).then(zipPath => {
-    const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
-    buildTracklistFinal(tracklist)
-    renderTracklistLinks($tracklistLinks)
-    const $downloadAllForm = document.getElementById('download-all-form')
-    $downloadAllForm.setAttribute('action', zipPath)
-    const $finalAlbumTitle = document.getElementById('final-album-title')
-    $finalAlbumTitle.textContent = albumMetadata.videoTitle
-    window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
+  sendTracklistPostRequest(tracklistPost).then(response => {
+    console.log(response)
+    if (response.status === 202) {
+      socket.on('zipPath', zipPath => {
+        const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
+        buildTracklistFinal(tracklist)
+        renderTracklistLinks($tracklistLinks)
+        const $downloadAllForm = document.getElementById('download-all-form')
+        $downloadAllForm.setAttribute('action', zipPath)
+        const $finalAlbumTitle = document.getElementById('final-album-title')
+        $finalAlbumTitle.textContent = albumMetadata.videoTitle
+        window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
+      })
+    }
+    else (console.log('Tracklist request failed.'))
   })
 })
 
