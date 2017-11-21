@@ -31,6 +31,7 @@ const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
 
 const $trackFormContainer = document.getElementById('track-form-container')
+const $trackFinalContainer = document.getElementById('track-final-container')
 
 router.listen()
 router.match(window.location.hash)
@@ -79,6 +80,7 @@ $tracklistForm.addEventListener('submit', event => {
     console.log(response)
     if (response.status === 202) {
       socket.on('zipPath', zipPath => {
+        $trackFinalContainer.innerHTML = ''
         const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
         buildTracklistFinal(tracklist)
         renderTracklistLinks($tracklistLinks)
@@ -95,6 +97,13 @@ $tracklistForm.addEventListener('submit', event => {
 
 const $startOverBtn = document.getElementById('start-over-button')
 $startOverBtn.addEventListener('click', () => {
+  $tracklistError.textContent = ''
+  $trackFormContainer.innerHTML = ''
+  $trackFinalContainer.innerHTML = ''
+  tracklistLength = 0
+  currentTrack = 1
+  addTrackForm(currentTrack)
+  currentTrack++
   window.location.hash = ''
 })
 
