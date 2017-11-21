@@ -33,6 +33,7 @@ function sliceTrack(track, keyData, socketId) {
 }
 
 function sliceTracklist(tracklist, keyData, socketId) {
+  numSliced = 0
   numOfTracks = tracklist.length
   tracklist.forEach(track => {
     trackPromises.push(sliceTrack(track, keyData, socketId))
