@@ -10,7 +10,7 @@ function buildTracklistFinal(tracklist) {
     const $trackFinal = createElement('tr', {class: 'track-final-' + trackIndex}, '', [])
 
     trackFields.forEach((field, index) => {
-      const $tableCell = createElement('td', {}, '', [])
+      const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
       const $trackFinalField = createElement('span', {
         id: 'track-final-' + trackFields[index] + '-' + trackIndex,
         class: 'track-final-field'
