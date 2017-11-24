@@ -79,7 +79,6 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
-    console.log(response)
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => console.log(tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]))
       socket.on('zipPath', zipPath => {
@@ -91,7 +90,6 @@ $tracklistForm.addEventListener('submit', event => {
         $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
-        console.log('TRACKLIST ', tracklist)
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
       })
     }
