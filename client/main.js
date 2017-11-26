@@ -80,7 +80,15 @@ $tracklistForm.addEventListener('submit', event => {
 
   sendTracklistPostRequest(tracklistPost).then(response => {
     if (response.status === 202) {
-      $trackFinalContainer.addEventListener('click', e => console.log(tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]))
+      $trackFinalContainer.addEventListener('click', e => {
+        const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        const trackFileName = selectedTrack.trackName.split(' ').join('-')
+        const $audioPlayer = document.getElementById('audio-player')
+        const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+        console.log(trackPath)
+        console.log($audioPlayer.src)
+        $audioPlayer.src = trackPath
+      })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
         const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
