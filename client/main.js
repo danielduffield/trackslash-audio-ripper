@@ -10,6 +10,8 @@ const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 
+const demo = true
+
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
 const HashRouter = require('./utils/hashRouter.js')
@@ -93,7 +95,9 @@ $tracklistForm.addEventListener('submit', event => {
         buildTracklistFinal(tracklist)
         renderTracklistLinks($tracklistLinks)
         const $downloadAllForm = document.getElementById('download-all-form')
-        $downloadAllForm.setAttribute('action', zipPath)
+        demo
+          ? $downloadAllForm.setAttribute('title', 'File download is currently disabled.')
+          : $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
