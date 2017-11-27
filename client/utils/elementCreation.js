@@ -11,6 +11,7 @@ function createElement(tagName, attributes, content, $children) {
 }
 
 const $audioPlayer = createElement('audio', { id: 'audio-player', controls: '', controlsList: 'nodownload', src: '' }, '', [])
+$audioPlayer.addEventListener('contextmenu', e => e.preventDefault())
 const $audioModule = createElement('div', { id: 'audio-module' }, '', [$audioPlayer])
 
 function createFormTable() {
