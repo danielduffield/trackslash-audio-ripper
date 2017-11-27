@@ -95,9 +95,13 @@ $tracklistForm.addEventListener('submit', event => {
         buildTracklistFinal(tracklist)
         renderTracklistLinks($tracklistLinks)
         const $downloadAllForm = document.getElementById('download-all-form')
-        demo
-          ? $downloadAllForm.setAttribute('title', 'File download is currently disabled.')
-          : $downloadAllForm.setAttribute('action', zipPath)
+        const $downloadAllButton = document.getElementById('download-all-button')
+        const $downloadAllContainer = document.getElementById('download-all-container')
+        if (demo) {
+          $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
+          $downloadAllButton.setAttribute('class', 'form-button disabled')
+        }
+        else $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
