@@ -80,6 +80,7 @@ $tracklistForm.addEventListener('submit', event => {
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
         const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        if (!selectedTrack) return
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
         const $audioPlayer = document.getElementById('audio-player')
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
