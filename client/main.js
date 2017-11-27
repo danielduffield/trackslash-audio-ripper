@@ -9,7 +9,6 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
-const createAudioPlayer = require('./utils/audioPlayer.js')
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -25,7 +24,6 @@ var albumMetadata = {}
 document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
 document.body.appendChild(createTimecodeForm())
-document.body.appendChild(createAudioPlayer())
 
 const $urlInput = document.getElementById('url-submit-input')
 $urlInput.focus()
