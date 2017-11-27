@@ -26,12 +26,12 @@
 h1 {
   font-size: 4.5em;
   font-weight: 700;
-  margin: 50px 0 0;
+  margin: 30px 0 0;
   letter-spacing: 0.1em;
 }
 
 #main-subtitle {
-  margin: 0 0 20px;
+  margin: 0 0 30px;
   font-size: 1.75em;
   font-weight: 700;
   word-spacing: 1.25em;
@@ -136,7 +136,7 @@ textarea {
 }
 
 .video-image {
-  margin: 30px auto 0;
+  margin: 0 auto;
   height: 300px;
   width: 524px;
   bottom: 12px;
