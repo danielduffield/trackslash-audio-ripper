@@ -54,8 +54,8 @@ function createTracklistTable() {
   createElement('row', {}, '', [
     createElement('div', {class: 'col-md-8 col-md-offset-2 view hidden', id: 'tracklist-download'}, '', [
       createElement('div', {id: 'video-image-tracklist-final', class: 'video-image hidden'}, '', []),
-      $audioModule,
       createElement('h3', {id: 'final-album-title'}, '', []),
+      $audioModule,
       createElement('table', {class: 'table table-bordered'}, '', [
         createElement('thead', {}, '', [
           createElement('tr', {class: 'thead-row'}, '', [
