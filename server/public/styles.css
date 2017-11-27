@@ -164,4 +164,5 @@ body {
 .disabled {
   pointer-events: none;
   cursor: default;
+  color: grey;
 }
