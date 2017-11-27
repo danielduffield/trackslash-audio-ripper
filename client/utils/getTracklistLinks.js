@@ -1,5 +1,7 @@
 const createElement = require('./elementCreation').createElement
 
+const demo = true
+
 function parseTrackName(track) {
   const parsedName = track.trackName.split(' ').join('-')
   return parsedName
@@ -10,7 +12,7 @@ function createTrackLink(track, index, videoId, socketId) {
   const fileName = parseTrackName(track)
   const $linkTD = createElement('td', {}, '', [])
   const $trackLink = createElement('a', {
-    class: 'track-link',
+    class: demo ? 'track-link disabled' : 'track-link',
     id: 'track-link-' + (index + 1),
     href: trackPath + '/tracks/' + socketId + '/' + fileName + '.mp3',
     download: ''
