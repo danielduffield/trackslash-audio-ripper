@@ -155,3 +155,8 @@ img {
 body {
   background-color: black;
 }
+
+#audio-player {
+  width: 524px;
+  margin-top: 30px;
+}
