@@ -14,7 +14,7 @@ function createTrackLink(track, index, videoId, socketId) {
   const $trackLink = createElement('a', {
     class: demo ? 'track-link disabled' : 'track-link',
     id: 'track-link-' + (index + 1),
-    href: trackPath + '/tracks/' + socketId + '/' + fileName + '.mp3',
+    href: (demo ? '/' : trackPath + '/tracks/' + socketId + '/' + fileName + '.mp3'),
     download: '',
     title: demo ? 'File download is currently disabled.' : ''
   }, '+', [])
