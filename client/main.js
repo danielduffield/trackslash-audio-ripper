@@ -85,9 +85,8 @@ $tracklistForm.addEventListener('submit', event => {
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
         const $audioPlayer = document.getElementById('audio-player')
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
-        console.log(trackPath)
-        console.log($audioPlayer.src)
         $audioPlayer.src = trackPath
+        $audioPlayer.play()
       })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
