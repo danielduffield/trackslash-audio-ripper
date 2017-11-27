@@ -69,8 +69,11 @@ function createTracklistTable() {
         createElement('tbody', {id: 'track-final-container'}, '', [])
       ]),
       createElement('input', {id: 'start-over-button', class: 'form-button', type: 'button', value: 'Start Over'}, '', []),
-      createElement('form', {id: 'download-all-form', method: 'get'}, '', [
-        createElement('input', {id: 'download-all-button', class: 'form-button', type: 'submit', value: 'Download All'}, '', [])
+
+      createElement('span', {id: 'download-all-container'}, '', [
+        createElement('form', {id: 'download-all-form', method: 'get'}, '', [
+          createElement('input', {id: 'download-all-button', class: 'form-button', type: 'submit', value: 'Download All'}, '', [])
+        ])
       ])
     ])
   ])
