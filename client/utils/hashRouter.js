@@ -9,7 +9,12 @@ class HashRouter {
       $urlSubmitInput.value = ''
       hash = '#url-form'
     }
-
+    const $audioPlayer = document.getElementById('audio-player')
+    const $nowPlaying = document.getElementById('now-playing')
+    $audioPlayer.pause()
+    $audioPlayer.currentTime = 0
+    $audioPlayer.src = null
+    $nowPlaying.textContent = ''
     const hashComponents = hash.split('?')
     const viewId = hashComponents[0].replace('#', '')
 
