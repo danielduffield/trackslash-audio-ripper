@@ -13,7 +13,8 @@ function buildTracklistFinal(tracklist) {
       const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
       const $trackFinalField = createElement('span', {
         id: 'track-final-' + trackFields[index] + '-' + trackIndex,
-        class: 'track-final-field'
+        class: 'track-final-field',
+        'data-tracknum': trackIndex
       }, track[trackProperties[index]], [])
 
       $tableCell.appendChild($trackFinalField)
