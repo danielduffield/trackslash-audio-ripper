@@ -167,3 +167,9 @@ body {
   cursor: default;
   color: grey;
 }
+
+#now-playing-container {
+  margin: 0 auto;
+  width: 524px;
+  text-align: center;
+}
