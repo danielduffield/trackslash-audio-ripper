@@ -79,10 +79,15 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
+    let $previouslySelected = null
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
         const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
+        if ($previouslySelected) $previouslySelected.setAttribute('class', 'track-final')
+        const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
+        $selected.setAttribute('class', 'track-final selected')
+        $previouslySelected = $selected
         const $nowPlaying = document.getElementById('now-playing')
         $nowPlaying.textContent = selectedTrack.trackName
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
