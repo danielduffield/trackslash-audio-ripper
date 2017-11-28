@@ -63,8 +63,12 @@ h1 {
   height: 30px;
   width: 100px;
   border-radius: 5px;
-  background-color: lightgrey;
+  background-color: whitesmoke;
   color: black;
+}
+
+.form-button:hover {
+  background-color: lightgrey;
 }
 
 .track-final-field {
@@ -88,12 +92,12 @@ h1 {
 }
 
 .title-link:hover {
-  color: lightgrey;
+  color: #c0dfd9;
   text-decoration: none;
 }
 
 .title-link:focus {
-  color: white;
+  color: #c0dfd9;
   text-decoration: none;
 }
 
@@ -102,6 +106,10 @@ h1 {
   height: 30px;
   width: 150px;
   border-radius: 5px;
+  background-color: whitesmoke;
+}
+
+.tracklist-control-button:hover {
   background-color: lightgrey;
 }
 
@@ -172,4 +180,9 @@ body {
   margin: 0 auto;
   width: 524px;
   text-align: center;
+}
+
+.track-final:hover {
+  cursor: pointer;
+  background-color: #c0dfd9;
 }
