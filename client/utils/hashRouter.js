@@ -13,7 +13,7 @@ class HashRouter {
     const $nowPlaying = document.getElementById('now-playing')
     $audioPlayer.pause()
     $audioPlayer.currentTime = 0
-    $audioPlayer.src = null
+    $audioPlayer.src = '/'
     $nowPlaying.textContent = ''
     const hashComponents = hash.split('?')
     const viewId = hashComponents[0].replace('#', '')
