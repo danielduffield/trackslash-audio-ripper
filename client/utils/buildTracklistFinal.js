@@ -7,7 +7,7 @@ function buildTracklistFinal(tracklist) {
   const $trackFinalContainer = document.getElementById('track-final-container')
 
   tracklist.forEach(track => {
-    const $trackFinal = createElement('tr', {class: 'track-final-' + trackIndex}, '', [])
+    const $trackFinal = createElement('tr', {id: 'track-final-' + trackIndex, class: 'track-final'}, '', [])
 
     trackFields.forEach((field, index) => {
       const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
