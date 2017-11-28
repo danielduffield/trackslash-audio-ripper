@@ -121,14 +121,15 @@ table {
   background-color: white;
 }
 
-th {
-  background-color: darkgrey;
-}
-
 th,
 td {
   text-align: center;
   color: black;
+}
+
+th {
+  background-color: #173e43;
+  color: whitesmoke;
 }
 
 button,
