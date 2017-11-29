@@ -26,12 +26,12 @@
 h1 {
   font-size: 4.5em;
   font-weight: 700;
-  margin: 50px 0 0;
+  margin: 30px 0 0;
   letter-spacing: 0.1em;
 }
 
 #main-subtitle {
-  margin: 0 0 20px;
+  margin: 0 0 30px;
   font-size: 1.75em;
   font-weight: 700;
   word-spacing: 1.25em;
@@ -63,8 +63,12 @@ h1 {
   height: 30px;
   width: 100px;
   border-radius: 5px;
-  background-color: lightgrey;
+  background-color: #e9ece5;
   color: black;
+}
+
+.form-button:hover {
+  background-color: #c0dfd9;
 }
 
 .track-final-field {
@@ -88,12 +92,12 @@ h1 {
 }
 
 .title-link:hover {
-  color: lightgrey;
+  color: #c0dfd9;
   text-decoration: none;
 }
 
 .title-link:focus {
-  color: white;
+  color: #c0dfd9;
   text-decoration: none;
 }
 
@@ -102,7 +106,11 @@ h1 {
   height: 30px;
   width: 150px;
   border-radius: 5px;
-  background-color: lightgrey;
+  background-color: #e9ece5;
+}
+
+.tracklist-control-button:hover {
+  background-color: #c0dfd9;
 }
 
 .track-final-field {
@@ -113,14 +121,15 @@ table {
   background-color: white;
 }
 
-th {
-  background-color: darkgrey;
-}
-
 th,
 td {
   text-align: center;
   color: black;
+}
+
+th {
+  background-color: #173e43;
+  color: whitesmoke;
 }
 
 button,
@@ -136,11 +145,11 @@ textarea {
 }
 
 .video-image {
-  margin: 30px auto 0;
+  margin: 0 auto;
   height: 300px;
   width: 524px;
   bottom: 12px;
-  background-color: lightgrey;
+  background-color: #173e43;
 }
 
 img {
@@ -154,4 +163,32 @@ img {
 
 body {
   background-color: black;
+}
+
+#audio-player {
+  width: 524px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: grey;
+}
+
+#now-playing-container {
+  margin: 0 auto;
+  width: 524px;
+  text-align: center;
+}
+
+.track-final:hover {
+  cursor: pointer;
+  background-color: #c0dfd9;
+}
+
+.track-final.selected {
+  cursor: pointer;
+  background-color: #b3c2bf;
 }

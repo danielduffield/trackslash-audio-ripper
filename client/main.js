@@ -10,6 +10,8 @@ const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 
+const demo = true
+
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
 const HashRouter = require('./utils/hashRouter.js')
@@ -77,18 +79,46 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
-    console.log(response)
+    let $previouslySelected = null
+    const $audioPlayer = document.getElementById('audio-player')
+    const $nowPlaying = document.getElementById('now-playing')
     if (response.status === 202) {
+      $trackFinalContainer.addEventListener('click', e => {
+        const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        if (!selectedTrack) return
+        if ($previouslySelected) $previouslySelected.setAttribute('class', 'track-final')
+        const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
+        $selected.setAttribute('class', 'track-final selected')
+        $previouslySelected = $selected
+
+        $nowPlaying.textContent = selectedTrack.trackName
+        const trackFileName = selectedTrack.trackName.split(' ').join('-')
+
+        const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+        $audioPlayer.pause()
+        $audioPlayer.src = trackPath
+        $audioPlayer.play()
+      })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
         const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
         buildTracklistFinal(tracklist)
         renderTracklistLinks($tracklistLinks)
         const $downloadAllForm = document.getElementById('download-all-form')
-        $downloadAllForm.setAttribute('action', zipPath)
+        const $downloadAllButton = document.getElementById('download-all-button')
+        const $downloadAllContainer = document.getElementById('download-all-container')
+        if (demo) {
+          $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
+          $downloadAllButton.setAttribute('class', 'form-button disabled')
+        }
+        else $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
+        const startPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + tracklist[0].trackName.split(' ').join('-') + '.mp3'
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
+        $audioPlayer.src = startPath
+        $nowPlaying.textContent = tracklist[0].trackName
+        $previouslySelected = document.getElementById('track-final-1')
       })
     }
     else (console.log('Tracklist request failed.'))
