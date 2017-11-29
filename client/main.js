@@ -95,6 +95,7 @@ $tracklistForm.addEventListener('submit', event => {
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
 
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+        $audioPlayer.pause()
         $audioPlayer.src = trackPath
         $audioPlayer.play()
       })
