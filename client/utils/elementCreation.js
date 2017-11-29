@@ -45,7 +45,10 @@ function createFormTable() {
           ]),
           createElement('tbody', {id: 'track-form-container'}, '', [])
         ]),
-        createElement('p', {id: 'track-slice-progress'}, '', []),
+        createElement('p', { id: 'track-progress-container' }, '', [
+          createElement('i', { id: 'spinner', class: 'fa fa-spinner spinner hidden' }, '', []),
+          createElement('span', { id: 'track-slice-progress' }, '', [])
+        ]),
         createElement('input', {id: 'track-form-add-button', class: 'form-button', type: 'button', value: 'Add Track'}, '', []),
         createElement('input', {id: 'track-form-submit-button', class: 'form-button', type: 'submit', value: 'Start Slicing'}, '', [])
       ])
