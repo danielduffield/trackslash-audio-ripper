@@ -80,6 +80,8 @@ $tracklistForm.addEventListener('submit', event => {
 
   sendTracklistPostRequest(tracklistPost).then(response => {
     let $previouslySelected = null
+    const $audioPlayer = document.getElementById('audio-player')
+    const $nowPlaying = document.getElementById('now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
         const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
@@ -88,10 +90,10 @@ $tracklistForm.addEventListener('submit', event => {
         const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
         $selected.setAttribute('class', 'track-final selected')
         $previouslySelected = $selected
-        const $nowPlaying = document.getElementById('now-playing')
+
         $nowPlaying.textContent = selectedTrack.trackName
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
-        const $audioPlayer = document.getElementById('audio-player')
+
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
         $audioPlayer.src = trackPath
         $audioPlayer.play()
@@ -111,7 +113,11 @@ $tracklistForm.addEventListener('submit', event => {
         else $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
+        const startPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + tracklist[0].trackName.split(' ').join('-') + '.mp3'
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
+        $audioPlayer.src = startPath
+        $nowPlaying.textContent = tracklist[0].trackName
+        $previouslySelected = document.getElementById('track-final-1')
       })
     }
     else (console.log('Tracklist request failed.'))
