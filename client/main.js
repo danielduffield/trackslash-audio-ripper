@@ -238,5 +238,5 @@ socket.on('downloadProgress', progress => {
 })
 
 socket.on('sliceProgress', sliced => {
-  $sliceProgress.textContent = 'Tracks Sliced: ' + sliced
+  $sliceProgress.textContent = 'Tracks sliced: ' + sliced
 })
