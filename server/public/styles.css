@@ -195,7 +195,7 @@ body {
 
 .spinner {
   font-size: 1.25em;
-  margin: 0 20px;
+  margin: 0 10px;
   -webkit-animation: spin 0.75s infinite linear;
 }
 
