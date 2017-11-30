@@ -234,7 +234,6 @@ socket.on('downloadProgress', progress => {
         $spinner.setAttribute('class', 'fa fa-spinner spinner')
         $sliceProgress.textContent = 'Track slice initializing...'
         setTimeout(() => {
-          console.log('TRACKS SLICED')
           $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
         }, 2000)
       }
