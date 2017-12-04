@@ -73,6 +73,8 @@ $tracklistForm.addEventListener('submit', event => {
   }
   else {
     $sliceProgress.textContent = 'Track slice initializing...'
+    const $spinner = document.getElementById('spinner')
+    $spinner.setAttribute('class', 'fa fa-spinner spinner')
     setTimeout(() => {
       $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
     }, 2000)
@@ -228,6 +230,8 @@ socket.on('downloadProgress', progress => {
     setTimeout(() => {
       $downloadProgress.textContent = 'Album Download Complete'
       if (slicingInitialized) {
+        const $spinner = document.getElementById('spinner')
+        $spinner.setAttribute('class', 'fa fa-spinner spinner')
         $sliceProgress.textContent = 'Track slice initializing...'
         setTimeout(() => {
           $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
@@ -238,5 +242,5 @@ socket.on('downloadProgress', progress => {
 })
 
 socket.on('sliceProgress', sliced => {
-  $sliceProgress.textContent = 'Tracks Sliced: ' + sliced
+  $sliceProgress.textContent = 'Tracks sliced: ' + sliced
 })

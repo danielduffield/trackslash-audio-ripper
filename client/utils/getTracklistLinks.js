@@ -17,7 +17,9 @@ function createTrackLink(track, index, videoId, socketId) {
     href: (demo ? '/' : trackPath + '/tracks/' + socketId + '/' + fileName + '.mp3'),
     download: '',
     title: demo ? 'File download is currently disabled.' : ''
-  }, '+', [])
+  }, '', [
+    createElement('i', { class: 'fa fa-download disabled' }, '', [])
+  ])
 
   $linkTD.appendChild($trackLink)
   return $linkTD

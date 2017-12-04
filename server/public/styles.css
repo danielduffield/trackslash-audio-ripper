@@ -192,3 +192,13 @@ body {
   cursor: pointer;
   background-color: #b3c2bf;
 }
+
+.spinner {
+  font-size: 1.25em;
+  margin: 0 10px;
+  -webkit-animation: spin 0.75s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  to { -webkit-transform: rotate(360deg); }
+}
