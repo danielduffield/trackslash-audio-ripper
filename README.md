@@ -6,13 +6,13 @@ https://trackslash.herokuapp.com/
 
 ### How to Use
 
-![TrackSlash Url Demonstration](/demo/trackslash-demo-1.gif?raw=true "Url Submission")
+![TrackSlash Url Demonstration](/server/public/images/trackslash-demo-1.gif?raw=true "Url Submission")
 <p align="center">Submit a YouTube URL.</p><br><br>
 
-![TrackSlash Tracklist Demonstration](/demo/trackslash-demo-2.gif?raw=true "Tracklist Editing")
+![TrackSlash Tracklist Demonstration](/server/public/images/trackslash-demo-2.gif?raw=true "Tracklist Editing")
 <p align="center">Load, paste or input your timecodes to create and edit your tracklist.</p><br><br>
 
-![TrackSlash Download Demonstration](/demo/trackslash-demo-3.gif?raw=true "File Download")
+![TrackSlash Download Demonstration](/server/public/images/trackslash-demo-3.gif?raw=true "File Download")
 <p align="center">Download tracks individually or in a zip folder.</p><br><br>
 
 ### Installation
