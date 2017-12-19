@@ -1,9 +1,21 @@
 # trackslash-audio-ripper
-A web app for music fans who want to slice audio from a Youtube video into tracks for download.
+A web app for music fans who want to slice audio from a YouTube video into tracks for download.
 
-![TrackSlash Demo](/demo/trackslash-demo.gif?raw=true "TrackSlash Demonstration")
+### Heroku Hosted URL
+https://trackslash.herokuapp.com/
 
-### How to use
+### How to Use
+
+![TrackSlash Url Demonstration](/server/public/images/trackslash-demo-1.gif?raw=true "Url Submission")
+<p align="center">Submit a YouTube URL.</p><br><br>
+
+![TrackSlash Tracklist Demonstration](/server/public/images/trackslash-demo-2.gif?raw=true "Tracklist Editing")
+<p align="center">Load, paste or input your timecodes to create and edit your tracklist.</p><br><br>
+
+![TrackSlash Download Demonstration](/server/public/images/trackslash-demo-3.gif?raw=true "File Download")
+<p align="center">Download tracks individually or in a zip folder.</p><br><br>
+
+### Installation
 
 Clone the repository using the following git command:
 ```
@@ -26,3 +38,4 @@ Load the page in a web browser at the provided port. (Ex: localhost:3000)
 ### Technologies Used
 
 * Express v4.15.3
+* Socket.io v2.0.3
