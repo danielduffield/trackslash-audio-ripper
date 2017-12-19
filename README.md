@@ -1,5 +1,5 @@
 # trackslash-audio-ripper
-A web app for music fans who want to slice audio from a Youtube video into tracks for download.
+A web app for music fans who want to slice audio from a YouTube video into tracks for download.
 
 ### Heroku Hosted URL
 https://trackslash.herokuapp.com/

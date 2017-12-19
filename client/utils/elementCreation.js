@@ -27,7 +27,7 @@ function createFormTable() {
       createElement('h3', {id: 'youtube-video-title'}, '', []),
       createElement('p', {id: 'album-download-progress'}, 'Album downloading initializing...', []),
       createElement('div', {id: 'tracklist-control-container'}, '', [
-        createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button', title: 'Load timecodes from Youtube description.'}, 'Load Timecodes', []),
+        createElement('button', {id: 'load-timecodes-button', class: 'tracklist-control-button', title: 'Load timecodes from YouTube description.'}, 'Load Timecodes', []),
         createElement('button', {id: 'submit-timecodes-button', class: 'tracklist-control-button', title: 'Submit timecodes via copy and paste.'}, 'Submit Timecodes', []),
         createElement('button', {id: 'reset-tracklist-button', class: 'tracklist-control-button', title: 'Delete all tracks.'}, 'Reset Tracklist', []),
         createElement('div', {id: 'tracklist-error-message-container', class: 'error-message'}, '', [])
