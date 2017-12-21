@@ -39,7 +39,7 @@ router.listen()
 router.match(window.location.hash)
 
 const $demoNotice = document.getElementById('demo-notice')
-$demoNotice.textContent = demo ? '*To comply with Heroku policy, file download is diabled in this demonstration.' : ''
+$demoNotice.textContent = demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
 const $urlSubmitForm = document.getElementById('url-submit-form')
 $urlSubmitForm.addEventListener('submit', event => {
