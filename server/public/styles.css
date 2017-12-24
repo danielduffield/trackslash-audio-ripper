@@ -171,6 +171,17 @@ body {
   margin-bottom: 20px;
 }
 
+#audio-controls {
+  font-size: 1.5em;
+  border: 1px solid whitesmoke;
+  background-color: grey;
+  display: inline-block;
+  bottom: 29px;
+  left: 10px;
+  position: relative;
+  width: 40px;
+}
+
 .disabled {
   pointer-events: none;
   cursor: default;
