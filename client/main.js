@@ -218,6 +218,13 @@ $tracklistForm.addEventListener('click', event => {
   }
 })
 
+const $audioControls = document.getElementById('audio-controls')
+$audioControls.addEventListener('click', event => {
+  if (!event.target.classList.value.includes('audio-button')) return
+  if (!event.target.classList.value.includes('active')) event.target.classList.add('active')
+  else event.target.classList.remove('active')
+})
+
 let socketId = null
 
 socket.on('connectionId', connectionId => {
