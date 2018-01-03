@@ -190,6 +190,18 @@ body {
   margin-left: 10px;
 }
 
+.audio-button {
+  cursor: pointer;
+}
+
+.audio-button:hover {
+  color: #c0dfd9;
+}
+
+.audio-button.active {
+  color: #173e43;
+}
+
 .disabled {
   pointer-events: none;
   cursor: default;
