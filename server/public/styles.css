@@ -166,23 +166,25 @@ body {
 }
 
 #audio-module {
-  height: 60px;
+  height: 70px;
   width: 75%;
   margin: 0 auto;
   text-align: center;
 }
 
 #audio-wrapper {
+  margin-top: 5px;
   display: inline-block;
 }
 
 #audio-player {
   width: 400px;
+  margin-top: 3px;
   float: left;
 }
 
 #audio-controls {
-  font-size: 1.5em;
+  font-size: 2em;
   width: 40px;
   float: right;
   margin-left: 10px;
