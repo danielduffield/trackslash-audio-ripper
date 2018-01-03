@@ -16,9 +16,11 @@ const $audioModule = createElement('div', { id: 'audio-module' }, '', [
   createElement('div', { id: 'now-playing-container' }, ' ', [
     createElement('span', { id: 'now-playing' }, '', [])
   ]),
-  $audioPlayer,
-  createElement('div', { id: 'audio-controls' }, '', [
-    createElement('i', { class: 'fa fa-refresh' }, '', [])
+  createElement('div', {id: 'audio-wrapper'}, '', [
+    $audioPlayer,
+    createElement('div', { id: 'audio-controls' }, '', [
+      createElement('i', { class: 'fa fa-refresh' }, '', [])
+    ])
   ])
 ])
 
