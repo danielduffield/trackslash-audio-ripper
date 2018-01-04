@@ -9,6 +9,7 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
+const playNextTrack = require('./utils/playNextTrack.js')
 
 const demo = true
 let continuousPlay = false
@@ -116,6 +117,7 @@ $tracklistForm.addEventListener('submit', event => {
             ? tracklist[prevIndex + 1]
             : null)
         }
+        playNextTrack($audioPlayer, tracklist, selectedTrack)
         if (!selectedTrack) return
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
