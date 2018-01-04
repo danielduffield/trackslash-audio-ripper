@@ -108,22 +108,8 @@ $tracklistForm.addEventListener('submit', event => {
         $audioPlayer.play()
       })
       $audioPlayer.addEventListener('ended', () => {
-        console.log('Ended: ', tracklist, selectedTrack)
         if (!continuousPlay) return
-        if (!selectedTrack) selectedTrack = tracklist[1]
-        else {
-          const prevIndex = tracklist.findIndex(track => track.trackName === selectedTrack.trackName)
-          selectedTrack = (prevIndex !== -1 && tracklist[prevIndex + 1]
-            ? tracklist[prevIndex + 1]
-            : null)
-        }
-        playNextTrack($audioPlayer, tracklist, selectedTrack)
-        if (!selectedTrack) return
-        const trackFileName = selectedTrack.trackName.split(' ').join('-')
-        const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
-        $audioPlayer.pause()
-        $audioPlayer.src = trackPath
-        $audioPlayer.play()
+        selectedTrack = playNextTrack($audioPlayer, tracklist, selectedTrack, albumMetadata.videoId, socketId)
       })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
