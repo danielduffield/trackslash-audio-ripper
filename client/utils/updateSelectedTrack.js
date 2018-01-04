@@ -1,4 +1,6 @@
 function updateSelectedTrack(tracklist, selected) {
+  const $nowPlaying = document.getElementById('now-playing')
+  $nowPlaying.textContent = selected.trackName
   const selectedIndex = tracklist.findIndex(track => track.trackName === selected.trackName)
   if (selectedIndex === -1) return
   resetSelected(tracklist.length)
