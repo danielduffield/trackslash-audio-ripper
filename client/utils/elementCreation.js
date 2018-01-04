@@ -20,7 +20,10 @@ const $audioModule = createElement('div', { id: 'audio-module' }, '', [
     $audioPlayer,
     createElement('div', { id: 'audio-controls' }, '', [
       createElement('span', { class: 'audio-btn-container', title: 'Continuous Playback' }, '', [
-        createElement('i', { class: 'audio-button fa fa-refresh' }, '', [])
+        createElement('i', { class: 'audio-button fa fa-refresh', id: 'continuous-play' }, '', [])
+      ]),
+      createElement('span', { class: 'audio-btn-container', title: 'Shuffle Playback' }, '', [
+        createElement('i', { class: 'audio-button fa fa-random', id: 'shuffle-play' }, '', [])
       ])
     ])
   ])
