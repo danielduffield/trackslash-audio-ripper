@@ -10,11 +10,15 @@ const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const playNextTrack = require('./utils/playNextTrack.js')
+const shuffleTracklist = require('./utils/shuffleTracklist.js')
 
 const demo = true
 let continuousPlay = false
 let shufflePlay = false
 let selectedTrack = null
+
+let tracklist = null
+let shuffledTracklist = null
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -67,7 +71,7 @@ $tracklistForm.addEventListener('submit', event => {
   $tracklistError.textContent = ''
 
   const trackData = new FormData($tracklistForm)
-  const tracklist = submitTracklist(trackData, currentTrack)
+  tracklist = submitTracklist(trackData, currentTrack)
   const tracklistPost = {}
   tracklistLength = tracklist.length
   tracklistPost.tracklist = tracklist
@@ -111,7 +115,7 @@ $tracklistForm.addEventListener('submit', event => {
       })
       $audioPlayer.addEventListener('ended', () => {
         if (!continuousPlay) return
-        selectedTrack = playNextTrack($audioPlayer, tracklist, selectedTrack, albumMetadata.videoId, socketId)
+        selectedTrack = playNextTrack($audioPlayer, (shufflePlay ? shuffledTracklist : tracklist), selectedTrack, albumMetadata.videoId, socketId)
       })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
@@ -231,7 +235,11 @@ $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
   if (!event.target.classList.value.includes('active')) {
     event.target.classList.add('active')
-    event.target.id === 'continuous-play' ? continuousPlay = true : shufflePlay = true
+    if (event.target.id === 'continuous-play') continuousPlay = true
+    else {
+      shufflePlay = true
+      shuffledTracklist = shuffleTracklist(tracklist)
+    }
   }
   else {
     event.target.classList.remove('active')
