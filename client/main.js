@@ -11,6 +11,8 @@ const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 
 const demo = true
+let continuousPlay = false
+let selectedTrack = null
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -89,7 +91,7 @@ $tracklistForm.addEventListener('submit', event => {
     const $nowPlaying = document.getElementById('now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
-        const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
         if ($previouslySelected) $previouslySelected.setAttribute('class', 'track-final')
         const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
@@ -99,6 +101,23 @@ $tracklistForm.addEventListener('submit', event => {
         $nowPlaying.textContent = selectedTrack.trackName
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
 
+        const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+        $audioPlayer.pause()
+        $audioPlayer.src = trackPath
+        $audioPlayer.play()
+      })
+      $audioPlayer.addEventListener('ended', () => {
+        console.log('Ended: ', tracklist, selectedTrack)
+        if (!continuousPlay) return
+        if (!selectedTrack) selectedTrack = tracklist[1]
+        else {
+          const prevIndex = tracklist.findIndex(track => track.trackName === selectedTrack.trackName)
+          selectedTrack = (prevIndex !== -1 && tracklist[prevIndex + 1]
+            ? tracklist[prevIndex + 1]
+            : null)
+        }
+        if (!selectedTrack) return
+        const trackFileName = selectedTrack.trackName.split(' ').join('-')
         const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
         $audioPlayer.pause()
         $audioPlayer.src = trackPath
@@ -221,8 +240,14 @@ $tracklistForm.addEventListener('click', event => {
 const $audioControls = document.getElementById('audio-controls')
 $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
-  if (!event.target.classList.value.includes('active')) event.target.classList.add('active')
-  else event.target.classList.remove('active')
+  if (!event.target.classList.value.includes('active')) {
+    event.target.classList.add('active')
+    continuousPlay = true
+  }
+  else {
+    event.target.classList.remove('active')
+    continuousPlay = false
+  }
 })
 
 let socketId = null
