@@ -9,8 +9,11 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
+const playNextTrack = require('./utils/playNextTrack.js')
 
 const demo = true
+let continuousPlay = false
+let selectedTrack = null
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -84,17 +87,18 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
-    let $previouslySelected = null
     const $audioPlayer = document.getElementById('audio-player')
     const $nowPlaying = document.getElementById('now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
-        const selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
-        if ($previouslySelected) $previouslySelected.setAttribute('class', 'track-final')
         const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
+        for (let i = 1; i <= tracklist.length; i++) {
+          const $track = document.getElementById('track-final-' + i)
+          if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
+        }
         $selected.setAttribute('class', 'track-final selected')
-        $previouslySelected = $selected
 
         $nowPlaying.textContent = selectedTrack.trackName
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
@@ -103,6 +107,10 @@ $tracklistForm.addEventListener('submit', event => {
         $audioPlayer.pause()
         $audioPlayer.src = trackPath
         $audioPlayer.play()
+      })
+      $audioPlayer.addEventListener('ended', () => {
+        if (!continuousPlay) return
+        selectedTrack = playNextTrack($audioPlayer, tracklist, selectedTrack, albumMetadata.videoId, socketId)
       })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
@@ -123,7 +131,6 @@ $tracklistForm.addEventListener('submit', event => {
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
-        $previouslySelected = document.getElementById('track-final-1')
       })
     }
     else (console.log('Tracklist request failed.'))
@@ -215,6 +222,19 @@ $tracklistForm.addEventListener('click', event => {
     const numberOfTracks = currentTrack - 1
     deleteTrack(trackNumber, numberOfTracks)
     currentTrack--
+  }
+})
+
+const $audioControls = document.getElementById('audio-controls')
+$audioControls.addEventListener('click', event => {
+  if (!event.target.classList.value.includes('audio-button')) return
+  if (!event.target.classList.value.includes('active')) {
+    event.target.classList.add('active')
+    continuousPlay = true
+  }
+  else {
+    event.target.classList.remove('active')
+    continuousPlay = false
   }
 })
 

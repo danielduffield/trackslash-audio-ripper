@@ -16,7 +16,14 @@ const $audioModule = createElement('div', { id: 'audio-module' }, '', [
   createElement('div', { id: 'now-playing-container' }, ' ', [
     createElement('span', { id: 'now-playing' }, '', [])
   ]),
-  $audioPlayer
+  createElement('div', {id: 'audio-wrapper'}, '', [
+    $audioPlayer,
+    createElement('div', { id: 'audio-controls' }, '', [
+      createElement('span', { class: 'audio-btn-container', title: 'Continuous Playback' }, '', [
+        createElement('i', { class: 'audio-button fa fa-refresh' }, '', [])
+      ])
+    ])
+  ])
 ])
 
 function createFormTable() {
