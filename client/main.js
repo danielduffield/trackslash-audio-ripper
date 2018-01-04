@@ -87,17 +87,18 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
-    let $previouslySelected = null
     const $audioPlayer = document.getElementById('audio-player')
     const $nowPlaying = document.getElementById('now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
         selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
-        if ($previouslySelected) $previouslySelected.setAttribute('class', 'track-final')
         const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
+        for (let i = 1; i <= tracklist.length; i++) {
+          const $track = document.getElementById('track-final-' + i)
+          if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
+        }
         $selected.setAttribute('class', 'track-final selected')
-        $previouslySelected = $selected
 
         $nowPlaying.textContent = selectedTrack.trackName
         const trackFileName = selectedTrack.trackName.split(' ').join('-')
@@ -130,7 +131,6 @@ $tracklistForm.addEventListener('submit', event => {
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
-        $previouslySelected = document.getElementById('track-final-1')
       })
     }
     else (console.log('Tracklist request failed.'))
