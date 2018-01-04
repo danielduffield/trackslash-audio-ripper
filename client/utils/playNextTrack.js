@@ -1,10 +1,19 @@
-function playNextTrack($audioPlayer, tracklist, currentTrack) {
-  console.log('Audio Player', $audioPlayer)
-  console.log(tracklist, currentTrack)
-  const trackIndex = tracklist.findIndex(track => track.trackName === currentTrack.trackName)
-  if (trackIndex === -1) return
-  const nextTrack = tracklist[trackIndex + 1]
-  return nextTrack || null
+function playNextTrack($audioPlayer, tracklist, currentTrack, videoId, socketId) {
+  let nextTrack
+  if (!currentTrack) nextTrack = tracklist[1]
+  else {
+    const prevIndex = tracklist.findIndex(track => track.trackName === currentTrack.trackName)
+    nextTrack = (prevIndex !== -1 && tracklist[prevIndex + 1]
+      ? tracklist[prevIndex + 1]
+      : null)
+  }
+  if (!nextTrack) return currentTrack
+  const trackFileName = nextTrack.trackName.split(' ').join('-')
+  const trackPath = '/download/' + videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+  $audioPlayer.pause()
+  $audioPlayer.src = trackPath
+  $audioPlayer.play()
+  return nextTrack
 }
 
 module.exports = playNextTrack
