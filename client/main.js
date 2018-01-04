@@ -13,6 +13,7 @@ const playNextTrack = require('./utils/playNextTrack.js')
 
 const demo = true
 let continuousPlay = false
+let shufflePlay = false
 let selectedTrack = null
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
@@ -230,12 +231,13 @@ $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
   if (!event.target.classList.value.includes('active')) {
     event.target.classList.add('active')
-    continuousPlay = true
+    event.target.id === 'continuous-play' ? continuousPlay = true : shufflePlay = true
   }
   else {
     event.target.classList.remove('active')
-    continuousPlay = false
+    event.target.id === 'continuous-play' ? continuousPlay = false : shufflePlay = false
   }
+  console.log(continuousPlay, shufflePlay)
 })
 
 let socketId = null
