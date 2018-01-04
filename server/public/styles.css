@@ -185,12 +185,11 @@ body {
 
 #audio-controls {
   font-size: 2em;
-  width: 40px;
   float: right;
-  margin-left: 10px;
 }
 
 .audio-button {
+  margin-left: 15px;
   cursor: pointer;
 }
 
