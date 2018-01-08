@@ -11,6 +11,7 @@ const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const playNextTrack = require('./utils/playNextTrack.js')
 const shuffleTracklist = require('./utils/shuffleTracklist.js')
+const AudioModule = require('./utils/audioModule.js')
 
 const demo = true
 let continuousPlay = false
@@ -136,6 +137,8 @@ $tracklistForm.addEventListener('submit', event => {
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
+        const audio = new AudioModule($audioPlayer, tracklist)
+        console.log(audio)
       })
     }
     else (console.log('Tracklist request failed.'))
