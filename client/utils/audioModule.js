@@ -16,7 +16,8 @@ class AudioModule {
     : console.log('Playing next unshuffled track')
   }
   shuffleTracklist() {
-    this.shuffled = shuffleArray(this.tracklist)
+    const queued = this.tracklist.filter((track, index) => index !== this.index)
+    this.shuffled = [this.current, ...shuffleArray(queued)]
     console.log(this.tracklist, this.shuffled)
   }
 }
