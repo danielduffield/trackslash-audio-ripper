@@ -12,15 +12,21 @@ class AudioModule {
       ? this.skipTrack()
       : false)
 
-    this.toggleContinuous = this.toggleContinuous.bind(this)
-    this.toggleShuffle = this.toggleShuffle.bind(this)
-
+    this.toggleSetting = this.toggleSetting.bind(this)
     this.skipTrack = this.skipTrack.bind(this)
     this.shuffleTracklist = this.shuffleTracklist.bind(this)
     console.log($player, tracklist)
   }
-  toggleContinuous() {
-    this.isContinuous = !this.isContinuous
+  toggleSetting(setting) {
+    switch (setting) {
+      case 'shuffle':
+        if (!this.isShuffled) this.shuffleTracklist()
+        this.isShuffled = !this.isShuffled
+        break
+      case 'continuous':
+        this.isContinuous = !this.isContinuous
+        break
+    }
   }
   toggleShuffle() {
     if (!this.isShuffled) this.shuffleTracklist()
