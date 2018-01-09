@@ -96,6 +96,7 @@ $tracklistForm.addEventListener('submit', event => {
       $trackFinalContainer.addEventListener('click', e => {
         selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
+        audio.selectTrack(selectedTrack)
         const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
         for (let i = 1; i <= tracklist.length; i++) {
           const $track = document.getElementById('track-final-' + i)
