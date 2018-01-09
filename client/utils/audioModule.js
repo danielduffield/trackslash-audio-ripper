@@ -10,9 +10,11 @@ class AudioModule {
     this.path = path
     console.log($player, tracklist)
   }
-  playNextTrack() {
-    if (!this.isContinuous || this.index === this.tracklist.length - 1) return
-    const nextIndex = this.index + 1
+  skipTrack(isBackward) {
+    if (!this.isContinuous ||
+      (!isBackward && this.index === this.tracklist.length - 1) ||
+      (isBackward && this.index === 0)) return
+    const nextIndex = isBackward ? this.index - 1 : this.index + 1
     this.current = this.isShuffled ? this.shuffled[nextIndex] : this.tracklist[nextIndex]
     this.index = nextIndex
     // this.player.pause()
