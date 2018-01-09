@@ -1,3 +1,5 @@
+const updateSelectedRender = require('./updateSelectedRender.js')
+
 class AudioModule {
   constructor($player, $nowPlaying, tracklist, path) {
     this.player = $player
@@ -60,6 +62,7 @@ class AudioModule {
     console.log(this.isContinuous, this.isShuffled)
   }
   updateNowPlaying() {
+    updateSelectedRender(this.tracklist, this.current)
     this.nowPlaying.textContent = this.current.trackName
   }
 }
