@@ -230,6 +230,12 @@ $tracklistForm.addEventListener('click', event => {
 const $audioControls = document.getElementById('audio-controls')
 $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
+  if (!event.target.classList.value.includes('toggle')) {
+    event.target.id === 'forward-skip'
+      ? audio.skipTrack()
+      : audio.skipTrack(true)
+    return
+  }
   if (!event.target.classList.value.includes('active')) {
     event.target.classList.add('active')
     if (event.target.id === 'continuous-play') audio.toggleSetting('continuous')
