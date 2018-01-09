@@ -1,7 +1,7 @@
 class AudioModule {
   constructor($player, tracklist, path) {
     this.player = $player
-    this.isContinuous = false
+    this.isContinuous = true
     this.isShuffled = false
     this.tracklist = tracklist
     this.shuffled = tracklist
@@ -11,14 +11,18 @@ class AudioModule {
     console.log($player, tracklist)
   }
   playNextTrack() {
-    if (!this.isContinuous) return
-    this.isShuffled
-    ? console.log('Playing next track in shuffled')
-    : console.log('Playing next unshuffled track')
+    if (!this.isContinuous || this.index === this.tracklist.length - 1) return
+    const nextIndex = this.index + 1
+    this.current = this.isShuffled ? this.shuffled[nextIndex] : this.tracklist[nextIndex]
+    this.index = nextIndex
+    // this.player.pause()
+    this.player.src = this.path + this.current.trackName.split(' ').join('-') + '.mp3'
+    // this.player.play()
   }
   shuffleTracklist() {
     const queued = this.tracklist.filter((track, index) => index !== this.index)
     this.shuffled = [this.current, ...shuffleArray(queued)]
+    this.isShuffled = true
     console.log(this.tracklist, this.shuffled)
   }
 }

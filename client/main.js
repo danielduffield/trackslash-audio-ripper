@@ -140,6 +140,7 @@ $tracklistForm.addEventListener('submit', event => {
         $nowPlaying.textContent = tracklist[0].trackName
         const audio = new AudioModule($audioPlayer, tracklist, generalPath)
         audio.shuffleTracklist()
+        audio.playNextTrack()
         console.log(audio)
       })
     }
