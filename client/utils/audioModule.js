@@ -1,5 +1,5 @@
 class AudioModule {
-  constructor($player, tracklist) {
+  constructor($player, tracklist, path) {
     this.player = $player
     this.isContinuous = false
     this.isShuffled = false
@@ -7,6 +7,7 @@ class AudioModule {
     this.shuffled = tracklist
     this.current = tracklist[0]
     this.index = 0
+    this.path = path
     console.log($player, tracklist)
   }
   playNextTrack() {

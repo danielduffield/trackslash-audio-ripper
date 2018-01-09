@@ -133,11 +133,13 @@ $tracklistForm.addEventListener('submit', event => {
         else $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = document.getElementById('final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
+        const generalPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/'
         const startPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + tracklist[0].trackName.split(' ').join('-') + '.mp3'
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
-        const audio = new AudioModule($audioPlayer, tracklist)
+        const audio = new AudioModule($audioPlayer, tracklist, generalPath)
+        audio.shuffleTracklist()
         console.log(audio)
       })
     }
