@@ -1,6 +1,7 @@
 class AudioModule {
-  constructor($player, tracklist, path) {
+  constructor($player, $nowPlaying, tracklist, path) {
     this.player = $player
+    this.nowPlaying = $nowPlaying
     this.isContinuous = false
     this.isShuffled = false
     this.tracklist = tracklist
@@ -16,6 +17,7 @@ class AudioModule {
     this.selectTrack = this.selectTrack.bind(this)
     this.skipTrack = this.skipTrack.bind(this)
     this.shuffleTracklist = this.shuffleTracklist.bind(this)
+    this.updateNowPlaying = this.updateNowPlaying.bind(this)
     console.log($player, tracklist)
   }
   selectTrack(track) {
@@ -23,6 +25,7 @@ class AudioModule {
     this.current = this.tracklist[selectedIndex]
     this.index = selectedIndex
     if (this.isShuffled) this.shuffleTracklist()
+    this.updateNowPlaying()
     console.log(this.current, this.index, this.shuffled)
   }
   skipTrack(isBackward) {
@@ -33,6 +36,7 @@ class AudioModule {
     this.index = nextIndex
 
     this.player.pause()
+    this.updateNowPlaying()
     this.player.src = this.path + this.current.trackName.split(' ').join('-') + '.mp3'
     this.player.play()
   }
@@ -46,6 +50,7 @@ class AudioModule {
     switch (setting) {
       case 'shuffle':
         if (!this.isShuffled) this.shuffleTracklist()
+        else this.index = this.tracklist.findIndex(track => track.trackName === this.current.trackName)
         this.isShuffled = !this.isShuffled
         break
       case 'continuous':
@@ -53,6 +58,9 @@ class AudioModule {
         break
     }
     console.log(this.isContinuous, this.isShuffled)
+  }
+  updateNowPlaying() {
+    this.nowPlaying.textContent = this.current.trackName
   }
 }
 
