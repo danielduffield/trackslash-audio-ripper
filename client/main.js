@@ -133,7 +133,6 @@ $tracklistForm.addEventListener('submit', event => {
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
         audio = new AudioModule($audioPlayer, $nowPlaying, tracklist, generalPath)
-        console.log(audio)
       })
     }
     else (console.log('Tracklist request failed.'))
