@@ -9,8 +9,6 @@ const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
-const playNextTrack = require('./utils/playNextTrack.js')
-const shuffleTracklist = require('./utils/shuffleTracklist.js')
 const AudioModule = require('./utils/audioModule.js')
 
 const demo = true
@@ -19,7 +17,6 @@ let shufflePlay = false
 let selectedTrack = null
 
 let tracklist = null
-let shuffledTracklist = null
 
 const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
 
@@ -114,10 +111,6 @@ $tracklistForm.addEventListener('submit', event => {
         $audioPlayer.src = trackPath
         $audioPlayer.play()
       })
-      $audioPlayer.addEventListener('ended', () => {
-        if (!continuousPlay) return
-        selectedTrack = playNextTrack($audioPlayer, (shufflePlay ? shuffledTracklist : tracklist), selectedTrack, albumMetadata.videoId, socketId)
-      })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
         const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
@@ -140,7 +133,6 @@ $tracklistForm.addEventListener('submit', event => {
         $nowPlaying.textContent = tracklist[0].trackName
         const audio = new AudioModule($audioPlayer, tracklist, generalPath)
         audio.shuffleTracklist()
-        audio.playNextTrack()
         console.log(audio)
       })
     }
@@ -244,7 +236,6 @@ $audioControls.addEventListener('click', event => {
     if (event.target.id === 'continuous-play') continuousPlay = true
     else {
       shufflePlay = true
-      shuffledTracklist = shuffleTracklist(tracklist)
     }
   }
   else {
