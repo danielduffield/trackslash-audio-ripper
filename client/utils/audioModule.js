@@ -28,10 +28,6 @@ class AudioModule {
         break
     }
   }
-  toggleShuffle() {
-    if (!this.isShuffled) this.shuffleTracklist()
-    this.isShuffled = !this.isShuffled
-  }
   skipTrack(isBackward) {
     if ((!isBackward && this.index === this.tracklist.length - 1) ||
       (isBackward && this.index === 0)) return
