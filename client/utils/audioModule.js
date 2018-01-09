@@ -20,7 +20,6 @@ class AudioModule {
     this.skipTrack = this.skipTrack.bind(this)
     this.shuffleTracklist = this.shuffleTracklist.bind(this)
     this.updateNowPlaying = this.updateNowPlaying.bind(this)
-    console.log($player, tracklist)
   }
   selectTrack(track) {
     const selectedIndex = this.tracklist.findIndex(trk => trk.trackName === track.trackName)
@@ -28,7 +27,6 @@ class AudioModule {
     this.index = selectedIndex
     if (this.isShuffled) this.shuffleTracklist()
     this.updateNowPlaying()
-    console.log(this.current, this.index, this.shuffled)
   }
   skipTrack(isBackward) {
     if ((!isBackward && this.index === this.tracklist.length - 1) ||
@@ -46,7 +44,6 @@ class AudioModule {
     const queued = this.tracklist.filter((track, index) => index !== this.index)
     this.shuffled = [this.current, ...shuffleArray(queued)]
     this.index = 0
-    console.log(this.shuffled)
   }
   toggleSetting(setting) {
     switch (setting) {
@@ -59,7 +56,6 @@ class AudioModule {
         this.isContinuous = !this.isContinuous
         break
     }
-    console.log(this.isContinuous, this.isShuffled)
   }
   updateNowPlaying() {
     updateSelectedRender(this.tracklist, this.current)
