@@ -12,8 +12,6 @@ const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const AudioModule = require('./utils/audioModule.js')
 
 const demo = true
-let continuousPlay = false
-let shufflePlay = false
 let selectedTrack = null
 
 let tracklist = null
@@ -28,6 +26,8 @@ let slicingInitialized = false
 
 let currentTrack = 2
 var albumMetadata = {}
+
+let audio
 
 document.body.appendChild(createFormTable())
 document.body.appendChild(createTracklistTable())
@@ -131,8 +131,7 @@ $tracklistForm.addEventListener('submit', event => {
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
-        const audio = new AudioModule($audioPlayer, tracklist, generalPath)
-        audio.shuffleTracklist()
+        audio = new AudioModule($audioPlayer, tracklist, generalPath)
         console.log(audio)
       })
     }
@@ -233,16 +232,15 @@ $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
   if (!event.target.classList.value.includes('active')) {
     event.target.classList.add('active')
-    if (event.target.id === 'continuous-play') continuousPlay = true
+    if (event.target.id === 'continuous-play') audio.toggleSetting('continuous')
     else {
-      shufflePlay = true
+      audio.toggleSetting('shuffle')
     }
   }
   else {
     event.target.classList.remove('active')
-    event.target.id === 'continuous-play' ? continuousPlay = false : shufflePlay = false
+    event.target.id === 'continuous-play' ? audio.toggleSetting('continuous') : audio.toggleSetting('shuffle')
   }
-  console.log(continuousPlay, shufflePlay)
 })
 
 let socketId = null
