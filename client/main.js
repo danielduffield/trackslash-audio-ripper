@@ -132,7 +132,7 @@ $tracklistForm.addEventListener('submit', event => {
         window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
         $audioPlayer.src = startPath
         $nowPlaying.textContent = tracklist[0].trackName
-        audio = new AudioModule($audioPlayer, tracklist, generalPath)
+        audio = new AudioModule($audioPlayer, $nowPlaying, tracklist, generalPath)
         console.log(audio)
       })
     }
