@@ -1,32 +1,39 @@
 const createElement = require('./elementCreation')
 
 function buildTracklistFinal(tracklist) {
-  let trackIndex = 1
-  const trackFields = ['num', 'name', 'start', 'end']
-  const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
+
+  const trackFields = [
+    { name: 'num', property: 'trackNum' },
+    { name: 'name', property: 'trackName' },
+    { name: 'start', property: 'trackStart' },
+    { name: 'end', property: 'trackEnd' },
+  ]
+
   const $trackFinalContainer = document.getElementById('track-final-container')
 
-  tracklist.forEach(track => {
+  const $tracklistFinal = tracklist.map((track, idx) => {
+    const trackIndex = idx + 1
     const $trackFinal = createElement('tr', {
-      id: 'track-final-' + trackIndex,
-      class: (trackIndex === 1 ? 'track-final selected' : 'track-final')
+      id: `track-final-${trackIndex}`,
+      class: `track-final ${idx === 0 ? 'selected' : ''}`,
     }, '', [])
 
-    trackFields.forEach((field, index) => {
+    const $trackFields = trackFields.map((field, fieldIdx) => {
       const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
       const $trackFinalField = createElement('span', {
-        id: 'track-final-' + trackFields[index] + '-' + trackIndex,
+        id: 'track-final-' + field.name + '-' + trackIndex,
         class: 'track-final-field',
         'data-tracknum': trackIndex
-      }, track[trackProperties[index]], [])
+      }, track[field.property], [])
 
       $tableCell.appendChild($trackFinalField)
-      $trackFinal.appendChild($tableCell)
+      return $tableCell
     })
 
-    $trackFinalContainer.appendChild($trackFinal)
-    trackIndex++
+    $trackFields.forEach($field => $trackFinal.appendChild($field))
   })
+
+  $tracklistFinal.forEach($track => $trackFinalContainer.appendChild($track))
 }
 
 module.exports = buildTracklistFinal
