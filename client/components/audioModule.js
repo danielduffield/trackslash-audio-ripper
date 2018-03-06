@@ -1,6 +1,6 @@
 const createElement = require('./../utils/elementCreation')
 
-const $audioPlayer = createElement('audio', { id: 'audio-player', controls: '', controlsList: 'nodownload', src: '' }, '', [])
+const $audioPlayer = createElement('audio', { id: 'audio-player', controls: '', controlsList: 'nodownload', src: '' })
 $audioPlayer.addEventListener('contextmenu', e => e.preventDefault())
 
 const audioButtonData = [
