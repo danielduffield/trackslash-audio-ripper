@@ -18,3 +18,5 @@ function createTimecodeForm(videoTitle) {
   ])
   return $timecodeForm
 }
+
+module.exports = createTimecodeForm()
