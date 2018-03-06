@@ -33,6 +33,7 @@ function createTrackForm(currentTrack) {
   })
 
   $trackFormFields.forEach($tableCell => { $trackForm.appendChild($tableCell) })
+  return $trackForm
 }
 
 function appendDeleteButton(currentTrack) {

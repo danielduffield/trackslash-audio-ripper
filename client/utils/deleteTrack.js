@@ -6,10 +6,10 @@ function deleteTrack(trackNumber, totalTracks) {
   adjustTrackNums(trackNumber, totalTracks)
 }
 
-function adjustTrackNums(deletedIndex, totalTracks) {
+function adjustTrackNums(deletedIndex, tracklistLength) {
   const formFields = ['num', 'name', 'start', 'end', 'delete']
 
-  for (let i = trackNumber + 1; i <= totalTracks; i++) {
+  for (let i = deletedIndex + 1; i <= tracklistLength; i++) {
     const $relabelForm = document.querySelector(`.track-form-${i}`)
     $relabelForm.setAttribute('class', `track-form-${i - 1}`)
 
