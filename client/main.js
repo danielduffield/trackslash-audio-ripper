@@ -10,7 +10,7 @@ const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const AudioModule = require('./utils/audioModule.js')
-const { generateElementRefs, elementRefs } = require('./utils/elementRefs')
+const { updateElementRef, generateElementRefs, elementRefs, loadElementRef } = require('./utils/elementRefs')
 
 const demo = true
 let selectedTrack = null
@@ -99,7 +99,7 @@ $tracklistForm.addEventListener('submit', event => {
   }
   else {
     $sliceProgress.textContent = 'Track slice initializing...'
-    const $spinner = document.getElementById('spinner')
+    const $spinner = updateElementRef('$spinner', 'spinner')
     $spinner.setAttribute('class', 'fa fa-spinner spinner')
     setTimeout(() => {
       $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
@@ -107,14 +107,14 @@ $tracklistForm.addEventListener('submit', event => {
   }
 
   sendTracklistPostRequest(tracklistPost).then(response => {
-    const $audioPlayer = document.getElementById('audio-player')
-    const $nowPlaying = document.getElementById('now-playing')
+    const $audioPlayer = updateElementRef('$audioRef', 'audio-player')
+    const $nowPlaying = updateElementRef('$nowPlaying', 'now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
         selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
         if (!selectedTrack) return
         audio.selectTrack(selectedTrack)
-        const $selected = document.getElementById('track-final-' + e.target.dataset.tracknum)
+        const $selected = updateElementRef('$selected', `track-final-${e.target.dataset.tracknum}`)
         for (let i = 1; i <= tracklist.length; i++) {
           const $track = document.getElementById('track-final-' + i)
           if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
@@ -134,15 +134,15 @@ $tracklistForm.addEventListener('submit', event => {
         const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
         buildTracklistFinal(tracklist)
         renderTracklistLinks($tracklistLinks)
-        const $downloadAllForm = document.getElementById('download-all-form')
-        const $downloadAllButton = document.getElementById('download-all-button')
-        const $downloadAllContainer = document.getElementById('download-all-container')
+        const $downloadAllForm = updateElementRef('$downloadAllForm', 'download-all-form')
+        const $downloadAllButton = updateElementRef('$downloadAllButton', 'download-all-button')
+        const $downloadAllContainer = updateElementRef('$downloadAllContainer', 'download-all-container')
         if (demo) {
           $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
           $downloadAllButton.setAttribute('class', 'form-button disabled')
         }
         else $downloadAllForm.setAttribute('action', zipPath)
-        const $finalAlbumTitle = document.getElementById('final-album-title')
+        const $finalAlbumTitle = updateElementRef('$finalAlbumTitle', 'final-album-title')
         $finalAlbumTitle.textContent = albumMetadata.videoTitle
         const generalPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/'
         const startPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + tracklist[0].trackName.split(' ').join('-') + '.mp3'
@@ -193,7 +193,7 @@ $loadTimecodesBtn.addEventListener('click', () => {
 $submitTimecodesButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $timecodeInputBox.value = ''
-  const $timecodeTitle = document.getElementById('timecode-video-title')
+  const $timecodeTitle = updateElementRef('$timecodeTitle', 'timecode-video-title')
   $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
   window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
 })
@@ -266,7 +266,7 @@ socket.on('downloadProgress', progress => {
     setTimeout(() => {
       $downloadProgress.textContent = 'Album Download Complete'
       if (slicingInitialized) {
-        const $spinner = document.getElementById('spinner')
+        const $spinner = updateElementRef('$spinner', 'spinner')
         $spinner.setAttribute('class', 'fa fa-spinner spinner')
         $sliceProgress.textContent = 'Track slice initializing...'
         setTimeout(() => {
