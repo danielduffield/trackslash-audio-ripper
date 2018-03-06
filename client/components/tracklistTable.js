@@ -1,6 +1,9 @@
 const createElement = require('./../utils/elementCreation')
 const $audioModule = require('./audioModule')
 
+const columns = ['Num', 'Name', 'Start', 'End', 'DL']
+const $tableColumns = columns.map(col => createElement('th', {}, col, []))
+
 function createTracklistTable() {
   const $formTable =
   createElement('row', {}, '', [
@@ -11,11 +14,7 @@ function createTracklistTable() {
       createElement('table', {class: 'table table-bordered'}, '', [
         createElement('thead', {}, '', [
           createElement('tr', {class: 'thead-row'}, '', [
-            createElement('th', {}, 'Num', []),
-            createElement('th', {}, 'Name', []),
-            createElement('th', {}, 'Start', []),
-            createElement('th', {}, 'End', []),
-            createElement('th', {}, 'DL', [])
+            ...$tableColumns
           ])
         ]),
         createElement('tbody', {id: 'track-final-container'}, '', [])
