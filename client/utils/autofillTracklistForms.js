@@ -1,15 +1,20 @@
 const addTrackForm = require('./addTrackForm.js')
 
 function autofillTracklistForms(scrapedTracklist) {
-  const trackFormFields = ['num', 'name', 'start', 'end']
-  const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
+
+  const trackFormFields = [
+    { name: 'num', property: 'trackNum' },
+    { name: 'name', property: 'trackName' },
+    { name: 'start', property: 'trackStart' },
+    { name: 'end', property: 'trackEnd' },
+  ]
 
   scrapedTracklist.forEach((track, trackIndex) => {
     const currentTrack = trackIndex + 1
 
     trackFormFields.forEach((field, fieldIndex) => {
-      const $form = document.getElementById('track-' + field + '-' + currentTrack)
-      $form.value = track[trackProperties[fieldIndex]]
+      const $form = document.getElementById(`track-${field.name}-${currentTrack}`)
+      $form.value = track[field.property]
     })
 
     if (scrapedTracklist[trackIndex + 1]) {
