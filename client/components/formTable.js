@@ -1,5 +1,8 @@
 const createElement = require('./../utils/elementCreation')
 
+const columns = ['Num', 'Name', 'Start', 'End', 'DL']
+const $tableColumns = columns.map(col => createElement('th', {}, col, []))
+
 function createFormTable() {
   const $formTable =
   createElement('row', {}, '', [
@@ -17,11 +20,7 @@ function createFormTable() {
         createElement('table', {class: 'table table-bordered'}, '', [
           createElement('thead', {}, '', [
             createElement('tr', {class: 'thead-row'}, '', [
-              createElement('th', {}, 'Num', []),
-              createElement('th', {}, 'Name', []),
-              createElement('th', {}, 'Start', []),
-              createElement('th', {}, 'End', []),
-              createElement('th', {}, 'Delete', [])
+              ...$tableColumns
             ])
           ]),
           createElement('tbody', {id: 'track-form-container'}, '', [])
