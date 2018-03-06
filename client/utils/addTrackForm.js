@@ -1,4 +1,11 @@
-const createElement = require('./elementCreation').createElement
+const createElement = require('./elementCreation')
+
+const startEndAttributes = [
+  { key: 'maxlength', value: '8' },
+  { key: 'type', value: 'text' },
+  { key: 'pattern', value: '[0-9]{2}:[0-9]{2}:[0-9]{2}' },
+  { key: 'title', value: 'HH:MM:SS' },
+]
 
 function addTrackForm(currentTrack) {
   const $trackFormContainer = document.getElementById('track-form-container')
@@ -9,13 +16,6 @@ function addTrackForm(currentTrack) {
 function createTrackForm(currentTrack) {
   const trackFormFields = ['num', 'name', 'start', 'end']
   const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
-
-  const startEndAttributes = [
-    { key: 'maxlength', value: '8' },
-    { key: 'type', value: 'text' },
-    { key: 'pattern', value: '[0-9]{2}:[0-9]{2}:[0-9]{2}' },
-    { key: 'title', value: 'HH:MM:SS' },
-  ]
 
   const $trackFormFields = trackFormFields.map((field, i) => {
     const $tableCell = createElement('td', {}, '', [])
@@ -43,5 +43,7 @@ function appendDeleteButton(currentTrack) {
 
   $trackForm.appendChild($deleteButton)
 }
+
+
 
 module.exports = addTrackForm

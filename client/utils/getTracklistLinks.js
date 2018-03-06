@@ -1,4 +1,4 @@
-const createElement = require('./elementCreation').createElement
+const createElement = require('./elementCreation')
 
 const demo = true
 
