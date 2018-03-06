@@ -10,6 +10,7 @@ const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
 const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const AudioModule = require('./utils/audioModule.js')
+const { generateElementRefs, elementRefs } = require('./utils/elementRefs')
 
 const demo = true
 let selectedTrack = null
@@ -35,21 +36,37 @@ document.body.appendChild($formTable)
 document.body.appendChild($tracklistTable)
 document.body.appendChild($timecodeForm)
 
-const $urlInput = document.getElementById('url-submit-input')
+const {
+  $urlInput,
+  $trackFormContainer,
+  $trackFinalContainer,
+  $demoNotice,
+  $urlSubmitForm,
+  $addTrackButton,
+  $tracklistForm,
+  $startOverBtn,
+  $resetTracklistBtn,
+  $loadTimecodesBtn,
+  $tracklistError,
+  $timecodeError,
+  $submitTimecodesButton,
+  $timecodeSubmitBtn,
+  $timecodeCancelBtn,
+  $timecodeInputBox,
+  $audioControls,
+  $downloadProgress,
+  $sliceProgress,
+} = generateElementRefs()
+
 $urlInput.focus()
 const $views = document.querySelectorAll('.view')
 const router = new HashRouter($views)
 
-const $trackFormContainer = document.getElementById('track-form-container')
-const $trackFinalContainer = document.getElementById('track-final-container')
-
 router.listen()
 router.match(window.location.hash)
 
-const $demoNotice = document.getElementById('demo-notice')
 $demoNotice.textContent = demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
-const $urlSubmitForm = document.getElementById('url-submit-form')
 $urlSubmitForm.addEventListener('submit', event => {
   event.preventDefault()
   handleUrlSubmit($urlInput, socketId).then(keyData => {
@@ -57,14 +74,12 @@ $urlSubmitForm.addEventListener('submit', event => {
   })
 })
 
-const $addTrackButton = document.getElementById('track-form-add-button')
 $addTrackButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
   addTrackForm(currentTrack)
   currentTrack += 1
 })
 
-const $tracklistForm = document.getElementById('tracklist-form')
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
 
@@ -141,7 +156,6 @@ $tracklistForm.addEventListener('submit', event => {
   })
 })
 
-const $startOverBtn = document.getElementById('start-over-button')
 $startOverBtn.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
@@ -153,7 +167,6 @@ $startOverBtn.addEventListener('click', () => {
   window.location.hash = ''
 })
 
-const $resetTracklistBtn = document.getElementById('reset-tracklist-button')
 $resetTracklistBtn.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
@@ -162,7 +175,6 @@ $resetTracklistBtn.addEventListener('click', () => {
   currentTrack += 1
 })
 
-const $loadTimecodesBtn = document.getElementById('load-timecodes-button')
 $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
@@ -177,14 +189,6 @@ $loadTimecodesBtn.addEventListener('click', () => {
     $tracklistError.textContent = '* No timecodes found in video description. Use "Submit Timecodes."'
   }
 })
-
-const $tracklistError = document.getElementById('tracklist-error-message-container')
-const $timecodeError = document.getElementById('timecode-error-message-container')
-
-const $submitTimecodesButton = document.getElementById('submit-timecodes-button')
-const $timecodeSubmitBtn = document.getElementById('timecode-submit-button')
-const $timecodeCancelBtn = document.getElementById('timecode-cancel-button')
-const $timecodeInputBox = document.getElementById('timecode-input-box')
 
 $submitTimecodesButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
@@ -229,7 +233,6 @@ $tracklistForm.addEventListener('click', event => {
   }
 })
 
-const $audioControls = document.getElementById('audio-controls')
 $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
   if (!event.target.classList.value.includes('toggle')) {
@@ -256,9 +259,6 @@ let socketId = null
 socket.on('connectionId', connectionId => {
   socketId = connectionId
 })
-
-const $downloadProgress = document.getElementById('album-download-progress')
-const $sliceProgress = document.getElementById('track-slice-progress')
 
 socket.on('downloadProgress', progress => {
   $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
