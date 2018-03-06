@@ -31,9 +31,11 @@ function buildTracklistFinal(tracklist) {
     })
 
     $trackFields.forEach($field => $trackFinal.appendChild($field))
+    return $trackFinal
   })
 
   $tracklistFinal.forEach($track => $trackFinalContainer.appendChild($track))
+  return $tracklistFinal
 }
 
 module.exports = buildTracklistFinal
