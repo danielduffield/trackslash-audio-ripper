@@ -3,15 +3,20 @@ function deleteTrack(trackNumber, totalTracks) {
   const $toBeDeleted = document.querySelector('.track-form-' + trackNumber)
   $container.removeChild($toBeDeleted)
 
+  adjustTrackNums(trackNumber, totalTracks)
+}
+
+function adjustTrackNums(deletedIndex, totalTracks) {
   const formFields = ['num', 'name', 'start', 'end', 'delete']
+
   for (let i = trackNumber + 1; i <= totalTracks; i++) {
-    const $relabelForm = document.querySelector('.track-form-' + i)
-    $relabelForm.setAttribute('class', 'track-form-' + (i - 1))
+    const $relabelForm = document.querySelector(`.track-form-${i}`)
+    $relabelForm.setAttribute('class', `track-form-${i - 1}`)
 
     formFields.forEach((field, fieldIndex) => {
-      const $form = document.getElementById('track-' + field + '-' + i)
-      $form.setAttribute('id', 'track-' + field + '-' + (i - 1))
-      $form.setAttribute('name', 'track-' + field + '-' + (i - 1))
+      const $form = document.getElementById(`track-${field}-${i}`)
+      $form.setAttribute('id', `track-${field}-${i - 1}`)
+      $form.setAttribute('name', `track-${field}-${i - 1}`)
     })
   }
 }
