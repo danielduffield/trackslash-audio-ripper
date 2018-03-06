@@ -12,20 +12,20 @@ const audioButtonData = [
 
 const $audioButtons = audioButtonData.map(button => (
 	createElement('span', { class: 'audio-btn-container', title: button.title }, [
-		createElement('i', { class: button.icon, id: button.id })
+		['i', { class: button.icon, id: button.id }],
 	])
 ))
 
 const $audioModule = createElement('div', { id: 'audio-module' }, [
-  createElement('div', { id: 'now-playing-container' }, ' ', [
-    createElement('span', { id: 'now-playing' })
-  ]),
-  createElement('div', {id: 'audio-wrapper'}, [
+  ['div', { id: 'now-playing-container' }, ' ', [
+    ['span', { id: 'now-playing' }],
+  ]],
+  ['div', {id: 'audio-wrapper'}, [
     $audioPlayer,
-    createElement('div', { id: 'audio-controls' }, [
+    ['div', { id: 'audio-controls' }, [
       ...$audioButtons
-    ])
-  ])
+    ]],
+  ]],
 ])
 
 module.exports = $audioModule
