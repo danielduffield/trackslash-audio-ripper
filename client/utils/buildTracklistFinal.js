@@ -18,17 +18,17 @@ function buildTracklistFinal(tracklist) {
       class: `track-final ${idx === 0 ? 'selected' : ''}`,
     })
 
-    const $trackFields = trackFields.map((field, fieldIdx) => {
-      const $tableCell = createElement('td', { 'data-tracknum': trackIndex })
-      const $trackFinalField = createElement('span', {
-        id: 'track-final-' + field.name + '-' + trackIndex,
-        class: 'track-final-field',
-        'data-tracknum': trackIndex
-      }, track[field.property])
-
-      $tableCell.appendChild($trackFinalField)
-      return $tableCell
-    })
+    const $trackFields = trackFields.map((field, fieldIdx) => (
+      createElement('td', { 'data-tracknum': trackIndex }, [
+        ['span',
+          {
+            id: `track-final-${field.name}-${trackIndex}`,
+            class: 'track-final-field',
+            'data-tracknum': trackIndex
+          },
+          track[field.property]],
+      ])
+    ))
 
     $trackFields.forEach($field => $trackFinal.appendChild($field))
     return $trackFinal

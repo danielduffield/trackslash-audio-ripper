@@ -15,7 +15,7 @@ function addTrackForm(currentTrack) {
 
 function createTrackForm(currentTrack) {
   const trackFormFields = ['num', 'name', 'start', 'end']
-  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
+  const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack})
 
   const $trackFormFields = trackFormFields.map((field, i) => {
     const $tableCell = createElement('td')
