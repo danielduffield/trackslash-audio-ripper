@@ -59,7 +59,7 @@ const $addTrackButton = document.getElementById('track-form-add-button')
 $addTrackButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
   addTrackForm(currentTrack)
-  currentTrack++
+  currentTrack += 1
 })
 
 const $tracklistForm = document.getElementById('tracklist-form')
@@ -147,7 +147,7 @@ $startOverBtn.addEventListener('click', () => {
   tracklistLength = 0
   currentTrack = 1
   addTrackForm(currentTrack)
-  currentTrack++
+  currentTrack += 1
   window.location.hash = ''
 })
 
@@ -157,7 +157,7 @@ $resetTracklistBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
-  currentTrack++
+  currentTrack += 1
 })
 
 const $loadTimecodesBtn = document.getElementById('load-timecodes-button')
@@ -165,7 +165,7 @@ $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
   currentTrack = 1
   addTrackForm(currentTrack)
-  currentTrack++
+  currentTrack += 1
   if (albumMetadata.timeCodes.length > 1) {
     const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
     currentTrack = autoTracklist.length + 1
@@ -223,7 +223,7 @@ $tracklistForm.addEventListener('click', event => {
   if (trackNumber && /\d/.test(trackNumber)) {
     const numberOfTracks = currentTrack - 1
     deleteTrack(trackNumber, numberOfTracks)
-    currentTrack--
+    currentTrack -= 1
   }
 })
 
