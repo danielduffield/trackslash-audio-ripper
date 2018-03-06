@@ -10,12 +10,6 @@ const audioButtonData = [
 	{ title: 'Shuffle Playback', icon: 'audio-button toggle fa fa-random', id: 'shuffle-play' },
 ]
 
-const $audioButtons = audioButtonData.map(button => (
-	createElement('span', { class: 'audio-btn-container', title: button.title }, [
-		['i', { class: button.icon, id: button.id }],
-	])
-))
-
 const $audioModule = createElement('div', { id: 'audio-module' }, [
   ['div', { id: 'now-playing-container' }, ' ', [
     ['span', { id: 'now-playing' }],
@@ -23,7 +17,11 @@ const $audioModule = createElement('div', { id: 'audio-module' }, [
   ['div', {id: 'audio-wrapper'}, [
     $audioPlayer,
     ['div', { id: 'audio-controls' }, [
-      ...$audioButtons
+      ...audioButtonData.map(button => (
+				createElement('span', { class: 'audio-btn-container', title: button.title }, [
+					['i', { class: button.icon, id: button.id }],
+				])
+			)),
     ]],
   ]],
 ])
