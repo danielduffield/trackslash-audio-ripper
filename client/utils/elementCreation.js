@@ -13,12 +13,18 @@ function createElement(...args) {
       else attributes = trait
     }
   })
-
   const $el = document.createElement(elType)
 
   $el.textContent = textContent
   for (const key in attributes) $el.setAttribute(key, attributes[key])
-  children.forEach($child => $el.appendChild($child))
+  children.forEach($child => {
+    if ($child instanceof HTMLElement) {
+      $el.appendChild($child)
+    }
+    if (Array.isArray($child)) {
+      $el.appendChild(createElement(...$child))
+    }
+  })
 
   return $el
 }
