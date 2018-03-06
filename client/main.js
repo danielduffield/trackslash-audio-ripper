@@ -16,7 +16,9 @@ let selectedTrack = null
 
 let tracklist = null
 
-const {createFormTable, createTracklistTable, createTimecodeForm} = require('./utils/elementCreation')
+const $formTable = require('./components/formTable')
+const $tracklistTable = require('./components/tracklistTable')
+const $timecodeForm = require('./components/timecodeForm')
 
 const HashRouter = require('./utils/hashRouter.js')
 
@@ -29,9 +31,9 @@ var albumMetadata = {}
 
 let audio
 
-document.body.appendChild(createFormTable())
-document.body.appendChild(createTracklistTable())
-document.body.appendChild(createTimecodeForm())
+document.body.appendChild($formTable)
+document.body.appendChild($tracklistTable)
+document.body.appendChild($timecodeForm)
 
 const $urlInput = document.getElementById('url-submit-input')
 $urlInput.focus()
