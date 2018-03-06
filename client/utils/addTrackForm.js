@@ -18,11 +18,11 @@ function createTrackForm(currentTrack) {
   const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack}, '', [])
 
   const $trackFormFields = trackFormFields.map((field, i) => {
-    const $tableCell = createElement('td', {}, '', [])
+    const $tableCell = createElement('td')
     const $trackFormField = createElement('input', {
       id: `track-${field}-${currentTrack}`,
       name: `track-${field}-${currentTrack}`,
-    }, '', [])
+    })
 
     if (field === 'num') $trackFormField.setAttribute('maxlength', '2')
     if (field === 'start' || field === 'end') {
@@ -38,8 +38,8 @@ function createTrackForm(currentTrack) {
 
 function appendDeleteButton(currentTrack) {
   const $trackForm = document.querySelector('.track-form-' + currentTrack)
-  const $deleteButton = createElement('td', {}, '', [
-    createElement('button', {id: 'track-delete-' + currentTrack, class: 'delete-button', type: 'button'}, 'X', [])
+  const $deleteButton = createElement('td', [
+    createElement('button', {id: 'track-delete-' + currentTrack, class: 'delete-button', type: 'button'}, 'X')
   ])
 
   $trackForm.appendChild($deleteButton)

@@ -16,15 +16,15 @@ function buildTracklistFinal(tracklist) {
     const $trackFinal = createElement('tr', {
       id: `track-final-${trackIndex}`,
       class: `track-final ${idx === 0 ? 'selected' : ''}`,
-    }, '', [])
+    })
 
     const $trackFields = trackFields.map((field, fieldIdx) => {
-      const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
+      const $tableCell = createElement('td', { 'data-tracknum': trackIndex })
       const $trackFinalField = createElement('span', {
         id: 'track-final-' + field.name + '-' + trackIndex,
         class: 'track-final-field',
         'data-tracknum': trackIndex
-      }, track[field.property], [])
+      }, track[field.property])
 
       $tableCell.appendChild($trackFinalField)
       return $tableCell

@@ -11,18 +11,18 @@ const audioButtonData = [
 ]
 
 const $audioButtons = audioButtonData.map(button => (
-	createElement('span', { class: 'audio-btn-container', title: button.title }, '', [
-		createElement('i', { class: button.icon, id: button.id }, '', [])
+	createElement('span', { class: 'audio-btn-container', title: button.title }, [
+		createElement('i', { class: button.icon, id: button.id })
 	])
 ))
 
-const $audioModule = createElement('div', { id: 'audio-module' }, '', [
+const $audioModule = createElement('div', { id: 'audio-module' }, [
   createElement('div', { id: 'now-playing-container' }, ' ', [
-    createElement('span', { id: 'now-playing' }, '', [])
+    createElement('span', { id: 'now-playing' })
   ]),
-  createElement('div', {id: 'audio-wrapper'}, '', [
+  createElement('div', {id: 'audio-wrapper'}, [
     $audioPlayer,
-    createElement('div', { id: 'audio-controls' }, '', [
+    createElement('div', { id: 'audio-controls' }, [
       ...$audioButtons
     ])
   ])
