@@ -4,7 +4,7 @@ const addTrackForm = require('./addTrackForm.js')
 
 function createAlbumImage(imageLocation, elementId) {
   const albumImage = new Image(512, 288)
-  myImage.src = imageLocation
+  ablumImage.src = imageLocation
   return albumImage
 }
 
