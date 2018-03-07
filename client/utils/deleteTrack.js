@@ -1,7 +1,11 @@
 const { addLoadRef, setOverwriteRef } = require('./elementRefs')
 
+let $container
+
 function deleteTrack(trackNumber, totalTracks) {
-  const $container = addLoadRef('track-form-container')
+  if (!$container) {
+    $container = addLoadRef('track-form-container')
+  }
   const $toBeDeleted = document.querySelector('.track-form-' + trackNumber)
   $container.removeChild($toBeDeleted)
 

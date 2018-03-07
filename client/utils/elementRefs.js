@@ -1,6 +1,9 @@
 const elementRefs = {}
 
-const loadElementRef = elId => elementRefs[elId]
+const loadElementRef = elId => {
+	console.log('Loading ref: ', elId)
+	return elementRefs[elId]
+}
 
 const addLoadRef = elId => (
 	Object.keys(elementRefs).includes(elId)
@@ -9,6 +12,7 @@ const addLoadRef = elId => (
 )
 
 const setOverwriteRef = elId => {
+	console.log('Setting ref: ', elId)
 	elementRefs[elId] = document.getElementById(elId)
 	return elementRefs[elId]
 }

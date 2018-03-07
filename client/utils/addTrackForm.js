@@ -8,8 +8,12 @@ const startEndAttributes = [
   { key: 'title', value: 'HH:MM:SS' },
 ]
 
+let $trackFormContainer
+
 function addTrackForm(currentTrack) {
-  const $trackFormContainer = addLoadRef('track-form-container')
+  if (!$trackFormContainer) {
+    $trackFormContainer = addLoadRef('track-form-container')
+  }
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
   appendDeleteButton(currentTrack)
 }
