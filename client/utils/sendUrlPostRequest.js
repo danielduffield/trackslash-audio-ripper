@@ -1,6 +1,6 @@
 const { addLoadRef } = require('./../state/elementRefs')
 
-const invalidUrlMessage = require('./../rendersinvalidUrlMessage')
+const invalidUrlMessage = require('./../renders/invalidUrlMessage')
 
 const resetTracklist = require('./resetTracklist')
 

@@ -1,16 +1,20 @@
+const state = require('./../state/state')
+
 const { attachInitialSocketListeners } = require('./socketListeners')
 
 const attachUrlFormListener = require('./urlSubmitForm')
-const attachAddTrackButtonListener = require('./addTrackButton')
+const attachAddTrackButtonListener = require('./addTrack')
 const attachAudioControlListener = require('./audioControls')
 
 const createTracklistFormListeners = require('./tracklistForm')
-const createResetListeners = require('./resetListeners')
 const createTimeCodeListeners = require('./timecodeListeners')
 
-function attachListeners() {
+const { attachStartOverBtnListener, attachResetTracklistListener } = require('./resetListeners')
+
+let listeners = {}
+
+function attachInitialListeners() {
   attachInitialSocketListeners()
-  const { attachStartOverBtnListener, attachResetTracklistListener } = createResetListeners()
   const { attachTracklistFormListener, attachTrackDeleteListener } = createTracklistFormListeners()
   const {
     attachLoadTimecodesListener,
@@ -19,19 +23,30 @@ function attachListeners() {
     attachManualTimecodesListener
   } = createTimeCodeListeners()
 
-  return {
-    addTrack: attachAddTrackButtonListener(),
-    deleteTrack: attachTrackDeleteListener(),
-    resetTracklistBtn: attachResetTracklistListener(),
-    startOverBtn: attachStartOverBtnListener(),
-    tracklistForm: attachTracklistFormListener(),
-    urlSubmitForm: attachUrlFormListener(),
-    audioControls: attachAudioControlListener(),
-    loadTimecodes: attachLoadTimecodesListener(),
-    submitTimecodes: attachSubmitTimecodesListener(),
-    cancelTimecodes: attachCancelTimecodesListener(),
-    manualTimecodes: attachManualTimecodesListener()
-  }
+  const toAttach = [
+    { addTrack: attachAddTrackButtonListener },
+    { deleteTrack: attachTrackDeleteListener },
+    { resetTracklistBtn: attachResetTracklistListener },
+    { startOverBtn: attachStartOverBtnListener },
+    { tracklistForm: attachTracklistFormListener },
+    { urlSubmitForm: attachUrlFormListener },
+    { audioControls: attachAudioControlListener },
+    { loadTimecodes: attachLoadTimecodesListener },
+    { submitTimecodes: attachSubmitTimecodesListener },
+    { cancelTimecodes: attachCancelTimecodesListener },
+    { manualTimecodes: attachManualTimecodesListener }
+  ]
+
+  Object.keys(listeners).forEach(key => {
+    addListener(key, toAttach[key])
+  })
+
+  return listeners
 }
 
-module.exports = attachListeners
+const addListener = (name, listener) => {
+  listener()
+  state.listeners[name] = true
+}
+
+module.exports = { attachInitialListeners, addListener }

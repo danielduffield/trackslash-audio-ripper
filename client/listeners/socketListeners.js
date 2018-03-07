@@ -5,9 +5,6 @@ const AudioModule = require('./../components/audioModule.js')
 
 const createTracklistFinal = require('./../renders/tracklistFinal')
 
-const getTracklistLinks = require('./../utils/getTracklistLinks.js')
-const renderTracklistLinks = require('./../utils/renderTracklistLinks.js')
-
 function attachInitialSocketListeners() {
   const $downloadProgress = addLoadRef('album-download-progress')
   const $sliceProgress = addLoadRef('track-slice-progress')

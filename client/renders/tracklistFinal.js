@@ -2,9 +2,9 @@ const state = require('./../state/state')
 
 const createElement = require('./../utils/createElement')
 
-const createTrackLink = require('./renders/trackLink')
+const createTrackLink = require('./../renders/trackLink')
 
-function buildTracklistFinal(tracklist) {
+function createTracklistFinal(tracklist) {
 
   const trackFields = [
     { name: 'num', property: 'trackNum' },
@@ -37,4 +37,4 @@ function buildTracklistFinal(tracklist) {
   ))
 }
 
-module.exports = buildTracklistFinal
+module.exports = createTracklistFinal

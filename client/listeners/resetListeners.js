@@ -7,21 +7,14 @@ function startOver() {
   window.location.hash = ''
 }
 
-function createResetListeners() {
+const attachStartOverBtnListener = () => {
   const $startOverBtn = addLoadRef('start-over-button')
-  const $resetTracklistBtn = addLoadRef('reset-tracklist-button')
-
-  const attachStartOverBtnListener = () => (
-    $startOverBtn.addEventListener('click', () => {
-      startOver()
-    })
-  )
-
-  const attachResetTracklistListener = () => (
-    $resetTracklistBtn.addEventListener('click', () => resetTracklist())
-  )
-
-  return { attachStartOverBtnListener, attachResetTracklistListener }
+  $startOverBtn.addEventListener('click', () => startOver())
 }
 
-module.exports = createResetListeners
+const attachResetTracklistListener = () => {
+  const $resetTracklistBtn = addLoadRef('reset-tracklist-button')
+  $resetTracklistBtn.addEventListener('click', () => resetTracklist())
+}
+
+module.exports = { attachStartOverBtnListener, attachResetTracklistListener }

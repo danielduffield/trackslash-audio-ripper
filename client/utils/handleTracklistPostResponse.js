@@ -1,6 +1,7 @@
 const state = require('./../state/state.js')
 const { addLoadRef } = require('./../state/elementRefs')
 const { attachOnZipListener } = require('./../listeners/socketListeners')
+const { addListener } = require('./../listeners/index')
 
 const handleTracklistPostResponse = response => {
   const $trackFinalContainer = addLoadRef('track-final-container')
@@ -27,7 +28,7 @@ const handleTracklistPostResponse = response => {
       $audioPlayer.src = trackPath
       $audioPlayer.play()
     })
-    attachOnZipListener()
+    addListener('socketOnZip', attachOnZipListener)
   }
   else (console.log('Tracklist request failed.'))
 }
