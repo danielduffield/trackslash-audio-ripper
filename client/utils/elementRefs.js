@@ -1,51 +1,38 @@
 const elementRefs = {}
 
-const elementIds = {
-	$urlInput: 'url-submit-input',
-	$trackFormContainer: 'track-form-container',
-	$trackFinalContainer: 'track-final-container',
-	$demoNotice: 'demo-notice',
-	$urlSubmitForm: 'url-submit-form',
-	$addTrackButton: 'track-form-add-button',
-	$tracklistForm: 'tracklist-form',
-	$startOverBtn: 'start-over-button',
-	$resetTracklistBtn: 'reset-tracklist-button',
-	$loadTimecodesBtn: 'load-timecodes-button',
-	$tracklistError: 'tracklist-error-message-container',
-	$timecodeError: 'timecode-error-message-container',
-	$submitTimecodesButton: 'submit-timecodes-button',
-	$timecodeSubmitBtn: 'timecode-submit-button',
-	$timecodeCancelBtn: 'timecode-cancel-button',
-	$timecodeInputBox: 'timecode-input-box',
-	$audioControls: 'audio-controls',
-	$downloadProgress: 'album-download-progress',
-	$sliceProgress: 'track-slice-progress',
+const loadElementRef = elId => elementRefs[elId]
+
+const addLoadRef = elId => (
+	Object.keys(elementRefs).includes(elId)
+		? loadElementRef(elId)
+		: setOverwriteRef(elId)
+)
+
+const setOverwriteRef = elId => {
+	elementRefs[elId] = document.getElementById(elId)
+	return elementRefs[elId]
 }
 
-const generateElementRefs = () => {
-	for (const key in elementIds) {
-		elementRefs[key] = document.getElementById(elementIds[key])
-	}
-	return elementRefs
-}
+const generateInitialRefs = () => ({
+	$urlInput: addLoadRef('url-submit-input'),
+	$trackFormContainer: addLoadRef('track-form-container'),
+	$trackFinalContainer: addLoadRef('track-final-container'),
+	$demoNotice: addLoadRef('demo-notice'),
+	$urlSubmitForm: addLoadRef('url-submit-form'),
+	$addTrackButton: addLoadRef('track-form-add-button'),
+	$tracklistForm: addLoadRef('tracklist-form'),
+	$startOverBtn: addLoadRef('start-over-button'),
+	$resetTracklistBtn: addLoadRef('reset-tracklist-button'),
+	$loadTimecodesBtn: addLoadRef('load-timecodes-button'),
+	$tracklistError: addLoadRef('tracklist-error-message-container'),
+	$timecodeError: addLoadRef('timecode-error-message-container'),
+	$submitTimecodesButton: addLoadRef('submit-timecodes-button'),
+	$timecodeSubmitBtn: addLoadRef('timecode-submit-button'),
+	$timecodeCancelBtn: addLoadRef('timecode-cancel-button'),
+	$timecodeInputBox: addLoadRef('timecode-input-box'),
+	$audioControls: addLoadRef('audio-controls'),
+	$downloadProgress: addLoadRef('album-download-progress'),
+	$sliceProgress: addLoadRef('track-slice-progress'),
+})
 
-const loadElementRef = elId => {
-	for (const key in elementIds) {
-		if (elementIds[key] === elId) {
-			return elementRefs[key]
-		}
-	}
-}
-
-const updateElementRef = (elName, elId) => {
-	if (elementRefs[elName]) {
-		console.log(`updating ${elName}/${elementIds[elName]} with ${elName}/${elId}`)
-		console.log(elementRefs)
-	}
-
-	elementIds[elName] = elId
-	elementRefs[elName] = document.getElementById(elementIds[elName])
-	return elementRefs[elName]
-}
-
-module.exports = { elementRefs, generateElementRefs, loadElementRef, updateElementRef }
+module.exports = { generateInitialRefs, addLoadRef, setOverwriteRef }

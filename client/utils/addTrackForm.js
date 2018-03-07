@@ -1,4 +1,5 @@
 const createElement = require('./elementCreation')
+const { addLoadRef } = require('./elementRefs')
 
 const startEndAttributes = [
   { key: 'maxlength', value: '8' },
@@ -8,7 +9,7 @@ const startEndAttributes = [
 ]
 
 function addTrackForm(currentTrack) {
-  const $trackFormContainer = document.getElementById('track-form-container')
+  const $trackFormContainer = addLoadRef('track-form-container')
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
   appendDeleteButton(currentTrack)
 }

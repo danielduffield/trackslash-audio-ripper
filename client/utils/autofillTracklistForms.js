@@ -1,4 +1,5 @@
 const addTrackForm = require('./addTrackForm.js')
+const { setOverwriteRef } = require('./elementRefs')
 
 function autofillTracklistForms(scrapedTracklist) {
 
@@ -13,7 +14,7 @@ function autofillTracklistForms(scrapedTracklist) {
     const currentTrack = trackIndex + 1
 
     trackFormFields.forEach((field, fieldIndex) => {
-      const $form = document.getElementById(`track-${field.name}-${currentTrack}`)
+      const $form = setOverwriteRef(`track-${field.name}-${currentTrack}`)
       $form.value = track[field.property]
     })
 

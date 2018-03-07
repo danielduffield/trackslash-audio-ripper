@@ -1,4 +1,5 @@
 const createElement = require('./elementCreation')
+const { addLoadRef } = require('./elementRefs')
 
 function buildTracklistFinal(tracklist) {
 
@@ -9,7 +10,7 @@ function buildTracklistFinal(tracklist) {
     { name: 'end', property: 'trackEnd' },
   ]
 
-  const $trackFinalContainer = document.getElementById('track-final-container')
+  const $trackFinalContainer = addLoadRef('track-final-container')
 
   const $tracklistFinal = tracklist.map((track, idx) => {
     const trackIndex = idx + 1

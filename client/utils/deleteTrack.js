@@ -1,5 +1,7 @@
+const { addLoadRef, setOverwriteRef } = require('./elementRefs')
+
 function deleteTrack(trackNumber, totalTracks) {
-  const $container = document.getElementById('track-form-container')
+  const $container = addLoadRef('track-form-container')
   const $toBeDeleted = document.querySelector('.track-form-' + trackNumber)
   $container.removeChild($toBeDeleted)
 
@@ -14,7 +16,7 @@ function adjustTrackNums(deletedIndex, tracklistLength) {
     $relabelForm.setAttribute('class', `track-form-${i - 1}`)
 
     formFields.forEach((field, fieldIndex) => {
-      const $form = document.getElementById(`track-${field}-${i}`)
+      const $form = setOverwriteRef(`track-${field}-${i}`)
       $form.setAttribute('id', `track-${field}-${i - 1}`)
       $form.setAttribute('name', `track-${field}-${i - 1}`)
     })
