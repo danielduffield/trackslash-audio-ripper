@@ -34,9 +34,6 @@ function handleUrlSubmit($input, socketId) {
         $imageContainer.classList.remove('hidden')
         $imageContainer.appendChild(createAlbumImage(keyData.videoImage))
       })
-
-      const currentTrack = 1
-      addTrackForm(currentTrack)
       return keyData
     })
   }

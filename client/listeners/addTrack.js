@@ -9,6 +9,7 @@ function attachAddTrackButtonListener() {
 
   return $addTrackButton.addEventListener('click', () => {
     $tracklistError.textContent = ''
+    console.log('ADDING TRACK with add track button listener')
     addTrackForm(state.currentTrack)
     state.currentTrack += 1
   })
