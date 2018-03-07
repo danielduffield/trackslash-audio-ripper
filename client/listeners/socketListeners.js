@@ -15,7 +15,7 @@ function attachInitialSocketListeners() {
   })
 
   state.socket.on('downloadProgress', progress => {
-    $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
+    $downloadProgress.textContent = `Download Progress: ${progress}%`
     if (progress === 100) {
       setTimeout(() => {
         $downloadProgress.textContent = 'Album Download Complete'
@@ -24,7 +24,7 @@ function attachInitialSocketListeners() {
           $spinner.setAttribute('class', 'fa fa-spinner spinner')
           $sliceProgress.textContent = 'Track slice initializing...'
           setTimeout(() => {
-            $sliceProgress.textContent = 'Tracks sliced: 0/' + state.tracklist.length
+            $sliceProgress.textContent = `Tracks sliced: 0/${state.tracklist.length}`
           }, 2000)
         }
       }, 3000)
@@ -56,9 +56,9 @@ function attachOnZipListener() {
     else $downloadAllForm.setAttribute('action', zipPath)
     const $finalAlbumTitle = addLoadRef('final-album-title')
     $finalAlbumTitle.textContent = state.albumMetadata.videoTitle
-    const generalPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/'
-    const startPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/' + state.tracklist[0].trackName.split(' ').join('-') + '.mp3'
-    window.location.hash = '#tracklist-download' + '?id=' + state.albumMetadata.videoId
+    const generalPath = `/download/${state.albumMetadata.videoId}/tracks/${state.socketId}/`
+    const startPath = `/download/${state.albumMetadata.videoId}/tracks/${state.socketId}/${state.tracklist[0].trackName.split(' ').join('-')}.mp3`
+    window.location.hash = `#tracklist-download?id=${state.albumMetadata.videoId}`
     $audioPlayer.src = startPath
     $nowPlaying.textContent = state.tracklist[0].trackName
     state.audio = new AudioModule($audioPlayer, $nowPlaying, state.tracklist, generalPath)
