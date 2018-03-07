@@ -11,9 +11,9 @@ const createTimecodeForm = videoTitle => (
         ['textarea', {id: 'timecode-input-box', name: 'timecodes-textarea', cols: '70', rows: '10'}],
         ['br'],
         ['button', {id: 'timecode-submit-button', class: 'form-button'}, 'Submit'],
-        ['button', {id: 'timecode-cancel-button', class: 'form-button'}, 'Cancel'],
-      ]],
-    ]],
+        ['button', {id: 'timecode-cancel-button', class: 'form-button'}, 'Cancel']
+      ]]
+    ]]
   ])
 )
 

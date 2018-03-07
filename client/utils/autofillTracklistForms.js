@@ -7,7 +7,7 @@ function autofillTracklistForms(scrapedTracklist) {
     { name: 'num', property: 'trackNum' },
     { name: 'name', property: 'trackName' },
     { name: 'start', property: 'trackStart' },
-    { name: 'end', property: 'trackEnd' },
+    { name: 'end', property: 'trackEnd' }
   ]
 
   scrapedTracklist.forEach((track, trackIndex) => {

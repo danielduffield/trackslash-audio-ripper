@@ -4,7 +4,7 @@ function submitTracklist(form, numOfTracks) {
     { name: 'num', property: 'trackNum' },
     { name: 'name', property: 'trackName' },
     { name: 'start', property: 'trackStart' },
-    { name: 'end', property: 'trackEnd' },
+    { name: 'end', property: 'trackEnd' }
   ]
 
   for (let i = 1; i < numOfTracks; i++) {

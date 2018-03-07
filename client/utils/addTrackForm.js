@@ -5,7 +5,7 @@ const startEndAttributes = [
   { key: 'maxlength', value: '8' },
   { key: 'type', value: 'text' },
   { key: 'pattern', value: '[0-9]{2}:[0-9]{2}:[0-9]{2}' },
-  { key: 'title', value: 'HH:MM:SS' },
+  { key: 'title', value: 'HH:MM:SS' }
 ]
 
 let $trackFormContainer
@@ -26,18 +26,18 @@ function createTrackForm(currentTrack) {
     const $tableCell = createElement('td')
     const $trackFormField = createElement('input', {
       id: `track-${field}-${currentTrack}`,
-      name: `track-${field}-${currentTrack}`,
+      name: `track-${field}-${currentTrack}`
     })
 
     if (field === 'num') $trackFormField.setAttribute('maxlength', '2')
     if (field === 'start' || field === 'end') {
-      startEndAttributes.forEach(att => { $trackFormField.setAttribute(att.key, att.value) })
+      startEndAttributes.forEach(att => $trackFormField.setAttribute(att.key, att.value))
     }
     $tableCell.appendChild($trackFormField)
     return $tableCell
   })
 
-  $trackFormFields.forEach($tableCell => { $trackForm.appendChild($tableCell) })
+  $trackFormFields.forEach($tableCell => $trackForm.appendChild($tableCell))
   return $trackForm
 }
 
@@ -49,7 +49,5 @@ function appendDeleteButton(currentTrack) {
 
   $trackForm.appendChild($deleteButton)
 }
-
-
 
 module.exports = addTrackForm

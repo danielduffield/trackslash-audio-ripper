@@ -7,7 +7,7 @@ function buildTracklistFinal(tracklist) {
     { name: 'num', property: 'trackNum' },
     { name: 'name', property: 'trackName' },
     { name: 'start', property: 'trackStart' },
-    { name: 'end', property: 'trackEnd' },
+    { name: 'end', property: 'trackEnd' }
   ]
 
   const $trackFinalContainer = addLoadRef('track-final-container')
@@ -16,7 +16,7 @@ function buildTracklistFinal(tracklist) {
     const trackIndex = idx + 1
     const $trackFinal = createElement('tr', {
       id: `track-final-${trackIndex}`,
-      class: `track-final ${idx === 0 ? 'selected' : ''}`,
+      class: `track-final ${idx === 0 ? 'selected' : ''}`
     })
 
     const $trackFields = trackFields.map((field, fieldIdx) => (
@@ -27,7 +27,7 @@ function buildTracklistFinal(tracklist) {
             class: 'track-final-field',
             'data-tracknum': trackIndex
           },
-          track[field.property]],
+          track[field.property]]
       ])
     ))
 

@@ -25,7 +25,7 @@ function handleUrlSubmit($input, socketId) {
       const imageContainerIds = [
         'video-image-tracklist-form',
         'video-image-timecode-form',
-        'video-image-tracklist-final',
+        'video-image-tracklist-final'
       ]
 
       imageContainerIds.forEach(elementId => {
