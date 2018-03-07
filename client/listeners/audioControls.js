@@ -1,5 +1,5 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./../utils/elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function attachAudioControlListener() {
   const $audioControls = addLoadRef('audio-controls')

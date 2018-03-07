@@ -1,11 +1,12 @@
+const { addLoadRef } = require('./state/elementRefs')
 const state = require('./state/state')
+
 const attachListeners = require('./listeners/index.js')
 
 const $formTable = require('./components/formTable')
 const $tracklistTable = require('./components/tracklistTable')
 const $timecodeForm = require('./components/timecodeForm')
 
-const { addLoadRef } = require('./utils/elementRefs')
 const HashRouter = require('./utils/hashRouter.js')
 
 document.body.appendChild($formTable)

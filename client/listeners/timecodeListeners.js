@@ -1,5 +1,5 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./../utils/elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 const addTrackForm = require('./../utils/addTrackForm.js')
 const autoGenerateTracklist = require('./../utils/autoGenerateTracklist.js')

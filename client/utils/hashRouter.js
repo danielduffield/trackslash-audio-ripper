@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 class HashRouter {
   constructor($views) {

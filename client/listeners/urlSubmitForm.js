@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./../utils/elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 const handleUrlSubmit = require('./../utils/handleUrlSubmit.js')
 const state = require('./../state/state.js')
 

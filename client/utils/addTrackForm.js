@@ -1,5 +1,5 @@
 const createElement = require('./elementCreation')
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 const startEndAttributes = [
   { key: 'maxlength', value: '8' },

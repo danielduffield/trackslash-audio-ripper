@@ -1,5 +1,5 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 const { attachOnZipListener } = require('./../listeners/socketListeners')
 
 const handleTracklistPostResponse = response => {

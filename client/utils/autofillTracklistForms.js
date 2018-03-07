@@ -1,5 +1,5 @@
 const addTrackForm = require('./addTrackForm.js')
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function autofillTracklistForms(scrapedTracklist) {
 

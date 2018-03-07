@@ -1,5 +1,5 @@
 const invalidUrlMessage = require('./invalidUrlMessage.js')
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {

@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function updateSelectedRender(tracklist, selected) {
   const selectedIndex = tracklist.findIndex(track => track.trackName === selected.trackName)

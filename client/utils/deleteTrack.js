@@ -1,4 +1,4 @@
-const { addLoadRef, setOverwriteRef } = require('./elementRefs')
+const { addLoadRef, setOverwriteRef } = require('./../state/elementRefs')
 
 let $container
 

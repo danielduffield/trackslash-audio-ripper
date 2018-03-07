@@ -1,7 +1,7 @@
 const sendUrlPostRequest = require('./sendUrlPostRequest.js')
 const invalidUrlMessage = require('./invalidUrlMessage.js')
 const addTrackForm = require('./addTrackForm.js')
-const { addLoadRef } = require('./elementRefs')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function createAlbumImage(imageLocation) {
   const albumImage = new Image(512, 288)

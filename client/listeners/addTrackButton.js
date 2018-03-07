@@ -1,6 +1,7 @@
-const { addLoadRef } = require('./../utils/elementRefs')
-const addTrackForm = require('./../utils/addTrackForm.js')
+const { addLoadRef } = require('./../state/elementRefs')
 const state = require('./../state/state.js')
+
+const addTrackForm = require('./../utils/addTrackForm.js')
 
 function attachAddTrackButtonListener() {
   const $tracklistError = addLoadRef('tracklist-error-message-container')

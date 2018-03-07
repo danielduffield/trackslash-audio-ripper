@@ -1,6 +1,7 @@
 const socket = require('./../utils/socketConnection')
 
 const state = {
+  elementRefs: {},
   demo: true,
   listeners: {},
   selectedTrack: null,
