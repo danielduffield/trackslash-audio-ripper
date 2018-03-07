@@ -23,7 +23,6 @@ const generateInitialRefs = () => ({
   $trackFinalContainer: addLoadRef('track-final-container'),
   $demoNotice: addLoadRef('demo-notice'),
   $tracklistForm: addLoadRef('tracklist-form'),
-  $resetTracklistBtn: addLoadRef('reset-tracklist-button'),
   $loadTimecodesBtn: addLoadRef('load-timecodes-button'),
   $tracklistError: addLoadRef('tracklist-error-message-container'),
   $timecodeError: addLoadRef('timecode-error-message-container'),

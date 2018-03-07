@@ -1,3 +1,5 @@
+const socket = require('./../utils/socketConnection')
+
 const state = {
   demo: true,
   listeners: {},
@@ -7,7 +9,8 @@ const state = {
   currentTrack: 2,
   albumMetadata: {},
   audio: null,
-  socketId: null
+  socketId: null,
+  socket
 }
 
 module.exports = state

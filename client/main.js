@@ -2,7 +2,6 @@ const addTrackForm = require('./utils/addTrackForm.js')
 const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
-const socket = require('./utils/socketConnection')
 const { addLoadRef, generateInitialRefs } = require('./utils/elementRefs')
 const state = require('./state/state')
 const attachListeners = require('./listeners/index.js')
@@ -22,7 +21,6 @@ const {
   $trackFormContainer,
   $demoNotice,
   $tracklistForm,
-  $resetTracklistBtn,
   $loadTimecodesBtn,
   $tracklistError,
   $timecodeError,
@@ -45,14 +43,6 @@ router.match(window.location.hash)
 $demoNotice.textContent = state.demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
 state.listeners = attachListeners()
-
-$resetTracklistBtn.addEventListener('click', () => {
-  $tracklistError.textContent = ''
-  $trackFormContainer.innerHTML = ''
-  state.currentTrack = 1
-  addTrackForm(state.currentTrack)
-  state.currentTrack += 1
-})
 
 $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
@@ -133,11 +123,11 @@ $audioControls.addEventListener('click', event => {
   }
 })
 
-socket.on('connectionId', connectionId => {
+state.socket.on('connectionId', connectionId => {
   state.socketId = connectionId
 })
 
-socket.on('downloadProgress', progress => {
+state.socket.on('downloadProgress', progress => {
   $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
   if (progress === 100) {
     setTimeout(() => {
@@ -154,6 +144,6 @@ socket.on('downloadProgress', progress => {
   }
 })
 
-socket.on('sliceProgress', sliced => {
+state.socket.on('sliceProgress', sliced => {
   $sliceProgress.textContent = 'Tracks sliced: ' + sliced
 })

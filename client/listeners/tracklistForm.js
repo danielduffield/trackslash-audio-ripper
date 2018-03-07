@@ -1,6 +1,5 @@
 const { addLoadRef, setOverwriteRef } = require('./../utils/elementRefs')
 const state = require('./state/state.js')
-const socket = require('./utils/socketConnection')
 const submitTracklist = require('./utils/submitTracklist.js')
 const getTracklistLinks = require('./utils/getTracklistLinks.js')
 const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
