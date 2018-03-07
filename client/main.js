@@ -1,4 +1,3 @@
-const { generateInitialRefs } = require('./utils/elementRefs')
 const state = require('./state/state')
 const attachListeners = require('./listeners/index.js')
 
@@ -6,16 +5,15 @@ const $formTable = require('./components/formTable')
 const $tracklistTable = require('./components/tracklistTable')
 const $timecodeForm = require('./components/timecodeForm')
 
+const { addLoadRef } = require('./utils/elementRefs')
 const HashRouter = require('./utils/hashRouter.js')
 
 document.body.appendChild($formTable)
 document.body.appendChild($tracklistTable)
 document.body.appendChild($timecodeForm)
 
-const {
-  $urlInput,
-  $demoNotice
-} = generateInitialRefs()
+const $urlInput = addLoadRef('url-submit-input')
+const $demoNotice = addLoadRef('demo-notice')
 
 $urlInput.focus()
 const $views = document.querySelectorAll('.view')

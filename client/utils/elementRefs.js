@@ -17,11 +17,4 @@ const setOverwriteRef = elId => {
   return elementRefs[elId]
 }
 
-const generateInitialRefs = () => ({
-  $urlInput: addLoadRef('url-submit-input'),
-  $trackFinalContainer: addLoadRef('track-final-container'),
-  $demoNotice: addLoadRef('demo-notice'),
-  $tracklistForm: addLoadRef('tracklist-form')
-})
-
-module.exports = { generateInitialRefs, addLoadRef, setOverwriteRef }
+module.exports = { addLoadRef, setOverwriteRef }
