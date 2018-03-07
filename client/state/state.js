@@ -1,13 +1,13 @@
 const state = {
   demo: true,
-	listeners: {},
+  listeners: {},
   selectedTrack: null,
   tracklist: null,
   slicingInitialized: false,
   currentTrack: 2,
   albumMetadata: {},
   audio: null,
-  socketId: null,
+  socketId: null
 }
 
 module.exports = state
