@@ -19,20 +19,9 @@ const setOverwriteRef = elId => {
 
 const generateInitialRefs = () => ({
   $urlInput: addLoadRef('url-submit-input'),
-  $trackFormContainer: addLoadRef('track-form-container'),
   $trackFinalContainer: addLoadRef('track-final-container'),
   $demoNotice: addLoadRef('demo-notice'),
-  $tracklistForm: addLoadRef('tracklist-form'),
-  $loadTimecodesBtn: addLoadRef('load-timecodes-button'),
-  $tracklistError: addLoadRef('tracklist-error-message-container'),
-  $timecodeError: addLoadRef('timecode-error-message-container'),
-  $submitTimecodesButton: addLoadRef('submit-timecodes-button'),
-  $timecodeSubmitBtn: addLoadRef('timecode-submit-button'),
-  $timecodeCancelBtn: addLoadRef('timecode-cancel-button'),
-  $timecodeInputBox: addLoadRef('timecode-input-box'),
-  $audioControls: addLoadRef('audio-controls'),
-  $downloadProgress: addLoadRef('album-download-progress'),
-  $sliceProgress: addLoadRef('track-slice-progress')
+  $tracklistForm: addLoadRef('tracklist-form')
 })
 
 module.exports = { generateInitialRefs, addLoadRef, setOverwriteRef }
