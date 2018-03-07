@@ -12,25 +12,22 @@ const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const AudioModule = require('./utils/audioModule.js')
 const { addLoadRef, generateInitialRefs, loadElementRef, setOverwriteRef } = require('./utils/elementRefs')
 
-const demo = true
-let selectedTrack = null
-
-let tracklist = null
+const state = {
+  demo: true,
+  selectedTrack: null,
+  tracklist: null,
+  slicingInitialized: false,
+  currentTrack: 2,
+  albumMetadata: {},
+  audio: null,
+  socketId: null,
+}
 
 const $formTable = require('./components/formTable')
 const $tracklistTable = require('./components/tracklistTable')
 const $timecodeForm = require('./components/timecodeForm')
 
 const HashRouter = require('./utils/hashRouter.js')
-
-let tracklistLength = 0
-
-let slicingInitialized = false
-
-let currentTrack = 2
-var albumMetadata = {}
-
-let audio
 
 document.body.appendChild($formTable)
 document.body.appendChild($tracklistTable)
@@ -65,19 +62,19 @@ const router = new HashRouter($views)
 router.listen()
 router.match(window.location.hash)
 
-$demoNotice.textContent = demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
+$demoNotice.textContent = state.demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
 $urlSubmitForm.addEventListener('submit', event => {
   event.preventDefault()
-  handleUrlSubmit($urlInput, socketId).then(keyData => {
-    if (keyData) albumMetadata = keyData
+  handleUrlSubmit($urlInput, state.socketId).then(keyData => {
+    if (keyData) state.albumMetadata = keyData
   })
 })
 
 $addTrackButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
-  addTrackForm(currentTrack)
-  currentTrack += 1
+  addTrackForm(state.currentTrack)
+  state.currentTrack += 1
 })
 
 $tracklistForm.addEventListener('submit', event => {
@@ -86,14 +83,14 @@ $tracklistForm.addEventListener('submit', event => {
   $tracklistError.textContent = ''
 
   const trackData = new FormData($tracklistForm)
-  tracklist = submitTracklist(trackData, currentTrack)
+  state.tracklist = submitTracklist(trackData, state.currentTrack)
   const tracklistPost = {}
-  tracklistLength = tracklist.length
-  tracklistPost.tracklist = tracklist
-  tracklistPost.metaData = albumMetadata
-  tracklistPost.socketId = socketId
 
-  slicingInitialized = true
+  tracklistPost.tracklist = state.tracklist
+  tracklistPost.metaData = state.albumMetadata
+  tracklistPost.socketId = state.socketId
+
+  state.slicingInitialized = true
   if ($downloadProgress.textContent !== 'Album Download Complete') {
     $sliceProgress.textContent = 'Slicing will begin after album download.'
   }
@@ -102,7 +99,7 @@ $tracklistForm.addEventListener('submit', event => {
     const $spinner = addLoadRef('spinner')
     $spinner.setAttribute('class', 'fa fa-spinner spinner')
     setTimeout(() => {
-      $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
+      $sliceProgress.textContent = 'Tracks sliced: 0/' + state.tracklist.length
     }, 2000)
   }
 
@@ -111,45 +108,45 @@ $tracklistForm.addEventListener('submit', event => {
     const $nowPlaying = addLoadRef('now-playing')
     if (response.status === 202) {
       $trackFinalContainer.addEventListener('click', e => {
-        selectedTrack = tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
-        if (!selectedTrack) return
-        audio.selectTrack(selectedTrack)
+        state.selectedTrack = state.tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
+        if (!state.selectedTrack) return
+        state.audio.selectTrack(state.selectedTrack)
         const $selected = addLoadRef(`track-final-${e.target.dataset.tracknum}`)
-        for (let i = 1; i <= tracklist.length; i++) {
+        for (let i = 1; i <= state.tracklist.length; i++) {
           const $track = setOverwriteRef(`track-final-${i}`)
           if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
         }
         $selected.setAttribute('class', 'track-final selected')
 
-        $nowPlaying.textContent = selectedTrack.trackName
-        const trackFileName = selectedTrack.trackName.split(' ').join('-')
+        $nowPlaying.textContent = state.selectedTrack.trackName
+        const trackFileName = state.selectedTrack.trackName.split(' ').join('-')
 
-        const trackPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + trackFileName + '.mp3'
+        const trackPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/' + trackFileName + '.mp3'
         $audioPlayer.pause()
         $audioPlayer.src = trackPath
         $audioPlayer.play()
       })
       socket.on('zipPath', zipPath => {
         $trackFinalContainer.innerHTML = ''
-        const $tracklistLinks = getTracklistLinks(tracklist, albumMetadata.videoId, socketId)
-        buildTracklistFinal(tracklist)
+        const $tracklistLinks = getTracklistLinks(state.tracklist, state.albumMetadata.videoId, state.socketId)
+        buildTracklistFinal(state.tracklist)
         renderTracklistLinks($tracklistLinks)
         const $downloadAllForm = addLoadRef('download-all-form')
         const $downloadAllButton = addLoadRef('download-all-button')
         const $downloadAllContainer = addLoadRef('download-all-container')
-        if (demo) {
+        if (state.demo) {
           $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
           $downloadAllButton.setAttribute('class', 'form-button disabled')
         }
         else $downloadAllForm.setAttribute('action', zipPath)
         const $finalAlbumTitle = addLoadRef('final-album-title')
-        $finalAlbumTitle.textContent = albumMetadata.videoTitle
-        const generalPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/'
-        const startPath = '/download/' + albumMetadata.videoId + '/tracks/' + socketId + '/' + tracklist[0].trackName.split(' ').join('-') + '.mp3'
-        window.location.hash = '#tracklist-download' + '?id=' + albumMetadata.videoId
+        $finalAlbumTitle.textContent = state.albumMetadata.videoTitle
+        const generalPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/'
+        const startPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/' + state.tracklist[0].trackName.split(' ').join('-') + '.mp3'
+        window.location.hash = '#tracklist-download' + '?id=' + state.albumMetadata.videoId
         $audioPlayer.src = startPath
-        $nowPlaying.textContent = tracklist[0].trackName
-        audio = new AudioModule($audioPlayer, $nowPlaying, tracklist, generalPath)
+        $nowPlaying.textContent = state.tracklist[0].trackName
+        state.audio = new AudioModule($audioPlayer, $nowPlaying, state.tracklist, generalPath)
       })
     }
     else (console.log('Tracklist request failed.'))
@@ -160,29 +157,28 @@ $startOverBtn.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
   $trackFinalContainer.innerHTML = ''
-  tracklistLength = 0
-  currentTrack = 1
-  addTrackForm(currentTrack)
-  currentTrack += 1
+  state.currentTrack = 1
+  addTrackForm(state.currentTrack)
+  state.currentTrack += 1
   window.location.hash = ''
 })
 
 $resetTracklistBtn.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''
-  currentTrack = 1
-  addTrackForm(currentTrack)
-  currentTrack += 1
+  state.currentTrack = 1
+  addTrackForm(state.currentTrack)
+  state.currentTrack += 1
 })
 
 $loadTimecodesBtn.addEventListener('click', () => {
   $trackFormContainer.innerHTML = ''
-  currentTrack = 1
-  addTrackForm(currentTrack)
-  currentTrack += 1
-  if (albumMetadata.timeCodes.length > 1) {
-    const autoTracklist = autoGenerateTracklist(albumMetadata.description, albumMetadata.videoLengthString)
-    currentTrack = autoTracklist.length + 1
+  state.currentTrack = 1
+  addTrackForm(state.currentTrack)
+  state.currentTrack += 1
+  if (state.albumMetadata.timeCodes.length > 1) {
+    const autoTracklist = autoGenerateTracklist(state.albumMetadata.description, state.albumMetadata.videoLengthString)
+    state.currentTrack = autoTracklist.length + 1
     autofillTracklistForms(autoTracklist)
   }
   else {
@@ -194,13 +190,13 @@ $submitTimecodesButton.addEventListener('click', () => {
   $tracklistError.textContent = ''
   $timecodeInputBox.value = ''
   const $timecodeTitle = addLoadRef('timecode-video-title')
-  $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + albumMetadata.videoLengthString + ']'
-  window.location.hash = '#submit-timecodes' + '?id=' + albumMetadata.videoId
+  $timecodeTitle.textContent = albumMetadata.videoTitle + ' [' + state.albumMetadata.videoLengthString + ']'
+  window.location.hash = '#submit-timecodes' + '?id=' + state.albumMetadata.videoId
 })
 
 $timecodeCancelBtn.addEventListener('click', () => {
   $timecodeError.textContent = ''
-  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
+  window.location.hash = '#create-tracklist' + '?id=' + state.albumMetadata.videoId
 })
 
 $timecodeSubmitBtn.addEventListener('click', () => {
@@ -214,11 +210,11 @@ $timecodeSubmitBtn.addEventListener('click', () => {
   }
   $timecodeError.textContent = ''
   $trackFormContainer.innerHTML = ''
-  currentTrack = 1
-  addTrackForm(currentTrack)
-  window.location.hash = '#create-tracklist' + '?id=' + albumMetadata.videoId
-  const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, albumMetadata.videoLengthString)
-  currentTrack += pastedTracklist.length
+  state.currentTrack = 1
+  addTrackForm(state.currentTrack)
+  window.location.hash = '#create-tracklist' + '?id=' + state.albumMetadata.videoId
+  const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, state.albumMetadata.videoLengthString)
+  state.currentTrack += pastedTracklist.length
   autofillTracklistForms(pastedTracklist)
 })
 
@@ -227,9 +223,9 @@ $tracklistForm.addEventListener('click', event => {
   const firstTrackDigitIndex = 13
   const trackNumber = parseInt(event.target.id.substring(firstTrackDigitIndex, event.target.id.length), 10)
   if (trackNumber && /\d/.test(trackNumber)) {
-    const numberOfTracks = currentTrack - 1
+    const numberOfTracks = state.currentTrack - 1
     deleteTrack(trackNumber, numberOfTracks)
-    currentTrack -= 1
+    state.currentTrack -= 1
   }
 })
 
@@ -237,27 +233,25 @@ $audioControls.addEventListener('click', event => {
   if (!event.target.classList.value.includes('audio-button')) return
   if (!event.target.classList.value.includes('toggle')) {
     event.target.id === 'forward-skip'
-      ? audio.skipTrack()
-      : audio.skipTrack(true)
+      ? state.audio.skipTrack()
+      : state.audio.skipTrack(true)
     return
   }
   if (!event.target.classList.value.includes('active')) {
     event.target.classList.add('active')
-    if (event.target.id === 'continuous-play') audio.toggleSetting('continuous')
+    if (event.target.id === 'continuous-play') state.audio.toggleSetting('continuous')
     else {
-      audio.toggleSetting('shuffle')
+      state.audio.toggleSetting('shuffle')
     }
   }
   else {
     event.target.classList.remove('active')
-    event.target.id === 'continuous-play' ? audio.toggleSetting('continuous') : audio.toggleSetting('shuffle')
+    event.target.id === 'continuous-play' ? state.audio.toggleSetting('continuous') : state.audio.toggleSetting('shuffle')
   }
 })
 
-let socketId = null
-
 socket.on('connectionId', connectionId => {
-  socketId = connectionId
+  state.socketId = connectionId
 })
 
 socket.on('downloadProgress', progress => {
@@ -265,12 +259,12 @@ socket.on('downloadProgress', progress => {
   if (progress === 100) {
     setTimeout(() => {
       $downloadProgress.textContent = 'Album Download Complete'
-      if (slicingInitialized) {
+      if (state.slicingInitialized) {
         const $spinner = addLoadRef('spinner')
         $spinner.setAttribute('class', 'fa fa-spinner spinner')
         $sliceProgress.textContent = 'Track slice initializing...'
         setTimeout(() => {
-          $sliceProgress.textContent = 'Tracks sliced: 0/' + tracklistLength
+          $sliceProgress.textContent = 'Tracks sliced: 0/' + state.tracklist.length
         }, 2000)
       }
     }, 3000)
