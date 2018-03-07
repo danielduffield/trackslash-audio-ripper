@@ -1,10 +1,10 @@
 const { addLoadRef, setOverwriteRef } = require('./../utils/elementRefs')
-const state = require('./state/state.js')
+const state = require('./../state/state.js')
 
-const submitTracklist = require('./utils/submitTracklist.js')
-const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
+const submitTracklist = require('./../utils/submitTracklist.js')
+const sendTracklistPostRequest = require('./../utils/sendTracklistPostRequest.js')
 
-const { attachOnZipListener } = require('./listeners/socketListeners')
+const { attachOnZipListener } = require('./socketListeners')
 
 function attachTracklistFormListener() {
   const $tracklistForm = addLoadRef('tracklist-form')

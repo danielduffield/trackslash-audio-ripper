@@ -1,8 +1,8 @@
 const { addLoadRef } = require('./../utils/elementRefs')
-const state = require('./state/state.js')
+const state = require('./../state/state.js')
 const addTrackForm = require('./../utils/addTrackForm.js')
 
-function attachResetListeners() {
+function createResetListeners() {
   const $startOverBtn = addLoadRef('start-over-button')
   const $tracklistError = addLoadRef('tracklist-error-message-container')
   const $trackFormContainer = addLoadRef('track-form-container')
@@ -34,6 +34,4 @@ function attachResetListeners() {
   return { attachStartOverBtnListener, attachResetTracklistListener }
 }
 
-module.exports = {
-  attachResetListeners
-}
+module.exports = createResetListeners

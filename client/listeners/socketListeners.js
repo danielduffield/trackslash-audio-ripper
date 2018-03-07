@@ -1,10 +1,10 @@
-const state = require('./state/state.js')
+const state = require('./../state/state.js')
 const { addLoadRef } = require('./../utils/elementRefs')
 
-const getTracklistLinks = require('./utils/getTracklistLinks.js')
-const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
-const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
-const AudioModule = require('./utils/audioModule.js')
+const getTracklistLinks = require('./../utils/getTracklistLinks.js')
+const renderTracklistLinks = require('./../utils/renderTracklistLinks.js')
+const buildTracklistFinal = require('./../utils/buildTracklistFinal.js')
+const AudioModule = require('./../utils/audioModule.js')
 
 function attachInitialSocketListeners() {
   const $downloadProgress = addLoadRef('album-download-progress')
