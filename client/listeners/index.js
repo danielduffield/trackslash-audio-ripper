@@ -1,4 +1,4 @@
-const state = require('./../state/state')
+const addListener = require('./addListener')
 
 const { attachInitialSocketListeners } = require('./socketListeners')
 
@@ -10,11 +10,6 @@ const createTracklistFormListeners = require('./tracklistForm')
 const createTimeCodeListeners = require('./timecodeListeners')
 
 const { attachStartOverBtnListener, attachResetTracklistListener } = require('./resetListeners')
-
-const addListener = (name, listener) => {
-  listener()
-  state.listeners[name] = true
-}
 
 function attachInitialListeners() {
   attachInitialSocketListeners()
@@ -40,9 +35,7 @@ function attachInitialListeners() {
     { name: 'manualTimecodes', listener: attachManualTimecodesListener }
   ]
 
-  toAttach.forEach(obj => {
-    addListener(obj.name, obj.listener)
-  })
+  toAttach.forEach(obj => addListener(obj.name, obj.listener))
 }
 
-module.exports = { attachInitialListeners, addListener }
+module.exports = attachInitialListeners

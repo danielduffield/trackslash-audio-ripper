@@ -1,6 +1,6 @@
 const { attachOnZipListener } = require('./../listeners/socketListeners')
 const attachTracklistFinalListener = require('./../listeners/tracklistFinal')
-const { addListener } = require('./../listeners/index')
+const addListener = require('./../listeners/addListener.js')
 
 const handleTracklistResponse = response => {
   if (response.status === 202) {

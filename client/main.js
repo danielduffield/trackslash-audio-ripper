@@ -1,7 +1,7 @@
 const { addLoadRef } = require('./state/elementRefs')
 const state = require('./state/state')
 
-const { attachInitialListeners } = require('./listeners/index.js')
+const attachInitialListeners = require('./listeners/index.js')
 
 const $formTable = require('./renders/formTable')
 const $tracklistTable = require('./renders/tracklistTable')

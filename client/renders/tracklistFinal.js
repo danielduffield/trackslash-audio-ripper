@@ -26,13 +26,11 @@ function createTracklistFinal(tracklist) {
               class: 'track-final-field',
               'data-tracknum': idx + 1
             },
-            track[field.property],
-            [
-              createTrackLink(track, idx, state.albumMetadata.videoId, state.socketId)
-            ]
+            track[field.property]
           ]
         ])
-      ))
+      )),
+      createTrackLink(track, idx, state.albumMetadata.videoId, state.socketId)
     ])
   ))
 }
