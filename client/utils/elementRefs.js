@@ -22,7 +22,6 @@ const generateInitialRefs = () => ({
 	$trackFormContainer: addLoadRef('track-form-container'),
 	$trackFinalContainer: addLoadRef('track-final-container'),
 	$demoNotice: addLoadRef('demo-notice'),
-	$urlSubmitForm: addLoadRef('url-submit-form'),
 	$addTrackButton: addLoadRef('track-form-add-button'),
 	$tracklistForm: addLoadRef('tracklist-form'),
 	$startOverBtn: addLoadRef('start-over-button'),

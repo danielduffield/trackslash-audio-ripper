@@ -8,20 +8,10 @@ const autoGenerateTracklist = require('./utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./utils/autofillTracklistForms.js')
 const deleteTrack = require('./utils/deleteTrack.js')
 const socket = require('./utils/socketConnection')
-const handleUrlSubmit = require('./utils/handleUrlSubmit.js')
 const AudioModule = require('./utils/audioModule.js')
 const { addLoadRef, generateInitialRefs, loadElementRef, setOverwriteRef } = require('./utils/elementRefs')
-
-const state = {
-  demo: true,
-  selectedTrack: null,
-  tracklist: null,
-  slicingInitialized: false,
-  currentTrack: 2,
-  albumMetadata: {},
-  audio: null,
-  socketId: null,
-}
+const state = require('./state/state')
+const attachListeners = require('./listeners/index.js')
 
 const $formTable = require('./components/formTable')
 const $tracklistTable = require('./components/tracklistTable')
@@ -38,7 +28,6 @@ const {
   $trackFormContainer,
   $trackFinalContainer,
   $demoNotice,
-  $urlSubmitForm,
   $addTrackButton,
   $tracklistForm,
   $startOverBtn,
@@ -64,18 +53,7 @@ router.match(window.location.hash)
 
 $demoNotice.textContent = state.demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
-$urlSubmitForm.addEventListener('submit', event => {
-  event.preventDefault()
-  handleUrlSubmit($urlInput, state.socketId).then(keyData => {
-    if (keyData) state.albumMetadata = keyData
-  })
-})
-
-$addTrackButton.addEventListener('click', () => {
-  $tracklistError.textContent = ''
-  addTrackForm(state.currentTrack)
-  state.currentTrack += 1
-})
+state.listeners = attachListeners()
 
 $tracklistForm.addEventListener('submit', event => {
   event.preventDefault()
@@ -151,16 +129,6 @@ $tracklistForm.addEventListener('submit', event => {
     }
     else (console.log('Tracklist request failed.'))
   })
-})
-
-$startOverBtn.addEventListener('click', () => {
-  $tracklistError.textContent = ''
-  $trackFormContainer.innerHTML = ''
-  $trackFinalContainer.innerHTML = ''
-  state.currentTrack = 1
-  addTrackForm(state.currentTrack)
-  state.currentTrack += 1
-  window.location.hash = ''
 })
 
 $resetTracklistBtn.addEventListener('click', () => {
