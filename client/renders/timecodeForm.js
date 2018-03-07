@@ -1,4 +1,4 @@
-const createElement = require('./../utils/elementCreation')
+const createElement = require('./../utils/createElement')
 
 const createTimecodeForm = videoTitle => (
   createElement('row', [

@@ -3,9 +3,9 @@ const state = require('./state/state')
 
 const attachListeners = require('./listeners/index.js')
 
-const $formTable = require('./components/formTable')
-const $tracklistTable = require('./components/tracklistTable')
-const $timecodeForm = require('./components/timecodeForm')
+const $formTable = require('./renders/formTable')
+const $tracklistTable = require('./renders/tracklistTable')
+const $timecodeForm = require('./renders/timecodeForm')
 
 const HashRouter = require('./utils/hashRouter.js')
 

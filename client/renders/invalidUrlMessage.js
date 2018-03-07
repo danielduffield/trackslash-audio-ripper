@@ -1,4 +1,4 @@
-const createElement = require('./elementCreation')
+const createElement = require('./createElement')
 
 const invalidUrlMessage = () => (
   createElement(

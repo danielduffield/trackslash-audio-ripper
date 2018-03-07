@@ -1,5 +1,8 @@
-const invalidUrlMessage = require('./invalidUrlMessage.js')
 const { addLoadRef } = require('./../state/elementRefs')
+
+const invalidUrlMessage = require('./../rendersinvalidUrlMessage')
+
+const resetTracklist = require('./resetTracklist')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -30,16 +33,8 @@ function sendUrlPostRequest(urlSubmission) {
 function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = addLoadRef('youtube-video-title')
 
-  $youtubeVideoTitle.textContent = keyData.videoTitle + ' [' + keyData.videoLengthString + ']'
+  $youtubeVideoTitle.textContent = `${keyData.videoTitle} [${keyData.videoLengthString}]`
   resetTracklist()
-}
-
-function resetTracklist() {
-  const $trackFormContainer = addLoadRef('track-form-container')
-  $trackFormContainer.innerHTML = ''
-
-  const $trackFinalContainer = addLoadRef('track-final-container')
-  $trackFinalContainer.innerHTML = ''
 }
 
 module.exports = sendUrlPostRequest

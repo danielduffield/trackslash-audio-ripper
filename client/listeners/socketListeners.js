@@ -1,10 +1,12 @@
 const state = require('./../state/state.js')
 const { addLoadRef } = require('./../state/elementRefs')
 
+const AudioModule = require('./../components/audioModule.js')
+
+const createTracklistFinal = require('./../renders/tracklistFinal')
+
 const getTracklistLinks = require('./../utils/getTracklistLinks.js')
 const renderTracklistLinks = require('./../utils/renderTracklistLinks.js')
-const buildTracklistFinal = require('./../utils/buildTracklistFinal.js')
-const AudioModule = require('./../utils/audioModule.js')
 
 function attachInitialSocketListeners() {
   const $downloadProgress = addLoadRef('album-download-progress')
@@ -44,7 +46,8 @@ function attachOnZipListener() {
   state.socket.on('zipPath', zipPath => {
     $trackFinalContainer.innerHTML = ''
     const $tracklistLinks = getTracklistLinks(state.tracklist, state.albumMetadata.videoId, state.socketId)
-    buildTracklistFinal(state.tracklist)
+    const $tracklistFinal = createTracklistFinal(state.tracklist)
+    $tracklistFinal.forEach($trackFinal => $trackFinalContainer.appendChild($trackFinal))
     renderTracklistLinks($tracklistLinks)
     const $downloadAllForm = addLoadRef('download-all-form')
     const $downloadAllButton = addLoadRef('download-all-button')

@@ -1,4 +1,4 @@
-const createElement = require('./../utils/elementCreation')
+const createElement = require('./../utils/createElement')
 
 const columns = ['Num', 'Name', 'Start', 'End', 'DL']
 const $tableColumns = columns.map(col => createElement('th', col))

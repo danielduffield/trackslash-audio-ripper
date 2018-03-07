@@ -22,7 +22,7 @@ const handleTracklistPostResponse = response => {
       $nowPlaying.textContent = state.selectedTrack.trackName
       const trackFileName = state.selectedTrack.trackName.split(' ').join('-')
 
-      const trackPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/' + trackFileName + '.mp3'
+      const trackPath = `/download/${state.albumMetadata.videoId}/tracks/${state.socketId}/${trackFileName}.mp3`
       $audioPlayer.pause()
       $audioPlayer.src = trackPath
       $audioPlayer.play()
