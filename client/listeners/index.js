@@ -11,7 +11,10 @@ const createTimeCodeListeners = require('./timecodeListeners')
 
 const { attachStartOverBtnListener, attachResetTracklistListener } = require('./resetListeners')
 
-let listeners = {}
+const addListener = (name, listener) => {
+  listener()
+  state.listeners[name] = true
+}
 
 function attachInitialListeners() {
   attachInitialSocketListeners()
@@ -24,29 +27,22 @@ function attachInitialListeners() {
   } = createTimeCodeListeners()
 
   const toAttach = [
-    { addTrack: attachAddTrackButtonListener },
-    { deleteTrack: attachTrackDeleteListener },
-    { resetTracklistBtn: attachResetTracklistListener },
-    { startOverBtn: attachStartOverBtnListener },
-    { tracklistForm: attachTracklistFormListener },
-    { urlSubmitForm: attachUrlFormListener },
-    { audioControls: attachAudioControlListener },
-    { loadTimecodes: attachLoadTimecodesListener },
-    { submitTimecodes: attachSubmitTimecodesListener },
-    { cancelTimecodes: attachCancelTimecodesListener },
-    { manualTimecodes: attachManualTimecodesListener }
+    { name: 'addTrack', listener: attachAddTrackButtonListener },
+    { name: 'deleteTrack', listener: attachTrackDeleteListener },
+    { name: 'resetTracklistBtn', listener: attachResetTracklistListener },
+    { name: 'startOverBtn', listener: attachStartOverBtnListener },
+    { name: 'tracklistForm', listener: attachTracklistFormListener },
+    { name: 'urlSubmitForm', listener: attachUrlFormListener },
+    { name: 'audioControls', listener: attachAudioControlListener },
+    { name: 'loadTimecodes', listener: attachLoadTimecodesListener },
+    { name: 'submitTimecodes', listener: attachSubmitTimecodesListener },
+    { name: 'cancelTimecodes', listener: attachCancelTimecodesListener },
+    { name: 'manualTimecodes', listener: attachManualTimecodesListener }
   ]
 
-  Object.keys(listeners).forEach(key => {
-    addListener(key, toAttach[key])
+  toAttach.forEach(obj => {
+    addListener(obj.name, obj.listener)
   })
-
-  return listeners
-}
-
-const addListener = (name, listener) => {
-  listener()
-  state.listeners[name] = true
 }
 
 module.exports = { attachInitialListeners, addListener }

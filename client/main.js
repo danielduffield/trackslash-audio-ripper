@@ -1,7 +1,7 @@
 const { addLoadRef } = require('./state/elementRefs')
 const state = require('./state/state')
 
-const attachListeners = require('./listeners/index.js')
+const { attachInitialListeners } = require('./listeners/index.js')
 
 const $formTable = require('./renders/formTable')
 const $tracklistTable = require('./renders/tracklistTable')
@@ -25,4 +25,4 @@ router.match(window.location.hash)
 
 $demoNotice.textContent = state.demo ? '*To comply with Heroku policy, file download is disabled in this demonstration.' : ''
 
-state.listeners = attachListeners()
+attachInitialListeners()
