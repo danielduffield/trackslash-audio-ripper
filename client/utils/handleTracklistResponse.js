@@ -2,7 +2,7 @@ const { attachOnZipListener } = require('./../listeners/socketListeners')
 const attachTracklistFinalListener = require('./../listeners/tracklistFinal')
 const { addListener } = require('./../listeners/index')
 
-const handleTracklistPostResponse = response => {
+const handleTracklistResponse = response => {
   if (response.status === 202) {
     addListener('tracklistFinal', attachTracklistFinalListener)
     addListener('socketOnZip', attachOnZipListener)
@@ -10,4 +10,4 @@ const handleTracklistPostResponse = response => {
   else (console.log('Tracklist request failed.'))
 }
 
-module.exports = handleTracklistPostResponse
+module.exports = handleTracklistResponse

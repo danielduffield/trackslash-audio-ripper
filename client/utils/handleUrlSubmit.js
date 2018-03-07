@@ -1,6 +1,5 @@
-const sendUrlPostRequest = require('./sendUrlPostRequest')
+const sendUrlRequest = require('./sendUrlRequest')
 const invalidUrlMessage = require('./../renders/invalidUrlMessage')
-const addTrackForm = require('./addTrackForm')
 const { addLoadRef } = require('./../state/elementRefs')
 
 function createAlbumImage(imageLocation) {
@@ -20,7 +19,7 @@ function handleUrlSubmit($input, socketId) {
     urlSubmission.url = $input.value
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     urlSubmission.socketId = socketId
-    return sendUrlPostRequest(urlSubmission).then(keyData => {
+    return sendUrlRequest(urlSubmission).then(keyData => {
 
       const imageContainerIds = [
         'video-image-tracklist-form',
