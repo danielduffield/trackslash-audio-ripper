@@ -1,11 +1,17 @@
 const sendUrlPostRequest = require('./sendUrlPostRequest.js')
-const createAlbumImage = require('./createAlbumImage.js')
 const invalidUrlMessage = require('./invalidUrlMessage.js')
 const addTrackForm = require('./addTrackForm.js')
+const { addLoadRef } = require('./../state/elementRefs')
+
+function createAlbumImage(imageLocation) {
+  const albumImage = new Image(512, 288)
+  albumImage.src = imageLocation
+  return albumImage
+}
 
 function handleUrlSubmit($input, socketId) {
   const $invalidUrlMessage = document.querySelector('.alert-danger')
-  const $urlFormGroup = document.getElementById('url-form-col')
+  const $urlFormGroup = addLoadRef('url-form-col')
   if ($invalidUrlMessage) {
     $urlFormGroup.removeChild($invalidUrlMessage)
   }
@@ -16,9 +22,19 @@ function handleUrlSubmit($input, socketId) {
     urlSubmission.socketId = socketId
     return sendUrlPostRequest(urlSubmission).then(keyData => {
 
-      createAlbumImage(keyData.videoImage, 'video-image-tracklist-form')
-      createAlbumImage(keyData.videoImage, 'video-image-timecode-form')
-      createAlbumImage(keyData.videoImage, 'video-image-tracklist-final')
+      const imageContainerIds = [
+        'video-image-tracklist-form',
+        'video-image-timecode-form',
+        'video-image-tracklist-final'
+      ]
+
+      imageContainerIds.forEach(elementId => {
+        const $imageContainer = addLoadRef(elementId)
+        $imageContainer.innerHTML = ''
+        $imageContainer.classList.remove('hidden')
+        $imageContainer.appendChild(createAlbumImage(keyData.videoImage))
+      })
+
       const currentTrack = 1
       addTrackForm(currentTrack)
       return keyData
@@ -26,7 +42,6 @@ function handleUrlSubmit($input, socketId) {
   }
   else {
     const $invalid = invalidUrlMessage()
-    const $urlFormGroup = document.getElementById('url-form-col')
     $urlFormGroup.appendChild($invalid)
     return Promise.resolve(null)
   }

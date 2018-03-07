@@ -1,32 +1,42 @@
-const createElement = require('./elementCreation').createElement
+const createElement = require('./elementCreation')
+const { addLoadRef } = require('./../state/elementRefs')
 
 function buildTracklistFinal(tracklist) {
-  let trackIndex = 1
-  const trackFields = ['num', 'name', 'start', 'end']
-  const trackProperties = ['trackNum', 'trackName', 'trackStart', 'trackEnd']
-  const $trackFinalContainer = document.getElementById('track-final-container')
 
-  tracklist.forEach(track => {
+  const trackFields = [
+    { name: 'num', property: 'trackNum' },
+    { name: 'name', property: 'trackName' },
+    { name: 'start', property: 'trackStart' },
+    { name: 'end', property: 'trackEnd' }
+  ]
+
+  const $trackFinalContainer = addLoadRef('track-final-container')
+
+  const $tracklistFinal = tracklist.map((track, idx) => {
+    const trackIndex = idx + 1
     const $trackFinal = createElement('tr', {
-      id: 'track-final-' + trackIndex,
-      class: (trackIndex === 1 ? 'track-final selected' : 'track-final')
-    }, '', [])
-
-    trackFields.forEach((field, index) => {
-      const $tableCell = createElement('td', { 'data-tracknum': trackIndex }, '', [])
-      const $trackFinalField = createElement('span', {
-        id: 'track-final-' + trackFields[index] + '-' + trackIndex,
-        class: 'track-final-field',
-        'data-tracknum': trackIndex
-      }, track[trackProperties[index]], [])
-
-      $tableCell.appendChild($trackFinalField)
-      $trackFinal.appendChild($tableCell)
+      id: `track-final-${trackIndex}`,
+      class: `track-final ${idx === 0 ? 'selected' : ''}`
     })
 
-    $trackFinalContainer.appendChild($trackFinal)
-    trackIndex++
+    const $trackFields = trackFields.map((field, fieldIdx) => (
+      createElement('td', { 'data-tracknum': trackIndex }, [
+        ['span',
+          {
+            id: `track-final-${field.name}-${trackIndex}`,
+            class: 'track-final-field',
+            'data-tracknum': trackIndex
+          },
+          track[field.property]]
+      ])
+    ))
+
+    $trackFields.forEach($field => $trackFinal.appendChild($field))
+    return $trackFinal
   })
+
+  $tracklistFinal.forEach($track => $trackFinalContainer.appendChild($track))
+  return $tracklistFinal
 }
 
 module.exports = buildTracklistFinal

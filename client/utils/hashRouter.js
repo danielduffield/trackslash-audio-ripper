@@ -1,3 +1,5 @@
+const { addLoadRef } = require('./../state/elementRefs')
+
 class HashRouter {
   constructor($views) {
     this.$views = $views
@@ -5,12 +7,12 @@ class HashRouter {
   }
   match(hash) {
     if (hash === '' || hash === '#') {
-      const $urlSubmitInput = document.getElementById('url-submit-input')
+      const $urlSubmitInput = addLoadRef('url-submit-input')
       $urlSubmitInput.value = ''
       hash = '#url-form'
     }
-    const $audioPlayer = document.getElementById('audio-player')
-    const $nowPlaying = document.getElementById('now-playing')
+    const $audioPlayer = addLoadRef('audio-player')
+    const $nowPlaying = addLoadRef('now-playing')
     $audioPlayer.pause()
     $audioPlayer.currentTime = 0
     if (hash.split('?')[0] !== '#tracklist-download') {

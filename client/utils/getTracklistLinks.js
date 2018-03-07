@@ -1,38 +1,24 @@
-const createElement = require('./elementCreation').createElement
+const createElement = require('./elementCreation')
 
 const demo = true
 
-function parseTrackName(track) {
-  const parsedName = track.trackName.split(' ').join('-')
-  return parsedName
-}
+const parseTrackName = track => track.trackName.split(' ').join('-')
 
-function createTrackLink(track, index, videoId, socketId) {
-  const trackPath = '/download/' + videoId
-  const fileName = parseTrackName(track)
-  const $linkTD = createElement('td', { title: demo ? 'File download is currently disabled.' : '' }, '', [])
-  const $trackLink = createElement('a', {
-    class: demo ? 'track-link disabled' : 'track-link',
-    id: 'track-link-' + (index + 1),
-    href: (demo ? '/' : trackPath + '/tracks/' + socketId + '/' + fileName + '.mp3'),
-    download: '',
-    title: demo ? 'File download is currently disabled.' : ''
-  }, '', [
-    createElement('i', { class: 'fa fa-download disabled' }, '', [])
+const createTrackLink = (track, index, videoId, socketId) => (
+  createElement('td', { title: demo ? 'File download is currently disabled.' : '' }, [
+    ['a', {
+      class: `track-link ${demo ? 'disabled' : ''}`,
+      id: `track-link-${index + 1}`,
+      href: demo ? '/' : `${`/download/${videoId}`}/tracks/${socketId}/${parseTrackName(track)}.mp3`,
+      download: '',
+      title: demo ? 'File download is currently disabled.' : ''
+    }, [
+      ['i', { class: 'fa fa-download disabled' }]
+    ]]
   ])
+)
 
-  $linkTD.appendChild($trackLink)
-  return $linkTD
-}
-
-function getTracklistLinks(tracklist, videoId, socketId) {
-  const $tracklistLinks = []
-
-  tracklist.forEach((track, index) => {
-    $tracklistLinks.push(createTrackLink(track, index, videoId, socketId))
-  })
-
-  return $tracklistLinks
-}
+const getTracklistLinks = (tracklist, videoId, socketId) => (
+  tracklist.map((track, idx) => createTrackLink(track, idx, videoId, socketId)))
 
 module.exports = getTracklistLinks
