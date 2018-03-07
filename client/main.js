@@ -28,9 +28,7 @@ const {
   $timecodeSubmitBtn,
   $timecodeCancelBtn,
   $timecodeInputBox,
-  $audioControls,
-  $downloadProgress,
-  $sliceProgress
+  $audioControls
 } = generateInitialRefs()
 
 $urlInput.focus()
@@ -121,29 +119,4 @@ $audioControls.addEventListener('click', event => {
     event.target.classList.remove('active')
     event.target.id === 'continuous-play' ? state.audio.toggleSetting('continuous') : state.audio.toggleSetting('shuffle')
   }
-})
-
-state.socket.on('connectionId', connectionId => {
-  state.socketId = connectionId
-})
-
-state.socket.on('downloadProgress', progress => {
-  $downloadProgress.textContent = 'Download Progress: ' + progress + '%'
-  if (progress === 100) {
-    setTimeout(() => {
-      $downloadProgress.textContent = 'Album Download Complete'
-      if (state.slicingInitialized) {
-        const $spinner = addLoadRef('spinner')
-        $spinner.setAttribute('class', 'fa fa-spinner spinner')
-        $sliceProgress.textContent = 'Track slice initializing...'
-        setTimeout(() => {
-          $sliceProgress.textContent = 'Tracks sliced: 0/' + state.tracklist.length
-        }, 2000)
-      }
-    }, 3000)
-  }
-})
-
-state.socket.on('sliceProgress', sliced => {
-  $sliceProgress.textContent = 'Tracks sliced: ' + sliced
 })

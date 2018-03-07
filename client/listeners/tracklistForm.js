@@ -1,11 +1,10 @@
 const { addLoadRef, setOverwriteRef } = require('./../utils/elementRefs')
 const state = require('./state/state.js')
+
 const submitTracklist = require('./utils/submitTracklist.js')
-const getTracklistLinks = require('./utils/getTracklistLinks.js')
-const renderTracklistLinks = require('./utils/renderTracklistLinks.js')
-const buildTracklistFinal = require('./utils/buildTracklistFinal.js')
 const sendTracklistPostRequest = require('./utils/sendTracklistPostRequest.js')
-const AudioModule = require('./utils/audioModule.js')
+
+const { attachOnZipListener } = require('./listeners/socketListeners')
 
 function attachTracklistFormListener() {
   const $tracklistForm = addLoadRef('tracklist-form')
@@ -63,28 +62,7 @@ function attachTracklistFormListener() {
           $audioPlayer.src = trackPath
           $audioPlayer.play()
         })
-        socket.on('zipPath', zipPath => {
-          $trackFinalContainer.innerHTML = ''
-          const $tracklistLinks = getTracklistLinks(state.tracklist, state.albumMetadata.videoId, state.socketId)
-          buildTracklistFinal(state.tracklist)
-          renderTracklistLinks($tracklistLinks)
-          const $downloadAllForm = addLoadRef('download-all-form')
-          const $downloadAllButton = addLoadRef('download-all-button')
-          const $downloadAllContainer = addLoadRef('download-all-container')
-          if (state.demo) {
-            $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
-            $downloadAllButton.setAttribute('class', 'form-button disabled')
-          }
-          else $downloadAllForm.setAttribute('action', zipPath)
-          const $finalAlbumTitle = addLoadRef('final-album-title')
-          $finalAlbumTitle.textContent = state.albumMetadata.videoTitle
-          const generalPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/'
-          const startPath = '/download/' + state.albumMetadata.videoId + '/tracks/' + state.socketId + '/' + state.tracklist[0].trackName.split(' ').join('-') + '.mp3'
-          window.location.hash = '#tracklist-download' + '?id=' + state.albumMetadata.videoId
-          $audioPlayer.src = startPath
-          $nowPlaying.textContent = state.tracklist[0].trackName
-          state.audio = new AudioModule($audioPlayer, $nowPlaying, state.tracklist, generalPath)
-        })
+        attachOnZipListener()
       }
       else (console.log('Tracklist request failed.'))
     })
