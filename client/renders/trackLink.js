@@ -13,12 +13,9 @@ const createTrackLink = (track, index, videoId, socketId) => (
       download: '',
       title: demo ? 'File download is currently disabled.' : ''
     }, [
-      ['i', { class: 'fa fa-download disabled' }]
+      ['i', { class: `fa fa-download ${demo ? 'disabled' : ''}` }]
     ]]
   ])
 )
 
-const getTracklistLinks = (tracklist, videoId, socketId) => (
-  tracklist.map((track, idx) => createTrackLink(track, idx, videoId, socketId)))
-
-module.exports = getTracklistLinks
+module.exports = createTrackLink

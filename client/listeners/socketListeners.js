@@ -45,10 +45,8 @@ function attachOnZipListener() {
 
   state.socket.on('zipPath', zipPath => {
     $trackFinalContainer.innerHTML = ''
-    const $tracklistLinks = getTracklistLinks(state.tracklist, state.albumMetadata.videoId, state.socketId)
     const $tracklistFinal = createTracklistFinal(state.tracklist)
     $tracklistFinal.forEach($trackFinal => $trackFinalContainer.appendChild($trackFinal))
-    renderTracklistLinks($tracklistLinks)
     const $downloadAllForm = addLoadRef('download-all-form')
     const $downloadAllButton = addLoadRef('download-all-button')
     const $downloadAllContainer = addLoadRef('download-all-container')

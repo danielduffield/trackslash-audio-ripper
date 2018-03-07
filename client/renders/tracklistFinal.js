@@ -1,4 +1,8 @@
+const state = require('./../state/state')
+
 const createElement = require('./../utils/createElement')
+
+const createTrackLink = require('./renders/trackLink')
 
 function buildTracklistFinal(tracklist) {
 
@@ -22,7 +26,11 @@ function buildTracklistFinal(tracklist) {
               class: 'track-final-field',
               'data-tracknum': idx + 1
             },
-            track[field.property]]
+            track[field.property],
+            [
+              createTrackLink(track, idx, state.albumMetadata.videoId, state.socketId)
+            ]
+          ]
         ])
       ))
     ])
