@@ -1,12 +1,11 @@
 const state = require('./../state/state')
+const { loadRef, relabelRef } = require('./../state/elementRefs')
 
 const Audio = require('./../components/audio')
 
+const buildTrackForm = require('./../renders/buildTrackForm')
+
 const createElement = require('./../utils/createElement')
-
-const { loadRef, relabelRef } = require('./../state/elementRefs')
-
-const createTrackForm = require('./../renders/trackForm')
 
 const columns = ['Num', 'Name', 'Start', 'End', 'DL']
 const $tableColumns = columns.map(col => createElement('th', col))
@@ -19,7 +18,7 @@ class TracklistForm {
 
   addTrackForm(currentTrack) {
     const $trackFormContainer = loadRef('track-form-container')
-    $trackFormContainer.appendChild(createTrackForm(currentTrack))
+    $trackFormContainer.appendChild(buildTrackForm(currentTrack))
     loadRef(`track-delete-${currentTrack}`)
   }
 

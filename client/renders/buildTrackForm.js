@@ -7,7 +7,7 @@ const startEndAttributes = [
   { key: 'title', value: 'HH:MM:SS' }
 ]
 
-function createTrackForm(currentTrack) {
+function buildTrackForm(currentTrack) {
   const trackFormFields = ['num', 'name', 'start', 'end']
   const $trackForm = createElement('tr', {class: 'track-form-' + currentTrack})
 
@@ -36,4 +36,4 @@ function createTrackForm(currentTrack) {
   return $trackForm
 }
 
-module.exports = createTrackForm
+module.exports = buildTrackForm

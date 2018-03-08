@@ -4,7 +4,7 @@ const state = require('./state/state')
 const attachInitialListeners = require('./listeners/index.js')
 
 const $landing = require('./renders/landing')
-const $formTable = require('./renders/formTable')
+const $formTable = require('./renders/tracklistForm')
 const $tracklistTable = require('./renders/tracklistTable')
 const $timecodeForm = require('./renders/timecodeForm')
 

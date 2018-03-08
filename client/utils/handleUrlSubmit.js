@@ -1,5 +1,5 @@
 const sendUrlRequest = require('./sendUrlRequest')
-const invalidUrlMessage = require('./../renders/invalidUrlMessage')
+const buildUrlError = require('./../renders/buildUrlError')
 const { loadRef } = require('./../state/elementRefs')
 
 function createAlbumImage(imageLocation) {
@@ -9,10 +9,10 @@ function createAlbumImage(imageLocation) {
 }
 
 function handleUrlSubmit($input, socketId) {
-  const $invalidUrlMessage = document.querySelector('.alert-danger')
+  const $buildUrlError = document.querySelector('.alert-danger')
   const $urlFormGroup = loadRef('url-form-col')
-  if ($invalidUrlMessage) {
-    $urlFormGroup.removeChild($invalidUrlMessage)
+  if ($buildUrlError) {
+    $urlFormGroup.removeChild($buildUrlError)
   }
   const urlSubmission = {}
   if (validateUrl($input.value)) {
@@ -37,7 +37,7 @@ function handleUrlSubmit($input, socketId) {
     })
   }
   else {
-    const $invalid = invalidUrlMessage()
+    const $invalid = buildUrlError()
     $urlFormGroup.appendChild($invalid)
     return Promise.resolve(null)
   }

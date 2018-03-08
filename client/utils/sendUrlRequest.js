@@ -1,7 +1,7 @@
 const state = require('./../state/state')
 const { loadRef } = require('./../state/elementRefs')
 
-const invalidUrlMessage = require('./../renders/invalidUrlMessage')
+const buildUrlError = require('./../renders/buildUrlError')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -14,7 +14,7 @@ function sendUrlPostRequest(urlSubmission) {
   })
   .then(response => {
     if (response.status === 400) {
-      const $invalid = invalidUrlMessage()
+      const $invalid = buildUrlError()
       const $urlFormGroup = loadRef('url-form-col')
       $urlFormGroup.appendChild($invalid)
     }

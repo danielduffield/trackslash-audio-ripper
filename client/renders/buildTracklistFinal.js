@@ -2,9 +2,9 @@ const state = require('./../state/state')
 
 const createElement = require('./../utils/createElement')
 
-const createTrackLink = require('./../renders/trackLink')
+const buildTrackLink = require('./../renders/buildTrackLink')
 
-function createTracklistFinal(tracklist) {
+function buildTracklistFinal(tracklist) {
 
   const trackFields = [
     { name: 'num', property: 'trackNum' },
@@ -30,9 +30,9 @@ function createTracklistFinal(tracklist) {
           ]
         ])
       )),
-      createTrackLink(track, idx, state.albumMetadata.videoId, state.socketId)
+      buildTrackLink(track, idx, state.albumMetadata.videoId, state.socketId)
     ])
   ))
 }
 
-module.exports = createTracklistFinal
+module.exports = buildTracklistFinal
