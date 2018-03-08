@@ -9,6 +9,7 @@ function addTrackForm(currentTrack) {
     $trackFormContainer = addLoadRef('track-form-container')
   }
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
+  addLoadRef(`track-delete-${currentTrack}`)
 }
 
 module.exports = addTrackForm
