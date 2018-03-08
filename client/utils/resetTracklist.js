@@ -1,11 +1,11 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 const state = require('./../state/state.js')
 const addTrackForm = require('./../utils/addTrackForm.js')
 
 function resetTracklist() {
-  const $tracklistError = addLoadRef('tracklist-error-message-container')
-  const $trackFormContainer = addLoadRef('track-form-container')
-  const $trackFinalContainer = addLoadRef('track-final-container')
+  const $tracklistError = loadRef('tracklist-error-message-container')
+  const $trackFormContainer = loadRef('track-form-container')
+  const $trackFinalContainer = loadRef('track-final-container')
 
   $tracklistError.textContent = ''
   $trackFormContainer.innerHTML = ''

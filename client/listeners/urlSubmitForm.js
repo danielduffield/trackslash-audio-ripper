@@ -1,10 +1,10 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 const handleUrlSubmit = require('./../utils/handleUrlSubmit.js')
 const state = require('./../state/state.js')
 
 function attachUrlFormListener() {
-  const $urlSubmitForm = addLoadRef('url-submit-form')
-  const $urlInput = addLoadRef('url-submit-input')
+  const $urlSubmitForm = loadRef('url-submit-form')
+  const $urlInput = loadRef('url-submit-input')
 
   return $urlSubmitForm.addEventListener('submit', event => {
     event.preventDefault()

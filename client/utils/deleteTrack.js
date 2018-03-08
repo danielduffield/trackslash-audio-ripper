@@ -1,10 +1,10 @@
-const { addLoadRef, relabelRef } = require('./../state/elementRefs')
+const { loadRef, relabelRef } = require('./../state/elementRefs')
 
 let $container
 
 function deleteTrack(trackNumber, totalTracks) {
   if (!$container) {
-    $container = addLoadRef('track-form-container')
+    $container = loadRef('track-form-container')
   }
   const $toBeDeleted = document.querySelector('.track-form-' + trackNumber)
   $container.removeChild($toBeDeleted)

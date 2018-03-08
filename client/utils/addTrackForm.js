@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 
 const createTrackForm = require('./../renders/trackForm')
 
@@ -6,10 +6,10 @@ let $trackFormContainer
 
 function addTrackForm(currentTrack) {
   if (!$trackFormContainer) {
-    $trackFormContainer = addLoadRef('track-form-container')
+    $trackFormContainer = loadRef('track-form-container')
   }
   $trackFormContainer.appendChild(createTrackForm(currentTrack))
-  addLoadRef(`track-delete-${currentTrack}`)
+  loadRef(`track-delete-${currentTrack}`)
 }
 
 module.exports = addTrackForm

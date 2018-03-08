@@ -1,11 +1,11 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 
 const createTracklistFinal = require('./../renders/tracklistFinal')
 
 function attachInitialSocketListeners() {
-  const $downloadProgress = addLoadRef('album-download-progress')
-  const $sliceProgress = addLoadRef('track-slice-progress')
+  const $downloadProgress = loadRef('album-download-progress')
+  const $sliceProgress = loadRef('track-slice-progress')
 
   state.socket.on('connectionId', connectionId => {
     state.socketId = connectionId
@@ -17,7 +17,7 @@ function attachInitialSocketListeners() {
       setTimeout(() => {
         $downloadProgress.textContent = 'Album Download Complete'
         if (state.slicingInitialized) {
-          const $spinner = addLoadRef('spinner')
+          const $spinner = loadRef('spinner')
           $spinner.setAttribute('class', 'fa fa-spinner spinner')
           $sliceProgress.textContent = 'Track slice initializing...'
           setTimeout(() => {
@@ -34,22 +34,22 @@ function attachInitialSocketListeners() {
 }
 
 function attachOnZipListener() {
-  const $trackFinalContainer = addLoadRef('track-final-container')
+  const $trackFinalContainer = loadRef('track-final-container')
   const { $audioPlayer, $nowPlaying } = state.audio.exportPlayerRefs()
 
   state.socket.on('zipPath', zipPath => {
     $trackFinalContainer.innerHTML = ''
     const $tracklistFinal = createTracklistFinal(state.tracklist)
     $tracklistFinal.forEach($trackFinal => $trackFinalContainer.appendChild($trackFinal))
-    const $downloadAllForm = addLoadRef('download-all-form')
-    const $downloadAllButton = addLoadRef('download-all-button')
-    const $downloadAllContainer = addLoadRef('download-all-container')
+    const $downloadAllForm = loadRef('download-all-form')
+    const $downloadAllButton = loadRef('download-all-button')
+    const $downloadAllContainer = loadRef('download-all-container')
     if (state.demo) {
       $downloadAllContainer.setAttribute('title', 'File download is currently disabled.')
       $downloadAllButton.setAttribute('class', 'form-button disabled')
     }
     else $downloadAllForm.setAttribute('action', zipPath)
-    const $finalAlbumTitle = addLoadRef('final-album-title')
+    const $finalAlbumTitle = loadRef('final-album-title')
     $finalAlbumTitle.textContent = state.albumMetadata.videoTitle
     const generalPath = `/download/${state.albumMetadata.videoId}/tracks/${state.socketId}/`
     const startPath = `/download/${state.albumMetadata.videoId}/tracks/${state.socketId}/${state.tracklist[0].trackName.split(' ').join('-')}.mp3`

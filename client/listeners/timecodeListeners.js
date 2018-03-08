@@ -1,19 +1,19 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 
 const addTrackForm = require('./../utils/addTrackForm.js')
 const autoGenerateTracklist = require('./../utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./../utils/autofillTracklistForms.js')
 
 function createTimeCodeListeners() {
-  const $timecodeError = addLoadRef('timecode-error-message-container')
-  const $submitTimecodesButton = addLoadRef('submit-timecodes-button')
-  const $timecodeSubmitBtn = addLoadRef('timecode-submit-button')
-  const $timecodeCancelBtn = addLoadRef('timecode-cancel-button')
-  const $timecodeInputBox = addLoadRef('timecode-input-box')
-  const $trackFormContainer = addLoadRef('track-form-container')
-  const $tracklistError = addLoadRef('tracklist-error-message-container')
-  const $loadTimecodesBtn = addLoadRef('load-timecodes-button')
+  const $timecodeError = loadRef('timecode-error-message-container')
+  const $submitTimecodesButton = loadRef('submit-timecodes-button')
+  const $timecodeSubmitBtn = loadRef('timecode-submit-button')
+  const $timecodeCancelBtn = loadRef('timecode-cancel-button')
+  const $timecodeInputBox = loadRef('timecode-input-box')
+  const $trackFormContainer = loadRef('track-form-container')
+  const $tracklistError = loadRef('tracklist-error-message-container')
+  const $loadTimecodesBtn = loadRef('load-timecodes-button')
 
   const attachLoadTimecodesListener = () => $loadTimecodesBtn.addEventListener('click', () => {
     $trackFormContainer.innerHTML = ''
@@ -33,7 +33,7 @@ function createTimeCodeListeners() {
   const attachSubmitTimecodesListener = () => $submitTimecodesButton.addEventListener('click', () => {
     $tracklistError.textContent = ''
     $timecodeInputBox.value = ''
-    const $timecodeTitle = addLoadRef('timecode-video-title')
+    const $timecodeTitle = loadRef('timecode-video-title')
     $timecodeTitle.textContent = state.albumMetadata.videoTitle + ' [' + state.albumMetadata.videoLengthString + ']'
     window.location.hash = '#submit-timecodes' + '?id=' + state.albumMetadata.videoId
   })

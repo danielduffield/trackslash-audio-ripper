@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 const state = require('./../state/state.js')
 
 const submitTracklist = require('./../utils/submitTracklist')
@@ -7,10 +7,10 @@ const handleTracklistResponse = require('./../utils/handleTracklistResponse')
 const deleteTrack = require('./../utils/deleteTrack.js')
 
 function createTracklistFormListeners() {
-  const $tracklistForm = addLoadRef('tracklist-form')
-  const $tracklistError = addLoadRef('tracklist-error-message-container')
-  const $downloadProgress = addLoadRef('album-download-progress')
-  const $sliceProgress = addLoadRef('track-slice-progress')
+  const $tracklistForm = loadRef('tracklist-form')
+  const $tracklistError = loadRef('tracklist-error-message-container')
+  const $downloadProgress = loadRef('album-download-progress')
+  const $sliceProgress = loadRef('track-slice-progress')
 
   const attachTracklistFormListener = () => (
     $tracklistForm.addEventListener('submit', event => {
@@ -32,7 +32,7 @@ function createTracklistFormListeners() {
       }
       else {
         $sliceProgress.textContent = 'Track slice initializing...'
-        const $spinner = addLoadRef('spinner')
+        const $spinner = loadRef('spinner')
         $spinner.setAttribute('class', 'fa fa-spinner spinner')
         setTimeout(() => {
           $sliceProgress.textContent = 'Tracks sliced: 0/' + state.tracklist.length

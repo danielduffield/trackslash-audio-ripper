@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 const createElement = require('./../utils/createElement')
 
 class Audio {
@@ -78,13 +78,13 @@ class Audio {
     const selectedIndex = tracklist.findIndex(track => track.trackName === selected.trackName)
     if (selectedIndex === -1) return
     this.resetSelected(tracklist.length)
-    const $selected = addLoadRef(`track-final-${selectedIndex + 1}`)
+    const $selected = loadRef(`track-final-${selectedIndex + 1}`)
     $selected.classList.add('selected')
   }
 
   resetSelected(tracklistLength) {
     for (let i = 1; i <= tracklistLength; i++) {
-      const $track = addLoadRef(`track-final-${i}`)
+      const $track = loadRef(`track-final-${i}`)
       if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
     }
   }

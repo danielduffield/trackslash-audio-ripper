@@ -1,4 +1,4 @@
-const { addLoadRef } = require('./state/elementRefs')
+const { loadRef } = require('./state/elementRefs')
 const state = require('./state/state')
 
 const attachInitialListeners = require('./listeners/index.js')
@@ -15,8 +15,8 @@ document.body.appendChild($formTable)
 document.body.appendChild($tracklistTable)
 document.body.appendChild($timecodeForm)
 
-const $urlInput = addLoadRef('url-submit-input')
-const $demoNotice = addLoadRef('demo-notice')
+const $urlInput = loadRef('url-submit-input')
+const $demoNotice = loadRef('demo-notice')
 
 $urlInput.focus()
 const $views = document.querySelectorAll('.view')

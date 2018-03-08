@@ -1,6 +1,6 @@
 const sendUrlRequest = require('./sendUrlRequest')
 const invalidUrlMessage = require('./../renders/invalidUrlMessage')
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 
 function createAlbumImage(imageLocation) {
   const albumImage = new Image(512, 288)
@@ -10,7 +10,7 @@ function createAlbumImage(imageLocation) {
 
 function handleUrlSubmit($input, socketId) {
   const $invalidUrlMessage = document.querySelector('.alert-danger')
-  const $urlFormGroup = addLoadRef('url-form-col')
+  const $urlFormGroup = loadRef('url-form-col')
   if ($invalidUrlMessage) {
     $urlFormGroup.removeChild($invalidUrlMessage)
   }
@@ -28,7 +28,7 @@ function handleUrlSubmit($input, socketId) {
       ]
 
       imageContainerIds.forEach(elementId => {
-        const $imageContainer = addLoadRef(elementId)
+        const $imageContainer = loadRef(elementId)
         $imageContainer.innerHTML = ''
         $imageContainer.classList.remove('hidden')
         $imageContainer.appendChild(createAlbumImage(keyData.videoImage))
