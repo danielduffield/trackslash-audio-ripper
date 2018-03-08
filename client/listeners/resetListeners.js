@@ -1,37 +1,20 @@
 const { addLoadRef } = require('./../state/elementRefs')
-const state = require('./../state/state.js')
-const addTrackForm = require('./../utils/addTrackForm.js')
 
-function createResetListeners() {
-  const $startOverBtn = addLoadRef('start-over-button')
-  const $tracklistError = addLoadRef('tracklist-error-message-container')
-  const $trackFormContainer = addLoadRef('track-form-container')
-  const $trackFinalContainer = addLoadRef('track-final-container')
-  const $resetTracklistBtn = addLoadRef('reset-tracklist-button')
+const resetTracklist = require('./../utils/resetTracklist')
 
-  const attachStartOverBtnListener = () => (
-    $startOverBtn.addEventListener('click', () => {
-      $tracklistError.textContent = ''
-      $trackFormContainer.innerHTML = ''
-      $trackFinalContainer.innerHTML = ''
-      state.currentTrack = 1
-      addTrackForm(state.currentTrack)
-      state.currentTrack += 1
-      window.location.hash = ''
-    })
-  )
-
-  const attachResetTracklistListener = () => (
-    $resetTracklistBtn.addEventListener('click', () => {
-      $tracklistError.textContent = ''
-      $trackFormContainer.innerHTML = ''
-      state.currentTrack = 1
-      addTrackForm(state.currentTrack)
-      state.currentTrack += 1
-    })
-  )
-
-  return { attachStartOverBtnListener, attachResetTracklistListener }
+function startOver() {
+  resetTracklist()
+  window.location.hash = ''
 }
 
-module.exports = createResetListeners
+const attachStartOverBtnListener = () => {
+  const $startOverBtn = addLoadRef('start-over-button')
+  $startOverBtn.addEventListener('click', () => startOver())
+}
+
+const attachResetTracklistListener = () => {
+  const $resetTracklistBtn = addLoadRef('reset-tracklist-button')
+  $resetTracklistBtn.addEventListener('click', () => resetTracklist())
+}
+
+module.exports = { attachStartOverBtnListener, attachResetTracklistListener }

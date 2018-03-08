@@ -1,16 +1,18 @@
+const addListener = require('./addListener')
+
 const { attachInitialSocketListeners } = require('./socketListeners')
 
 const attachUrlFormListener = require('./urlSubmitForm')
-const attachAddTrackButtonListener = require('./addTrackButton')
+const attachAddTrackButtonListener = require('./addTrack')
 const attachAudioControlListener = require('./audioControls')
 
 const createTracklistFormListeners = require('./tracklistForm')
-const createResetListeners = require('./resetListeners')
 const createTimeCodeListeners = require('./timecodeListeners')
 
-function attachListeners() {
+const { attachStartOverBtnListener, attachResetTracklistListener } = require('./resetListeners')
+
+function attachInitialListeners() {
   attachInitialSocketListeners()
-  const { attachStartOverBtnListener, attachResetTracklistListener } = createResetListeners()
   const { attachTracklistFormListener, attachTrackDeleteListener } = createTracklistFormListeners()
   const {
     attachLoadTimecodesListener,
@@ -19,19 +21,21 @@ function attachListeners() {
     attachManualTimecodesListener
   } = createTimeCodeListeners()
 
-  return {
-    addTrack: attachAddTrackButtonListener(),
-    deleteTrack: attachTrackDeleteListener(),
-    resetTracklistBtn: attachResetTracklistListener(),
-    startOverBtn: attachStartOverBtnListener(),
-    tracklistForm: attachTracklistFormListener(),
-    urlSubmitForm: attachUrlFormListener(),
-    audioControls: attachAudioControlListener(),
-    loadTimecodes: attachLoadTimecodesListener(),
-    submitTimecodes: attachSubmitTimecodesListener(),
-    cancelTimecodes: attachCancelTimecodesListener(),
-    manualTimecodes: attachManualTimecodesListener()
-  }
+  const toAttach = [
+    { name: 'addTrack', listener: attachAddTrackButtonListener },
+    { name: 'deleteTrack', listener: attachTrackDeleteListener },
+    { name: 'resetTracklistBtn', listener: attachResetTracklistListener },
+    { name: 'startOverBtn', listener: attachStartOverBtnListener },
+    { name: 'tracklistForm', listener: attachTracklistFormListener },
+    { name: 'urlSubmitForm', listener: attachUrlFormListener },
+    { name: 'audioControls', listener: attachAudioControlListener },
+    { name: 'loadTimecodes', listener: attachLoadTimecodesListener },
+    { name: 'submitTimecodes', listener: attachSubmitTimecodesListener },
+    { name: 'cancelTimecodes', listener: attachCancelTimecodesListener },
+    { name: 'manualTimecodes', listener: attachManualTimecodesListener }
+  ]
+
+  toAttach.forEach(obj => addListener(obj.name, obj.listener))
 }
 
-module.exports = attachListeners
+module.exports = attachInitialListeners

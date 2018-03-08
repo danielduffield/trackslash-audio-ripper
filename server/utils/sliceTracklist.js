@@ -71,7 +71,12 @@ function parseTime(time) {
 }
 
 function parseTrackName(track) {
-  const parsedName = track.trackName.split(' ').join('-')
+  const illegalChars = [' ', '/']
+  let parsedName = track.trackName
+  illegalChars.forEach(char => {
+    parsedName = parsedName.split(char).join('-')
+  })
+
   return parsedName
 }
 
