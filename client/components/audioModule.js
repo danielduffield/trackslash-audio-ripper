@@ -1,19 +1,17 @@
-const updateSelectedRender = require('./../utils/updateSelectedRender.js')
+const { addLoadRef } = require('./../state/elementRefs')
+const createElement = require('./../utils/createElement')
 
 class AudioModule {
-  constructor($player, $nowPlaying, tracklist, path) {
-    this.player = $player
-    this.nowPlaying = $nowPlaying
+  constructor() {
+    this.player = null
+    this.nowPlaying = null
     this.isContinuous = false
     this.isShuffled = false
-    this.tracklist = tracklist
-    this.shuffled = tracklist
-    this.current = tracklist[0]
+    this.tracklist = null
+    this.shuffled = null
+    this.current = null
     this.index = 0
-    this.path = path
-    this.listener = $player.addEventListener('ended', () => this.isContinuous
-      ? this.skipTrack()
-      : false)
+    this.path = null
 
     this.toggleSetting = this.toggleSetting.bind(this)
     this.selectTrack = this.selectTrack.bind(this)
@@ -21,6 +19,19 @@ class AudioModule {
     this.shuffleTracklist = this.shuffleTracklist.bind(this)
     this.updateNowPlaying = this.updateNowPlaying.bind(this)
   }
+  exportPlayerRefs() {
+    const $audioPlayer = this.player
+    const $nowPlaying = this.nowPlaying
+    return { $audioPlayer, $nowPlaying }
+  }
+
+  loadTracklistData(tracklist, path) {
+    this.tracklist = tracklist
+    this.shuffled = tracklist
+    this.current = tracklist[0]
+    this.path = path
+  }
+
   selectTrack(track) {
     const selectedIndex = this.tracklist.findIndex(trk => trk.trackName === track.trackName)
     this.current = this.tracklist[selectedIndex]
@@ -57,9 +68,71 @@ class AudioModule {
         break
     }
   }
+
   updateNowPlaying() {
-    updateSelectedRender(this.tracklist, this.current)
     this.nowPlaying.textContent = this.current.trackName
+    this.updateSelectedRender(this.tracklist, this.current)
+  }
+
+  updateSelectedRender(tracklist, selected) {
+    const selectedIndex = tracklist.findIndex(track => track.trackName === selected.trackName)
+    if (selectedIndex === -1) return
+    this.resetSelected(tracklist.length)
+    const $selected = addLoadRef(`track-final-${selectedIndex + 1}`)
+    $selected.classList.add('selected')
+  }
+
+  resetSelected(tracklistLength) {
+    for (let i = 1; i <= tracklistLength; i++) {
+      const $track = addLoadRef(`track-final-${i}`)
+      if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
+    }
+  }
+
+  renderNowPlaying() {
+    return (
+      createElement('div', { id: 'now-playing-container' }, ' ', [
+        ['span', { id: 'now-playing' }]
+      ])
+    )
+  }
+
+  renderAudioPlayer() {
+    const $audioPlayer = createElement('audio', { id: 'audio-player', controls: '', controlsList: 'nodownload', src: '' })
+    $audioPlayer.addEventListener('ended', () => this.isContinuous ? this.skipTrack() : false)
+    $audioPlayer.addEventListener('contextmenu', e => e.preventDefault())
+
+    return (
+      $audioPlayer
+    )
+  }
+
+  render() {
+    const audioButtonData = [
+      { title: 'Previous Track', icon: 'audio-button fa fa-step-backward', id: 'backward-skip' },
+      { title: 'Next Track', icon: 'audio-button fa fa-step-forward', id: 'forward-skip' },
+      { title: 'Continuous Playback', icon: 'audio-button toggle fa fa-refresh', id: 'continuous-play' },
+      { title: 'Shuffle Playback', icon: 'audio-button toggle fa fa-random', id: 'shuffle-play' }
+    ]
+
+    this.player = this.renderAudioPlayer()
+    this.nowPlaying = this.renderNowPlaying()
+
+    return (
+      createElement('div', { id: 'audio-module' }, [
+        this.nowPlaying,
+        ['div', {id: 'audio-wrapper'}, [
+          this.player,
+          ['div', { id: 'audio-controls' }, [
+            ...audioButtonData.map(button => (
+              createElement('span', { class: 'audio-btn-container', title: button.title }, [
+                ['i', { class: button.icon, id: button.id }]
+              ])
+            ))
+          ]]
+        ]]
+      ])
+    )
   }
 }
 

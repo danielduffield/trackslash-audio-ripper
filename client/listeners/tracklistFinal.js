@@ -3,8 +3,7 @@ const state = require('./../state/state.js')
 
 function attachTracklistFinalListener() {
   const $trackFinalContainer = addLoadRef('track-final-container')
-  const $audioPlayer = addLoadRef('audio-player')
-  const $nowPlaying = addLoadRef('now-playing')
+  const { $audioPlayer, $nowPlaying } = state.audio.exportPlayerRefs()
 
   $trackFinalContainer.addEventListener('click', e => {
     state.selectedTrack = state.tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]

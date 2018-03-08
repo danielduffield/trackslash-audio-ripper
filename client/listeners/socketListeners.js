@@ -1,8 +1,6 @@
 const state = require('./../state/state.js')
 const { addLoadRef } = require('./../state/elementRefs')
 
-const AudioModule = require('./../components/audioModule.js')
-
 const createTracklistFinal = require('./../renders/tracklistFinal')
 
 function attachInitialSocketListeners() {
@@ -37,8 +35,7 @@ function attachInitialSocketListeners() {
 
 function attachOnZipListener() {
   const $trackFinalContainer = addLoadRef('track-final-container')
-  const $audioPlayer = addLoadRef('audio-player')
-  const $nowPlaying = addLoadRef('now-playing')
+  const { $audioPlayer, $nowPlaying } = state.audio.exportPlayerRefs()
 
   state.socket.on('zipPath', zipPath => {
     $trackFinalContainer.innerHTML = ''
@@ -59,7 +56,7 @@ function attachOnZipListener() {
     window.location.hash = `#tracklist-download?id=${state.albumMetadata.videoId}`
     $audioPlayer.src = startPath
     $nowPlaying.textContent = state.tracklist[0].trackName
-    state.audio = new AudioModule($audioPlayer, $nowPlaying, state.tracklist, generalPath)
+    state.audio.loadTracklistData(state.tracklist, generalPath)
   })
 }
 
