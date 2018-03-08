@@ -1,4 +1,4 @@
-const addTrackForm = require('./addTrackForm.js')
+const state = require('./../state/state')
 const { loadRef } = require('./../state/elementRefs')
 
 function autofillTracklistForms(scrapedTracklist) {
@@ -19,7 +19,7 @@ function autofillTracklistForms(scrapedTracklist) {
     })
 
     if (scrapedTracklist[trackIndex + 1]) {
-      addTrackForm(currentTrack + 1)
+      state.tracklistForm.addTrackForm(currentTrack + 1)
     }
   })
 }

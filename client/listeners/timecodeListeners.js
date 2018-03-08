@@ -1,7 +1,6 @@
 const state = require('./../state/state.js')
 const { loadRef } = require('./../state/elementRefs')
 
-const addTrackForm = require('./../utils/addTrackForm.js')
 const autoGenerateTracklist = require('./../utils/autoGenerateTracklist.js')
 const autofillTracklistForms = require('./../utils/autofillTracklistForms.js')
 
@@ -18,7 +17,7 @@ function createTimeCodeListeners() {
   const attachLoadTimecodesListener = () => $loadTimecodesBtn.addEventListener('click', () => {
     $trackFormContainer.innerHTML = ''
     state.currentTrack = 1
-    addTrackForm(state.currentTrack)
+    state.tracklistForm.addTrackForm(state.currentTrack)
     state.currentTrack += 1
     if (state.albumMetadata.timeCodes.length > 1) {
       const autoTracklist = autoGenerateTracklist(state.albumMetadata.description, state.albumMetadata.videoLengthString)
@@ -55,7 +54,7 @@ function createTimeCodeListeners() {
     $timecodeError.textContent = ''
     $trackFormContainer.innerHTML = ''
     state.currentTrack = 1
-    addTrackForm(state.currentTrack)
+    state.tracklistForm.addTrackForm(state.currentTrack)
     window.location.hash = '#create-tracklist' + '?id=' + state.albumMetadata.videoId
     const pastedTracklist = autoGenerateTracklist($timecodeInputBox.value, state.albumMetadata.videoLengthString)
     state.currentTrack += pastedTracklist.length

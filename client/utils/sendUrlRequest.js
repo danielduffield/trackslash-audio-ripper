@@ -1,8 +1,7 @@
+const state = require('./../state/state')
 const { loadRef } = require('./../state/elementRefs')
 
 const invalidUrlMessage = require('./../renders/invalidUrlMessage')
-
-const resetTracklist = require('./resetTracklist')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -34,7 +33,7 @@ function transitionToTracklistForm(keyData) {
   const $youtubeVideoTitle = loadRef('youtube-video-title')
 
   $youtubeVideoTitle.textContent = `${keyData.videoTitle} [${keyData.videoLengthString}]`
-  resetTracklist()
+  state.tracklistForm.resetTracklist()
 }
 
 module.exports = sendUrlPostRequest

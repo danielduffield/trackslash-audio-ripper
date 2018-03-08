@@ -4,7 +4,6 @@ const state = require('./../state/state.js')
 const submitTracklist = require('./../utils/submitTracklist')
 const sendTracklistRequest = require('./../utils/sendTracklistRequest')
 const handleTracklistResponse = require('./../utils/handleTracklistResponse')
-const deleteTrack = require('./../utils/deleteTrack.js')
 
 function createTracklistFormListeners() {
   const $tracklistForm = loadRef('tracklist-form')
@@ -50,7 +49,7 @@ function createTracklistFormListeners() {
       const trackNumber = parseInt(event.target.id.substring(firstTrackDigitIndex, event.target.id.length), 10)
       if (trackNumber && /\d/.test(trackNumber)) {
         const numberOfTracks = state.currentTrack - 1
-        deleteTrack(trackNumber, numberOfTracks)
+        state.tracklistForm.deleteTrack(trackNumber, numberOfTracks)
         state.currentTrack -= 1
       }
     })
