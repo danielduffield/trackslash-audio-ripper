@@ -1,4 +1,4 @@
-const { addLoadRef, setOverwriteRef } = require('./../state/elementRefs')
+const { addLoadRef, relabelRef } = require('./../state/elementRefs')
 
 let $container
 
@@ -20,7 +20,7 @@ function adjustTrackNums(deletedIndex, tracklistLength) {
     $relabelForm.setAttribute('class', `track-form-${i - 1}`)
 
     formFields.forEach((field, fieldIndex) => {
-      const $form = setOverwriteRef(`track-${field}-${i}`)
+      const $form = relabelRef(`track-${field}-${i}`)
       $form.setAttribute('id', `track-${field}-${i - 1}`)
       $form.setAttribute('name', `track-${field}-${i - 1}`)
     })
