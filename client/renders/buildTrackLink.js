@@ -4,7 +4,7 @@ const demo = true
 
 const parseTrackName = track => track.trackName.split(' ').join('-')
 
-const createTrackLink = (track, index, videoId, socketId) => (
+const buildTrackLink = (track, index, videoId, socketId) => (
   createElement('td', { title: demo ? 'File download is currently disabled.' : '' }, [
     ['a', {
       class: `track-link ${demo ? 'disabled' : ''}`,
@@ -18,4 +18,4 @@ const createTrackLink = (track, index, videoId, socketId) => (
   ])
 )
 
-module.exports = createTrackLink
+module.exports = buildTrackLink

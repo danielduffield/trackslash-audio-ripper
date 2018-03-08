@@ -1,18 +1,17 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 const state = require('./../state/state.js')
 
 function attachTracklistFinalListener() {
-  const $trackFinalContainer = addLoadRef('track-final-container')
-  const $audioPlayer = addLoadRef('audio-player')
-  const $nowPlaying = addLoadRef('now-playing')
+  const $trackFinalContainer = loadRef('track-final-container')
+  const { $audioPlayer, $nowPlaying } = state.audio.exportPlayerRefs()
 
   $trackFinalContainer.addEventListener('click', e => {
     state.selectedTrack = state.tracklist[(parseInt(e.target.dataset.tracknum, 10) - 1)]
     if (!state.selectedTrack) return
     state.audio.selectTrack(state.selectedTrack)
-    const $selected = addLoadRef(`track-final-${e.target.dataset.tracknum}`)
+    const $selected = loadRef(`track-final-${e.target.dataset.tracknum}`)
     for (let i = 1; i <= state.tracklist.length; i++) {
-      const $track = addLoadRef(`track-final-${i}`)
+      const $track = loadRef(`track-final-${i}`)
       if ($track.classList.value.includes('selected')) $track.classList.remove('selected')
     }
     $selected.setAttribute('class', 'track-final selected')

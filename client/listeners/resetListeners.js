@@ -1,20 +1,19 @@
-const { addLoadRef } = require('./../state/elementRefs')
-
-const resetTracklist = require('./../utils/resetTracklist')
+const state = require('./../state/state')
+const { loadRef } = require('./../state/elementRefs')
 
 function startOver() {
-  resetTracklist()
+  state.tracklistForm.resetTracklist()
   window.location.hash = ''
 }
 
 const attachStartOverBtnListener = () => {
-  const $startOverBtn = addLoadRef('start-over-button')
+  const $startOverBtn = loadRef('start-over-button')
   $startOverBtn.addEventListener('click', () => startOver())
 }
 
 const attachResetTracklistListener = () => {
-  const $resetTracklistBtn = addLoadRef('reset-tracklist-button')
-  $resetTracklistBtn.addEventListener('click', () => resetTracklist())
+  const $resetTracklistBtn = loadRef('reset-tracklist-button')
+  $resetTracklistBtn.addEventListener('click', () => state.tracklistForm.resetTracklist())
 }
 
 module.exports = { attachStartOverBtnListener, attachResetTracklistListener }

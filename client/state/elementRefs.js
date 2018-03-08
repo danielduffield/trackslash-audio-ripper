@@ -1,14 +1,12 @@
 const state = require('./state')
 
-const loadElementRef = elId => (
-  state.elementRefs[elId]
-)
+const loadRef = elId => {
+  return state.elementRefs[elId]
+}
 
-const addLoadRef = elId => (
-  Object.keys(state.elementRefs).includes(elId)
-    ? loadElementRef(elId)
-    : setOverwriteRef(elId)
-)
+const setRef = (elId, ref) => {
+  state.elementRefs[elId] = ref
+}
 
 const setOverwriteRef = elId => {
   state.elementRefs[elId] = document.getElementById(elId)
@@ -25,4 +23,4 @@ const relabelRef = elId => {
   return state.elementRefs[newId]
 }
 
-module.exports = { addLoadRef, relabelRef, setOverwriteRef }
+module.exports = { loadRef, relabelRef, setOverwriteRef, setRef }

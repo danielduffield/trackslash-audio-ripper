@@ -1,8 +1,7 @@
-const { addLoadRef } = require('./../state/elementRefs')
+const state = require('./../state/state')
+const { loadRef } = require('./../state/elementRefs')
 
-const invalidUrlMessage = require('./../renders/invalidUrlMessage')
-
-const resetTracklist = require('./resetTracklist')
+const buildUrlError = require('./../renders/buildUrlError')
 
 function sendUrlPostRequest(urlSubmission) {
   return fetch('/url-request', {
@@ -15,8 +14,8 @@ function sendUrlPostRequest(urlSubmission) {
   })
   .then(response => {
     if (response.status === 400) {
-      const $invalid = invalidUrlMessage()
-      const $urlFormGroup = addLoadRef('url-form-col')
+      const $invalid = buildUrlError()
+      const $urlFormGroup = loadRef('url-form-col')
       $urlFormGroup.appendChild($invalid)
     }
 
@@ -31,10 +30,10 @@ function sendUrlPostRequest(urlSubmission) {
 }
 
 function transitionToTracklistForm(keyData) {
-  const $youtubeVideoTitle = addLoadRef('youtube-video-title')
+  const $youtubeVideoTitle = loadRef('youtube-video-title')
 
   $youtubeVideoTitle.textContent = `${keyData.videoTitle} [${keyData.videoLengthString}]`
-  resetTracklist()
+  state.tracklistForm.resetTracklist()
 }
 
 module.exports = sendUrlPostRequest

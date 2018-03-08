@@ -1,5 +1,5 @@
-const addTrackForm = require('./addTrackForm.js')
-const { addLoadRef } = require('./../state/elementRefs')
+const state = require('./../state/state')
+const { loadRef } = require('./../state/elementRefs')
 
 function autofillTracklistForms(scrapedTracklist) {
 
@@ -14,12 +14,12 @@ function autofillTracklistForms(scrapedTracklist) {
     const currentTrack = trackIndex + 1
 
     trackFormFields.forEach((field, fieldIndex) => {
-      const $form = addLoadRef(`track-${field.name}-${currentTrack}`)
+      const $form = loadRef(`track-${field.name}-${currentTrack}`)
       $form.value = track[field.property]
     })
 
     if (scrapedTracklist[trackIndex + 1]) {
-      addTrackForm(currentTrack + 1)
+      state.tracklistForm.addTrackForm(currentTrack + 1)
     }
   })
 }

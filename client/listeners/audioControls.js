@@ -1,8 +1,8 @@
 const state = require('./../state/state.js')
-const { addLoadRef } = require('./../state/elementRefs')
+const { loadRef } = require('./../state/elementRefs')
 
 function attachAudioControlListener() {
-  const $audioControls = addLoadRef('audio-controls')
+  const $audioControls = loadRef('audio-controls')
   return $audioControls.addEventListener('click', event => {
     if (!event.target.classList.value.includes('audio-button')) return
     if (!event.target.classList.value.includes('toggle')) {

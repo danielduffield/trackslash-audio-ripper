@@ -1,3 +1,5 @@
+const { setRef } = require('./../state/elementRefs')
+
 function createElement(...args) {
   const argArr = args.slice()
   const elType = argArr.shift()
@@ -16,7 +18,10 @@ function createElement(...args) {
   const $el = document.createElement(elType)
 
   $el.textContent = textContent
-  for (const key in attributes) $el.setAttribute(key, attributes[key])
+  for (const key in attributes) {
+    $el.setAttribute(key, attributes[key])
+    if (key === 'id') setRef(attributes[key], $el)
+  }
   children.forEach($child => {
     if ($child instanceof HTMLElement) {
       $el.appendChild($child)
