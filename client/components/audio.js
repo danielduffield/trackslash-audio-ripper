@@ -1,7 +1,7 @@
 const { addLoadRef } = require('./../state/elementRefs')
 const createElement = require('./../utils/createElement')
 
-class AudioModule {
+class Audio {
   constructor() {
     this.player = null
     this.nowPlaying = null
@@ -147,4 +147,4 @@ function shuffleArray(array) {
   return shuffled
 }
 
-module.exports = AudioModule
+module.exports = Audio

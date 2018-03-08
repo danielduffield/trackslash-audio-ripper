@@ -1,12 +1,12 @@
 const state = require('./../state/state')
 
-const AudioModule = require('./../components/audioModule')
+const Audio = require('./../components/audio')
 
 const createElement = require('./../utils/createElement')
 
 const columns = ['Num', 'Name', 'Start', 'End', 'DL']
 const $tableColumns = columns.map(col => createElement('th', col))
-state.audio = new AudioModule()
+state.audio = new Audio()
 
 const createTracklistTable = () => (
   createElement('row', [
