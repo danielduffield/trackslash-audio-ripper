@@ -1,5 +1,6 @@
 const sendPostRequest = require('./sendPostRequest')
 const generateAlbumImage = require('./generateAlbumImage')
+const handleUrlResponse = require('./handleUrlResponse')
 const buildUrlError = require('./../renders/buildUrlError')
 const { loadRef } = require('./../state/elementRefs')
 
@@ -14,22 +15,18 @@ function handleUrlSubmit($input, socketId) {
     urlSubmission.url = $input.value
     urlSubmission.youtubeId = getYoutubeId(urlSubmission.url)
     urlSubmission.socketId = socketId
-    return sendPostRequest('/url-request', urlSubmission).then(generateAlbumImage)
+    return sendPostRequest('/url-request', urlSubmission)
+      .then(handleUrlResponse)
+      .then(generateAlbumImage)
   }
   else {
-    const $invalid = buildUrlError()
-    $urlFormGroup.appendChild($invalid)
+    $urlFormGroup.appendChild(buildUrlError())
     return Promise.resolve(null)
   }
 }
 
-function validateUrl(url) {
-  return url.includes('https://www.youtube.com/')
-}
+const validateUrl = url => url.includes('https://www.youtube.com/')
 
-function getYoutubeId(url) {
-  const youtubeId = url.slice(24, url.length)
-  return youtubeId
-}
+const getYoutubeId = url => url.slice(24, url.length)
 
 module.exports = handleUrlSubmit
