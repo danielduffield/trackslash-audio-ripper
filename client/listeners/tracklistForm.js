@@ -2,7 +2,7 @@ const { loadRef } = require('./../state/elementRefs')
 const state = require('./../state/state.js')
 
 const submitTracklist = require('./../utils/submitTracklist')
-const sendTracklistRequest = require('./../utils/sendTracklistRequest')
+const sendPostRequest = require('./../utils/sendPostRequest')
 const handleTracklistResponse = require('./../utils/handleTracklistResponse')
 
 function createTracklistFormListeners() {
@@ -38,7 +38,7 @@ function createTracklistFormListeners() {
         }, 2000)
       }
 
-      sendTracklistRequest(tracklistPost).then(handleTracklistResponse)
+      sendPostRequest('/tracklist-request', tracklistPost).then(handleTracklistResponse)
     })
   )
 
